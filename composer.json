@@ -1,6 +1,8 @@
 {
     "require": {
         "vkcom/vk-php-sdk": "^0.2.0",
-        "dotzero/amocrm": "^0.3.28"
+        "dotzero/amocrm": "^0.3.28",
+        "monolog/monolog": "^1.23",
+        "php-console/php-console": "^3.1"
     }
 }

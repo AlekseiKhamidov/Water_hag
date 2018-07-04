@@ -11,6 +11,15 @@ class ComposerStaticInitd2d7e550724270e2d27957d891e1a170
         array (
             'VK\\' => 3,
         ),
+        'P' => 
+        array (
+            'Psr\\Log\\' => 8,
+            'PhpConsole\\' => 11,
+        ),
+        'M' => 
+        array (
+            'Monolog\\' => 8,
+        ),
         'A' => 
         array (
             'AmoCRM\\' => 7,
@@ -21,6 +30,18 @@ class ComposerStaticInitd2d7e550724270e2d27957d891e1a170
         'VK\\' => 
         array (
             0 => __DIR__ . '/..' . '/vkcom/vk-php-sdk/src/VK',
+        ),
+        'Psr\\Log\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/log/Psr/Log',
+        ),
+        'PhpConsole\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/php-console/php-console/src/PhpConsole',
+        ),
+        'Monolog\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/monolog/monolog/src/Monolog',
         ),
         'AmoCRM\\' => 
         array (
