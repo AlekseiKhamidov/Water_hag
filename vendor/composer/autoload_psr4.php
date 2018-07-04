@@ -7,4 +7,5 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'VK\\' => array($vendorDir . '/vkcom/vk-php-sdk/src/VK'),
+    'AmoCRM\\' => array($vendorDir . '/dotzero/amocrm/src'),
 );

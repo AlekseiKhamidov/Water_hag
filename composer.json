@@ -1,5 +1,6 @@
 {
     "require": {
-        "vkcom/vk-php-sdk": "^0.2.0"
+        "vkcom/vk-php-sdk": "^0.2.0",
+        "dotzero/amocrm": "^0.3.28"
     }
 }
