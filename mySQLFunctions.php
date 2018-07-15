@@ -1,6 +1,6 @@
 <?php
 
- require_once "../config.php";
+ require_once "config.php";
 
 	// echo "<pre>";
 	// print_r(getUserdata(1));
@@ -8,9 +8,7 @@
 
 
 	function deleteLeads($partnerId = 0) {
-	//		 print_r($partnerId);
 		if ($partnerId) {
-	//		 print_r(" hop\n");
 			$sql = 'DELETE from `leads` where `partnerId` ='. $partnerId;
 		} else {
 			$sql = 'DELETE from `leads`';
@@ -28,11 +26,8 @@
 	function selectLeads($partnerId = 0) {
 		$sql = $partnerId ? "SELECT * FROM `leads` where `partnerId` = $partnerId order by `number` desc"
 							: "SELECT * FROM `leads` order by `createdAt` desc";
-
-		// print_r($sql);
-
 		$result = getNamedResult($sql);
-		return $result;
+		return $result ? $result : null;
 	};
 
 	function insertLeads($leads) {
@@ -117,7 +112,13 @@
 	############################### Connection link ################################################
 
 	function connect() {
-		$link=mysqli_connect(MYSQL["host"], MYSQL["login"], MYSQL["password"], MYSQL["dbname"]);
+		$link=mysqli_connect(
+      MYSQL["host"],
+      MYSQL["login"],
+      MYSQL["password"],
+      MYSQL["dbname"]
+    );
+
 		$link->set_charset("utf8");
 		return $link;
 	}

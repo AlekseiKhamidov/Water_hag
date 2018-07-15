@@ -91,9 +91,6 @@
         AMOCRM['login'],
         AMOCRM['hash']
       );
-      $account = $amo->account;
-      $accInfo = $account->apiCurrent();
-      // print_r($accInfo);
 
       $contact = $amo->contact;
       $allContacts = fetchEntities($contact);

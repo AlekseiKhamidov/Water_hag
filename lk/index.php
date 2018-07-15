@@ -1,6 +1,7 @@
 <?php
+  require_once "../config.php";
+
   require_once "check.php";
-  require_once "config.php";
   require_once "mysql.php";
 
   if (checkLogin() == -1) {
@@ -8,7 +9,7 @@
   };
   $userdata = getUserdata(intval($_COOKIE['id']));
 ?>
-<html> 
+<html>
  <head>
     <title>
         Статистика
@@ -53,7 +54,7 @@
             <ul class="nav navbar-nav navbar-right">
                 <?php if ($userdata[ 'user_login']=='admin' ) echo '
                    <li class="dropdown">
-                      <a href="register.php" style="cursor: pointer;"  role="button" >              
+                      <a href="register.php" style="cursor: pointer;"  role="button" >
                           Зарегистрировать нового партнера </a>
                     </li>
                 '?>
@@ -110,8 +111,8 @@
                 <h4><span id="textPeriod"></span> </h4>
             </div>
         </div>
-        <table id="table" class="exampleTable table table-hover table-striped" 
-        data-toolbar="#toolbar" 
+        <table id="table" class="exampleTable table table-hover table-striped"
+        data-toolbar="#toolbar"
         data-show-export="true"
          data-show-columns="true"
           data-filter-control="true"
@@ -122,7 +123,7 @@
 
   <script>
 function getColumns() {
-    columns = [ 
+    columns = [
     <?php
         if ($userdata['user_login'] != 'admin') echo ' {
             field: "number",
@@ -266,7 +267,7 @@ function getStatuses() {
      $table.on('refresh.bs.table', function(e, arg1, arg2) {
          clearFilter();
      });
-     
+
  };
  function loadDate(){
   // initTable($("#table"), getColumns());
@@ -281,7 +282,7 @@ function getStatuses() {
       $('[name="start"]').val(start.toLocaleDateString());
       $('[name="end"]').val(end.toLocaleDateString());
 
-    
+
       getStatuses();
       loading();
 
@@ -298,5 +299,5 @@ function getStatuses() {
     });
   }
  </script>
-</body> 
+</body>
 </html>

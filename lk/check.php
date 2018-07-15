@@ -1,10 +1,11 @@
 <?php
 // Скрипт проверки
-    
+  require_once "../config.php";
+
 // Соединямся с БД
-    
+
     function checkLogin() {
-     $link=mysqli_connect(MYSQL_HOST, MYSQL_LOGIN, MYSQL_PASS, MYSQL_DBNAME);
+      $link=mysqli_connect(MYSQL["host"], MYSQL["login"], MYSQL["password"], MYSQL["dbname"]);
        if (isset($_COOKIE['id']) and isset($_COOKIE['hash']))
         {
             $query = mysqli_query($link, "SELECT * FROM users WHERE user_id = '".intval($_COOKIE['id'])."' LIMIT 1");
@@ -18,7 +19,7 @@
                 return false;
             } elseif ($userdata['is_admin']) {
                 return 1;
-            } else {                
+            } else {
                 return 0;
             }
         } else {

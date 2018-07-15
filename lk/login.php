@@ -1,6 +1,6 @@
 <?php
 // Страница авторизации
- require('config.php');
+require("../config.php");
 // Функция для генерации случайной строки
 function generateCode($length=6) {
     $chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHI JKLMNOPRQSTUVWXYZ0123456789";
@@ -13,7 +13,7 @@ function generateCode($length=6) {
 }
 
 // Соединямся с БД
- $link=mysqli_connect(MYSQL_HOST, MYSQL_LOGIN, MYSQL_PASS, MYSQL_DBNAME);
+ $link=mysqli_connect(MYSQL["host"], MYSQL["login"], MYSQL["password"], MYSQL["dbname"]);
 
 if(isset($_POST['submit']))
 {
@@ -77,7 +77,7 @@ if(isset($_POST['submit']))
                     <label for="login">Имя пользователя</label>
                     <input type="form-text" class="form-control" name="login" placeholder="Введите логин">
                   </div>
-                  
+
                   <div class="form-group">
                     <label for="password">Пароль</label>
                     <input type="password" class="form-control" name="password" placeholder="Пароль">
