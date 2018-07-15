@@ -43,4 +43,18 @@
 
     return $message;
   }
+
+	function processFile($file, $postfix, $guid) {
+		if ( 0 < $file['error'] ) {
+	        echo 'Error: ' . $file['error'] . '<br>';
+	        return null;
+	    } else {
+	    	$ext = substr($file['name'], strripos($file['name'], '.'));
+				// $newFilename = __DIR__.'\\'.$guid .$postfix.$ext;
+				// $newFilename = __DIR__.'/'.$guid .$postfix.$ext;
+				$newFilename = $guid.$postfix.$ext;
+	    	move_uploaded_file($file['tmp_name'], $newFilename);
+	      return $newFilename;
+	    }
+	};
 ?>
