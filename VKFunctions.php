@@ -4,22 +4,21 @@
 
   $vk = new \VK\Client\VKApiClient();
 
-  echo "<pre>";
-  $attachments = createAttachements([
-    "_FACE.jpg",
-    "_PASSPORT.jpg",
-    "_PDF.pdf",
-    "_UROD.png",
-  ]);
-
-  print_r($attachments);
-
-  for ($i=0; $i<10; $i++) {
-    postToGroupWall("Смотрииииии!!!!", $attachments);
-    echo "</pre>";
-
-    sendMessageToChat("Стопудово работает");
-  }
+  // echo "<pre>";
+  // $attachments = createAttachements([
+  //   "_FACE.jpg",
+  //   "_PASSPORT.jpg",
+  //   "_PDF.pdf",
+  //   "_UROD.png",
+  // ]);
+  //
+  // print_r($attachments);
+  //
+  // for ($i=0; $i<10; $i++) {
+  //   postToGroupWall("Смотрииииии!!!!", $attachments);
+  //   sendMessageToChat("Стопудово работает");
+  // }
+  //   echo "</pre>";
 ########################################################################################################################################################
 
 	function getWallUploadURL($type = "photo") {
