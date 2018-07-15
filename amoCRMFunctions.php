@@ -3,6 +3,24 @@
   require_once "config.php";
   require_once "functions.php";
 
+  try {
+    $listener = new \AmoCRM\Webhooks\Listener();
+
+    // Добавление обработчика на уведомление contacts->add
+    $listener->on('add_contact', function ($domain, $id, $data) {
+        // $domain Поддомен amoCRM
+        // $id Id объекта связанного с уведомлением
+        // $data Поля возвращаемые уведомлением
+        $GLOBALS["logger"]->info($domain);
+        $GLOBALS["logger"]->debug($data);
+    });
+
+    // Вызов обработчика уведомлений
+    $listener->listen();
+
+  } catch (\AmoCRM\Exception $e) {
+    $logger->error(sprintf('Error (%d): %s' . PHP_EOL, $e->getCode(), $e->getMessage()));
+  }
   
 
   function getContactsAndCompanies($json = false) {
