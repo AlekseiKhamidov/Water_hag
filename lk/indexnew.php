@@ -1,6 +1,6 @@
 <?php
   require_once "check.php";
-  require_once "config.php";
+  require_once "../config.php";
   require_once "mysql.php";
 
   if (checkLogin() == -1) {
@@ -8,20 +8,20 @@
   };
   $userdata = getUserdata(intval($_COOKIE['id']));
 ?>
-<html> 
+<html>
  <head>
     <title>
         Статистика
     </title>
        <link rel="stylesheet" href="../css/bootstrap.min.css">
        <link href="../css/mdb.min.css" rel="stylesheet">
- 
+
   <link href="../css/style.css" rel="stylesheet">
     <link href="../css/compiled.min.css" rel="stylesheet">
-    <!-- <link href="../css/materialize.min.css" rel="stylesheet"> -->        
+    <!-- <link href="../css/materialize.min.css" rel="stylesheet"> -->
         <link rel="stylesheet" href="lib/bootstrap-table-master/src/bootstrap-table.css">
         <link rel="stylesheet" href="lib/bootstrap-table-master/src/extensions/sticky-header/bootstrap-table-sticky-header.css">
-    <style type="text/css"> 
+    <style type="text/css">
     .btn-checkbox {
   background: #f1f1f1 ;
 
@@ -61,7 +61,7 @@ color:#676767;    }
         }
         #legendDiv ul li {
            display:inline-block;
-           margin-right: 10px; 
+           margin-right: 10px;
         }
         #legendDiv ul li span {
             padding: 5px 10px;
@@ -99,38 +99,42 @@ color:#676767;    }
                     </a>
                 </li>
             </ul>
-           
+
         </div>
     </nav>
 </header>
 <main>
   <div class="container-fluid">
 
- 
+
 <div  class=" mt-5 ml-4 mr-4 pt-4">
   <div class="row justify-content-between" >
     <div class="col">
-     
+
     </div>
-    
+
     </div>
-     
+
    <div id="toolbar">
- <button class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-filter mr-1"></i> Фильтры</button>
-  <button class="btn btn-primary" data-toggle="modal" data-target="#chartModal"><i class="fa fa-bar-chart"></i> Диаграммы</button>
+ <!-- <button class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-filter mr-1"></i> Фильтры</button> -->
+
+  <button class="btn btn-primary " data-toggle="modal" data-target="#chartModal"><i class="fa fa-bar-chart"></i> Диаграммы</button>
+
+       <input type="text" id="spouse_birth" name="spouse_birth" required class=" validate datepickerMask" pattern="(0[1-9]|1[0-9]|2[0-9]|3[01]).(0[1-9]|1[012]).[0-9]{4}">
+
     </div>
-        
 
-     <table id="table" class="exampleTable table table-hover table-striped" 
 
-        data-toolbar="#toolbar" 
+     <table id="table" class="exampleTable table table-hover table-striped"
+
+        data-toolbar="#toolbar"
         data-show-export="true"
          data-show-columns="true"
           data-filter-control="true"
-          
+
             data-show-toggle="true"
            data-mobile-responsive="true"
-           data-check-on-init="true" 
+           data-check-on-init="true"
            data-export-types="['excel']"
 
         >
@@ -146,7 +150,7 @@ color:#676767;    }
         <div class="modal-content">
             <div class="modal-header">
           <p class="heading lead">Настройка фильтров</p>
-  
+
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true" class="white-text">&times;</span>
               </button>
@@ -170,7 +174,7 @@ color:#676767;    }
                   </div>
               </div>
               </div>
-              <div id="statuses">  
+              <div id="statuses">
               </div>
             </div>
             <div class="modal-footer ">
@@ -187,7 +191,7 @@ color:#676767;    }
         <div class="modal-content">
             <div class="modal-header">
           <p class="heading lead">Диаграммы</p>
-  
+
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true" class="white-text">&times;</span>
               </button>
@@ -196,11 +200,11 @@ color:#676767;    }
  <div class="row d-flex"  >
                 <!--Grid column-->
                 <div class="col-md-6 mb-4 d-flex">
-                      
-  
+
+
 
                            <canvas id="chartCount" height="500px"  ></canvas>
- 
+
                     </div>
                     <!--/.Card-->
 
@@ -215,18 +219,18 @@ color:#676767;    }
 
                 </div>
 
-            </div>  
+            </div>
             <div class="modal-footer ">
                 <button type="button" class="btn btn-outline-primary waves-effect" data-dismiss="modal">Закрыть</button>
-                
+
             </div>
         </div>
     </div>
 </div>
-                             
 
 
- 
+
+
  <script type="text/javascript" src="../js/jquery-3.2.1.min.js"></script>
     <!-- Bootstrap tooltips -->
     <script type="text/javascript" src="../js/popper.min.js"></script>
@@ -249,15 +253,17 @@ color:#676767;    }
         <script type="text/javascript" src="lib/bootstrap-table-master/src/extensions/sticky-header/bootstrap-table-sticky-header.js"></script>
     <script src="js/spin.min.js"></script>
     <script src="js/extensions.js"></script>
+       <script type="text/javascript" src="../js/jquery.maskedinput.min.js"></script>
     <script type="text/javascript">
       $(document).ready(function() {
     $('.mdb-select').material_select();
+    $(".datepickerMask").mask("99.99.9999", {placeholder: "ДД.ММ.ГГГГ" });
   });
     </script>
 <script>
 
    function getColumns() {
-    columns = [ 
+    columns = [
     <?php
         if ($userdata['user_login'] != 'admin') echo ' {
             field: "number",
@@ -343,16 +349,16 @@ function getStatuses() {
         success: function(data) {
           var $div = $("#statuses");
             var pipelines = JSON.parse(data);
-            for (index in pipelines){ 
+            for (index in pipelines){
               console.log(pipelines[index]);
               var pipeline = pipelines[index];
               if (pipeline.is_main){
                 addSwitch($div, pipeline.name, pipeline.status);
                 DataStatus = pipelines[index]
               }
-              else 
+              else
                 if ('<?php echo $userdata['user_login'] ?>'== 'Gard'){
-              
+
                 addSwitch($div, pipeline.name, pipeline.status);
                  DataStatus = pipelines[index]
 
@@ -360,7 +366,7 @@ function getStatuses() {
 
             }
             $("#saveFilter").on('click', function() {
-         
+
               console.log("saveFilter");
               dateFrom = toDate(from_picker.get("valueSubmit"))
               dateFrom.setHours(0);
@@ -378,8 +384,8 @@ function getStatuses() {
                 var switch_div = $(switches[i]).parents(".switch.round.blue-white-switch");
                 var idGroup = switch_div.attr("for");
                 var pipeline = switch_div.attr("pipeline");
-               
-               
+
+
 
                 if ($(switches[i]).prop("checked")){
                    var status = $("#"+idGroup).find("input[type='checkbox']:checked").each(saveFilter);
@@ -469,8 +475,8 @@ function getStatuses() {
                     return htmlData.replace('&nbsp;', '')
                   }
                  return (htmlData.startsWith('<div') ? $(htmlData).html() : htmlData);
-                  
-                }               
+
+                }
             },
      });
      var result = 0;
@@ -522,12 +528,12 @@ function analyze(statuses){
   console.log(datasetSum);
   //chartPie(labels, datasetCount, colors)
   chartBar(document.getElementById("chartCount"),labels, datasetCount, colors, 'Количество заявок',function(value, index, values) {
-   //return value.toLocaleString()+" руб"; 
+   //return value.toLocaleString()+" руб";
      var num = parseInt(value);
       return num;
   },);
    chartBar(document.getElementById("chartSum"),labels, datasetSum, colors, "Сумма заявок",function(value, index, values) {
-   //return value.toLocaleString()+" руб"; 
+   //return value.toLocaleString()+" руб";
      var num = parseInt(value)/1000000;
       return num.toLocaleString()+" млн руб";
   },
@@ -544,7 +550,7 @@ function analyze(statuses){
 //         datasets: [{
 //          //   label: '# of Votes',
 //             data: dataset,
-//             backgroundColor: colors,         
+//             backgroundColor: colors,
 //             borderWidth: 1
 //         }]
 //     },
@@ -553,10 +559,10 @@ function analyze(statuses){
 //        legend: {
 //            display: true,
 //     position: 'right',
-//     fullWidth: true, 
+//     fullWidth: true,
 //     reverse: true,
 //         }
-//     }      
+//     }
 // });
 //   //document.getElementById("legendDiv").innerHTML = myPieChart.generateLegend();
 // };
@@ -592,7 +598,7 @@ function chartBar(chart, labels,dataset, colors, name, callbackX=null, callbackT
   if (!callbackTooltip) {
     callbackTooltip = function(tooltipItem, data) {return tooltipItem.xLabel; }
   }
-  var ctx = resetCanvas($(chart), $(chart).parent()); 
+  var ctx = resetCanvas($(chart), $(chart).parent());
   //var ctx = chart.getContext('2d');
   const maxTooltipLength = 24;
 
@@ -659,7 +665,7 @@ var myChart = new Chart(ctx, {
         legend: {
           display: false,
           position: 'right',
-          fullWidth: true, 
+          fullWidth: true,
           reverse: true,
         },
            title: {
@@ -668,16 +674,16 @@ var myChart = new Chart(ctx, {
         }
     }
 });
-} 
+}
 
  var start, end;
  $(function() {
    loadFilter();
-    
+
       // $('[name="start"]').val(start.toLocaleDateString());
       // $('[name="end"]').val(end.toLocaleDateString());
 
-    
+
       getStatuses();
       loading();
 
@@ -706,7 +712,7 @@ var myChart = new Chart(ctx, {
     formatSubmit: 'dd.mm.yyyy'
 
 });
-  
+
 function loadFilter(){
 
     start = setBeginYear();
@@ -716,7 +722,7 @@ function loadFilter(){
    //   $('#endingDate').val(end.toLocaleDateString());
 
  // $('#exampleModal').openModal();
-   
+
     from_picker = $('#startingDate').pickadate({container: 'body',
           closeOnSelect: "true",
   closeOnClear: true,
@@ -726,7 +732,7 @@ function loadFilter(){
      to_picker = $('#endingDate').pickadate({container: 'body',}).pickadate('picker');
       to_picker.set('select', end);
 
-    
+
       // Check if there’s a “from” or “to” date to start with and if so, set their appropriate properties.
       if ( from_picker.get('value') ) {
           to_picker.set('min', from_picker.get('select'))
@@ -758,13 +764,13 @@ function addSwitch($div,name, statuses){
   var idGroup = guid();
   var html =   '<div class="row mb-4">'
               +'  <div class="switch round blue-white-switch" for="'+idGroup+'" pipeline="'+name+'">'
-              +'    <label>'                  
+              +'    <label>'
               +'      <input type="checkbox" >'
               +'        <span class="lever"></span>'
               +         name
               +'    </label>'
               +'  </div>'
-             
+
               +'<div id="'+idGroup+'" data-toggle="buttons" style="display:none">'
               +'</div>'
                +'</div>';
@@ -777,12 +783,12 @@ function addSwitch($div,name, statuses){
       $("#"+idGroup).fadeIn();
     }
     else {
-     $("#"+idGroup).fadeOut(); 
+     $("#"+idGroup).fadeOut();
 
     }
 });
 var $group = $("#"+idGroup);
- 
+
   for (var i=0;i<statuses.length;i++){
     var status = parseStatus(statuses[i]);
     addCheckBox($group, status.val, status.color);
@@ -827,7 +833,7 @@ var $group = $("#"+idGroup);
       .substring(1);
   }
   return s4() + s4() + s4();
-} 
+}
 function resize() {
     $("#table").bootstrapTable('resetView', {
         height: setHeight()
@@ -840,5 +846,5 @@ function setHeight(){
  return window.innerHeight- height;
 }
 </script>
-</body> 
+</body>
 </html>

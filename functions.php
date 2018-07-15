@@ -1,43 +1,6 @@
 <?php
   require_once "vendor/autoload.php";
 
-  function fetchEntities($entity) {
-    $i = 0;
-    $entityList = array();
-    try {
-      do {
-          $fetchedEntities = $entity->apiList([
-            'limit_rows' => 500,
-            'limit_offset' => 500 * $i++
-          ]);
-          $entityList = array_merge($entityList, $fetchedEntities);
-          usleep(600);
-      } while ($fetchedEntities);
-    } catch (\AmoCRM\Exception $e) {
-      printf('Error (%d): %s' . PHP_EOL, $e->getCode(), $e->getMessage());
-    }
-    return $entityList;
-  }
-
-  function getEntityInfo($entity, $fields = []) {
-    $result['id'] = $entity['id'];
-    $result['Наименование'] = $entity["name"];
-    if (isset($entity['custom_fields']) && $entity['custom_fields'] && $fields) {
-      foreach ($fields as $id) {
-        $CFs = $entity['custom_fields'];
-        $key = array_search($id, array_column($CFs, 'id'));
-        if ($key !== false) {
-          $field = $CFs[$key];
-          // $result[$field["name"]] = '';
-          foreach ($field["values"] as $key => $value) {
-              $result[$field["name"]." #".($key + 1)] = $value["value"];
-          }
-        }
-      }
-    }
-    return $result;
-  }
-
   function translit($s) {
     $s = (string) $s; // преобразуем в строковое значение
     $s = strip_tags($s); // убираем HTML-теги
@@ -49,5 +12,35 @@
     $s = preg_replace("/[^0-9a-z-_ ]/i", "", $s); // очищаем строку от недопустимых символов
     $s = str_replace(" ", "-", $s); // заменяем пробелы знаком минус
     return $s; // возвращаем результат
+  }
+
+  function moveFilesToDocs($files) {
+    $date = date('Ymd');
+
+    if (!file_exists("_docs/$date")) {
+      mkdir("_docs/$date", 0777, true);
+    }
+
+    foreach ($files as $filename) {
+      rename($filename, "_docs/$date/$filename");
+    }
+  }
+
+  function parseDataForMessage($json, $partner) {
+    $tmp = json_decode($json, true);
+        $nameKey = array_search('name', array_column($tmp, 'id'));
+        $phoneKey = array_search('phone', array_column($tmp, 'id'));
+        $termKey = array_search('credit_term', array_column($tmp, 'id'));
+        $priceKey = array_search('price', array_column($tmp, 'id'));
+        $courseKey = array_search('course', array_column($tmp, 'id'));
+
+    $message = 'Партнер: '.$partner.chr(10).
+          'Имя: '.$tmp[$nameKey]['a'].chr(10).
+          'Продукт: '.$tmp[$courseKey]['a'].chr(10).
+          'Стоимость: '.$tmp[$priceKey]['a'].chr(10).
+          'Срок кредита: '.$tmp[$termKey]['a'].chr(10).
+          'Телефон: '.$tmp[$phoneKey]['a'];
+
+    return $message;
   }
 ?>

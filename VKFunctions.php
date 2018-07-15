@@ -3,7 +3,7 @@
   require_once "config.php";
 
   $vk = new \VK\Client\VKApiClient();
-
+  //
   // echo "<pre>";
   // $attachments = createAttachements([
   //   "_FACE.jpg",
@@ -166,14 +166,14 @@
     retryPostToGroupWall:
     try {
       $wall = $GLOBALS['vk']->wall();
-      $wall->post(
+      return $wall->post(
         VK["user_token"],
         array(
           "owner_id" => -VK["group_id"],
           "message" => $message,
           "attachments" => $attachments,
         )
-      );
+      )['post_id'];
     } catch (\VK\Exceptions\VKApiException $e) {
       if ($e->getCode() == 6) {
         usleep(1000);

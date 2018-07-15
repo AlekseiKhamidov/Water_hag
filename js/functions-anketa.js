@@ -42,15 +42,15 @@
         .toString(16)
         .substring(1);
     };
-    return s4() + s4();
+    return "_" + s4() + s4();
   };
   function reload() {
     location.reload();
-  };      
+  };
 
 
 
-    function fileUpload(id, $for, data, partner) {
+  function fileUpload(id, $for, data, partner) {
 
   //  var form = $("#form_photo_passport");
 
@@ -59,7 +59,7 @@
   var file3 = $form.find("input[type='file']")[2].files
 
    if (!isGoodFileExt(file1[0], 0) || !isGoodFileExt(file2[0], 1) || !isGoodFileExt(file3[0], 2) || !isGoodFileSize(file1[0]) || !isGoodFileSize(file2[0]) || !isGoodFileSize(file3[0])) {
-    next(stepDoc);  
+    next(stepDoc);
     return;
   }
   var form_data = new FormData();
@@ -70,7 +70,7 @@
   form_data.append('partner', partner);
   form_data.append('data', JSON.stringify(data));
 
-  
+
 $("#mdb-preloader").show();
   $.ajax({
     url: '../upload.php',
@@ -159,7 +159,7 @@ function validate() {
       //добавить к formGroup класс .has-error, удалить .has-success
       $(this).addClass('invalid').removeClass('valid');
       $(this).siblings("label").addClass("active");
-      //отметить форму как невалидную 
+      //отметить форму как невалидную
       formValid = false;
     }
   });
@@ -183,7 +183,7 @@ function getExt(name){
      var size = file.size;
      return (!file || size > maxSize)? false: true;
   };
-  var extFile = ["jpg","jpeg","png","gif","JPG","JPEG","GIF","PNG"];//Только форматы: jpg, jpeg, png или gif
+  var extFile = ["jpg","jpeg","gif","JPG","JPEG","GIF"];//,"png","PNG"];//Только форматы: jpg, jpeg, png или gif
   function fileValid($target,isValid, text){
      var input = $target.parent().siblings().find("input[type='text']");
      var label = $target.parent().siblings().find("label");
@@ -203,7 +203,7 @@ function getExt(name){
           label.attr("data-error", text);
         }
       }
-     
+
   };
   function preload(partner){
      $(".phoneMask").mask("+7(999) 999-9999");
@@ -239,7 +239,7 @@ function getExt(name){
        e.target.setCustomValidity("");
     }
   });
- 
+
   $(".currency").on('keyup', function(){
     var n = parseInt($(this).val().replace(/\D/g,''),10);
     $(this).val(n.toLocaleString());

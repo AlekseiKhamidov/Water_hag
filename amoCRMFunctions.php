@@ -3,21 +3,15 @@
   require_once "config.php";
 
   use Monolog\Logger;
-  // use Monolog\Formatter\JsonFormatter;
   use Monolog\Handler\PhpConsoleHandler;
   use Monolog\Handler\StreamHandler;
+  
 
   // Create the logger
   $logger = new Logger('my_logger');
   // Now add some handlers
   $logger->pushHandler(new PHPConsoleHandler());
-
-
-  // $formatter = new JsonFormatter();
-  // Create a handler
   $stream = new StreamHandler(__DIR__.'/my_app.log', Logger::DEBUG);
-  // $stream->setFormatter($formatter);
-  // bind it to a logger object
   $logger->pushHandler($stream);
 
 
@@ -74,39 +68,75 @@
         $GLOBALS["logger"]->info("Delete Lead", [print_r($data, true)]);
     });
 
-
     // Вызов обработчика уведомлений
     $listener->listen();
+
+    $amo = new \AmoCRM\Client(
+      AMOCRM['subdomain'],
+      AMOCRM['login'],
+      AMOCRM['hash']
+    );
 
   } catch (\AmoCRM\Exception $e) {
     $logger->error(sprintf('Error (%d): %s' . PHP_EOL, $e->getCode(), $e->getMessage()));
   }
 
-
   function getContactsAndCompanies($json = false) {
-    set_time_limit(0);  // global setting
     try {
-      $amo = new \AmoCRM\Client(
-        AMOCRM['subdomain'],
-        AMOCRM['login'],
-        AMOCRM['hash']
-      );
 
-      $contact = $amo->contact;
+      $contact = $GLOBALS["amo"]->contact;
       $allContacts = fetchEntities($contact);
       foreach ($allContacts as $cont) {
         $result[] = getEntityInfo($cont, AMOCRM["contact_CFs"]);
       }
 
-      $company = $amo->company;
+      $company = $GLOBALS["amo"]->company;
       $allCompanies = fetchEntities($company);
       foreach ($allCompanies as $comp) {
         $result[] = getEntityInfo($comp, AMOCRM["company_CFs"]);
       }
     } catch (\AmoCRM\Exception $e) {
-          printf('Error (%d): %s' . PHP_EOL, $e->getCode(), $e->getMessage());
+      printf('Error (%d): %s' . PHP_EOL, $e->getCode(), $e->getMessage());
     }
-
     return $json ? json_encode($result) : $result;
   }
+
+  function fetchEntities($entity, $params = []) {
+    $i = 0;
+    $entityList = array();
+    try {
+      do {
+          $rows_params = [
+            'limit_rows' => 500,
+            'limit_offset' => 500 * $i++
+          ];
+          $fetchedEntities = $entity->apiList(array_merge($rows_params, $params));
+          $entityList = array_merge($entityList, $fetchedEntities);
+          usleep(600);
+      } while ($fetchedEntities);
+    } catch (\AmoCRM\Exception $e) {
+      printf('Error (%d): %s' . PHP_EOL, $e->getCode(), $e->getMessage());
+    }
+    return $entityList;
+  }
+
+  function getEntityInfo($entity, $fields = []) {
+    $result['id'] = $entity['id'];
+    $result['Наименование'] = $entity["name"];
+    if (isset($entity['custom_fields']) && $entity['custom_fields'] && $fields) {
+      foreach ($fields as $id) {
+        $CFs = $entity['custom_fields'];
+        $key = array_search($id, array_column($CFs, 'id'));
+        if ($key !== false) {
+          $field = $CFs[$key];
+          // $result[$field["name"]] = '';
+          foreach ($field["values"] as $key => $value) {
+              $result[$field["name"]." #".($key + 1)] = $value["value"];
+          }
+        }
+      }
+    }
+    return $result;
+  }
+
 ?>

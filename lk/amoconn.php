@@ -1,14 +1,14 @@
 <?php
 
-	require_once "config.php";
+	require_once "../config.php";
 	require_once "curl.php";
-	
+
 	auth();
 
 	// echo "<pre>";
 	// print_r(getLeadCustomFieldEnums(AMO_CFID_PARTNER));
 	// echo "</pre>";
-	
+
 	function makeStatusesJSON() {
 		$pipelines = getPipelines();
 		$data = array();
@@ -29,13 +29,13 @@
 
 	function getPipelines(){
 		#Формируем ссылку для запроса
-		$link='https://'.AMO_SUBDOMAIN.'.amocrm.ru/api/v2/pipelines';
+		$link='https://'.AMOCRM['subdomain'].'.amocrm.ru/api/v2/pipelines';
 		$Response = processCURL($link);
 		return $Response['_embedded']['items'];
 	};
 
 	function getCustomFieldsInfo() {
-		$link='https://'.AMO_SUBDOMAIN.'.amocrm.ru/api/v2/account?with=custom_fields';
+		$link='https://'.AMOCRM['subdomain'].'.amocrm.ru/api/v2/account?with=custom_fields';
 		$Response = processCURL($link);
 		return $Response;
 	};
@@ -47,23 +47,23 @@
 		$custom_fields = $CFInfo['_embedded']['custom_fields']['leads'];
 
 		foreach ($custom_fields as $value) {
-			if ($value['id'] == $customFieldId) {	
+			if ($value['id'] == $customFieldId) {
 				return $value['enums'];
 			}
-		}	
+		}
 	};
-	
+
 	############################### Авторизация #########################################
 
 	function auth() {
 		#Массив с параметрами, которые нужно передать методом POST к API системы
 		$post=array(
-		  'USER_LOGIN'=>AMO_LOGIN, 
-		  'USER_HASH'=>AMO_HASH 
+		  'USER_LOGIN'=>AMOCRM['login'],
+		  'USER_HASH'=>AMOCRM['hash']
 		);
-		 
+
 		#Формируем ссылку для запроса
-		$link='https://'.AMO_SUBDOMAIN.'.amocrm.ru/private/api/auth.php?type=json';
+		$link='https://'.AMOCRM['subdomain'].'.amocrm.ru/private/api/auth.php?type=json';
 
 		$Response = processCURL($link, $post);
 
@@ -72,5 +72,5 @@
 		return 'Авторизация не удалась';
 	};
 
-	
+
 ?>
