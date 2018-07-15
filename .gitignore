@@ -1,6 +1,8 @@
 # Lines starting with '#' are considered comments.
 # Ignore any file named config.php.
 config.php
+cookie.txt
+
 _PDF.pdf
 _FACE.jpg
 _PASSPORT.jpg
