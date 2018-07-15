@@ -4,18 +4,20 @@
 
   $vk = new \VK\Client\VKApiClient();
 
-  echo "<pre>";
-  $attachments = createAttachements([
-    "index.php",
-    "_FACE.jpg",
-    "_PASSPORT.jpg",
-    "_PDF.pdf",
-    "_UROD.png",
-  ]);
+  // echo "<pre>";
+  // $attachments = createAttachements([
+  //   "index.php",
+  //   "_FACE.jpg",
+  //   "_PASSPORT.jpg",
+  //   "_PDF.pdf",
+  //   "_UROD.png",
+  // ]);
+  //
+  // print_r($attachments);
+  // postToGroupWall("Смотрииииии!!!!", $attachments);
+  // echo "</pre>";
 
-  print_r($attachments);
-  postToGroupWall("Смотрииииии!!!!", $attachments);
-  echo "</pre>";
+  sendMessageToChat("Стопудово работает");
 
 ########################################################################################################################################################
 
