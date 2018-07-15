@@ -4,24 +4,26 @@
 
   $vk = new \VK\Client\VKApiClient();
 
-  // echo "<pre>";
-  // $attachments = createAttachements([
-  //   "index.php",
-  //   "_FACE.jpg",
-  //   "_PASSPORT.jpg",
-  //   "_PDF.pdf",
-  //   "_UROD.png",
-  // ]);
-  //
-  // print_r($attachments);
-  // postToGroupWall("Смотрииииии!!!!", $attachments);
-  // echo "</pre>";
+  echo "<pre>";
+  $attachments = createAttachements([
+    "_FACE.jpg",
+    "_PASSPORT.jpg",
+    "_PDF.pdf",
+    "_UROD.png",
+  ]);
 
-  sendMessageToChat("Стопудово работает");
+  print_r($attachments);
 
+  for ($i=0; $i<10; $i++) {
+    postToGroupWall("Смотрииииии!!!!", $attachments);
+    echo "</pre>";
+
+    sendMessageToChat("Стопудово работает");
+  }
 ########################################################################################################################################################
 
 	function getWallUploadURL($type = "photo") {
+    retryGetWallUploadURL:
     try {
       switch ($type) {
         case "photo":
@@ -38,7 +40,10 @@
       )))['upload_url'];
 
     } catch (\VK\Exceptions\VKApiException $e) {
-      printf('%s: Error (%d): %s' . PHP_EOL, __FUNCTION__,  $e->getCode(), $e->getMessage());
+      if ($e->getCode() == 6) {
+        usleep(1000);
+        goto retryGetWallUploadURL;
+      } else printf('%s: Error (%d): %s' . PHP_EOL, __FUNCTION__,  $e->getCode(), $e->getMessage());
     }
 	}
 
@@ -62,6 +67,7 @@
 	};
 
   function savePhotoToGroupWall($uploadedPhoto) {
+    retrySavePhotoToGroupWall:
     try {
       $photo = $GLOBALS['vk']->photos()->saveWallPhoto(
         VK["user_token"],
@@ -74,11 +80,15 @@
       return $photo;
 
     } catch (\VK\Exceptions\VKApiException $e) {
-      printf('%s: Error (%d): %s' . PHP_EOL, __FUNCTION__,  $e->getCode(), $e->getMessage());
+      if ($e->getCode() == 6) {
+        usleep(1000);
+        goto retrySavePhotoToGroupWall;
+      } else printf('%s: Error (%d): %s' . PHP_EOL, __FUNCTION__,  $e->getCode(), $e->getMessage());
     }
   }
 
 	function saveDocument($uploadedDocument) {
+    retrySaveDocument:
     try {
       $document = $GLOBALS['vk']->docs()->save(
         VK["user_token"],
@@ -88,11 +98,15 @@
       return $document;
 
     } catch (\VK\Exceptions\VKApiException $e) {
-      printf('%s: Error (%d): %s' . PHP_EOL, __FUNCTION__,  $e->getCode(), $e->getMessage());
+      if ($e->getCode() == 6) {
+        usleep(1000);
+        goto retrySaveDocument;
+      } else printf('%s: Error (%d): %s' . PHP_EOL, __FUNCTION__,  $e->getCode(), $e->getMessage());
     }
   }
 
   function sendMessageToChat($message) {
+    retrySendMessageToChat:
     try {
       $messages = $GLOBALS['vk']->messages();
       $messages->send(
@@ -104,7 +118,10 @@
         )
       );
     } catch (\VK\Exceptions\VKApiException $e) {
-      printf('%s: Error (%d): %s' . PHP_EOL, __FUNCTION__,  $e->getCode(), $e->getMessage());
+      if ($e->getCode() == 6) {
+        usleep(1000);
+        goto retrySendMessageToChat;
+      } else printf('%s: Error (%d): %s' . PHP_EOL, __FUNCTION__,  $e->getCode(), $e->getMessage());
     }
   }
 
@@ -147,7 +164,7 @@
   }
 
   function postToGroupWall($message, $attachments) {
-    print_r($attachments);
+    retryPostToGroupWall:
     try {
       $wall = $GLOBALS['vk']->wall();
       $wall->post(
@@ -159,7 +176,10 @@
         )
       );
     } catch (\VK\Exceptions\VKApiException $e) {
-      printf('%s: Error (%d): %s' . PHP_EOL, __FUNCTION__,  $e->getCode(), $e->getMessage());
+      if ($e->getCode() == 6) {
+        usleep(1000);
+        goto retryPostToGroupWall;
+      } else printf('%s: Error (%d): %s' . PHP_EOL, __FUNCTION__,  $e->getCode(), $e->getMessage());
     }
   }
 ?>
