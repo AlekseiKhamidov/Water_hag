@@ -1,10 +1,9 @@
 <?php
   require_once "vendor/autoload.php";
   require_once "config.php";
-  require_once "functions.php";
 
   use Monolog\Logger;
-  use Monolog\Formatter\JsonFormatter;
+  // use Monolog\Formatter\JsonFormatter;
   use Monolog\Handler\PhpConsoleHandler;
   use Monolog\Handler\StreamHandler;
 
@@ -14,10 +13,10 @@
   $logger->pushHandler(new PHPConsoleHandler());
 
 
-  $formatter = new JsonFormatter();
+  // $formatter = new JsonFormatter();
   // Create a handler
   $stream = new StreamHandler(__DIR__.'/my_app.log', Logger::DEBUG);
-  $stream->setFormatter($formatter);
+  // $stream->setFormatter($formatter);
   // bind it to a logger object
   $logger->pushHandler($stream);
 
@@ -30,9 +29,51 @@
         // $domain Поддомен amoCRM
         // $id Id объекта связанного с уведомлением
         // $data Поля возвращаемые уведомлением
-        $GLOBALS["logger"]->info($domain);
-        $GLOBALS["logger"]->debug($data);
+        $GLOBALS["logger"]->info("Add Contact", [print_r($data, true)]);
     });
+
+    $listener->on('add_lead', function ($domain, $id, $data) {
+        // $domain Поддомен amoCRM
+        // $id Id объекта связанного с уведомлением
+        // $data Поля возвращаемые уведомлением
+        $GLOBALS["logger"]->info("Add Lead", [print_r($data, true)]);
+    });
+
+    $listener->on('update_lead', function ($domain, $id, $data) {
+        // $domain Поддомен amoCRM
+        // $id Id объекта связанного с уведомлением
+        // $data Поля возвращаемые уведомлением
+        $GLOBALS["logger"]->info("Update Lead", [print_r($data, true)]);
+    });
+
+    $listener->on('update_contact', function ($domain, $id, $data) {
+        // $domain Поддомен amoCRM
+        // $id Id объекта связанного с уведомлением
+        // $data Поля возвращаемые уведомлением
+        $GLOBALS["logger"]->info("Update Contact", [print_r($data, true)]);
+    });
+
+    $listener->on('note_lead', function ($domain, $id, $data) {
+        // $domain Поддомен amoCRM
+        // $id Id объекта связанного с уведомлением
+        // $data Поля возвращаемые уведомлением
+        $GLOBALS["logger"]->info("Note Lead", [print_r($data, true)]);
+    });
+
+    $listener->on('delete_contact', function ($domain, $id, $data) {
+        // $domain Поддомен amoCRM
+        // $id Id объекта связанного с уведомлением
+        // $data Поля возвращаемые уведомлением
+        $GLOBALS["logger"]->info("Delete Contact", [print_r($data, true)]);
+    });
+
+    $listener->on('delete_lead', function ($domain, $id, $data) {
+        // $domain Поддомен amoCRM
+        // $id Id объекта связанного с уведомлением
+        // $data Поля возвращаемые уведомлением
+        $GLOBALS["logger"]->info("Delete Lead", [print_r($data, true)]);
+    });
+
 
     // Вызов обработчика уведомлений
     $listener->listen();

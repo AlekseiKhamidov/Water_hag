@@ -1,12 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php
+  require_once "vendor/autoload.php";
+  require_once "config.php";
+  require_once "amoCRMFunctions.php";
 
-<head>
-  
-</head>
 
-<body>
-
-</body>
-
-</html>
+?>
