@@ -1,0 +1,265 @@
+<html> 
+     <head> 
+          <title> 
+               Пример 1 
+          </title>
+          <link rel="stylesheet" href="/lib/bootstrap-datepicker/css/bootstrap.min.css">
+          <link rel="stylesheet" href="/lib/bootstrap-table-master/src/bootstrap-table.css">
+
+           <link rel="stylesheet" href="css/switcher.css" />
+          <link rel="stylesheet" href="/lib/bootstrap-datepicker/css/bootstrap-datepicker3.css" />
+
+          <script src="/js/jquery-3.2.1.min.js"></script>
+          <script src="/js/popper.min.js"></script>
+          <script src="/js/bootstrap.min.js"></script>          
+          <script src="/lib/bootstrap-table-master/src/bootstrap-table.js"></script>         
+          <script src="/lib/bootstrap-table-master/src/locale/bootstrap-table-ru-RU.js"></script>    
+          <script type="text/javascript" src="/lib/moment-master/min/moment.min.js"></script>
+          <script type="text/javascript" src="/lib/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+          <script type="text/javascript" src="/lib/bootstrap-datepicker/js/bootstrap-datepicker.ru.min.js"></script>
+          <script type="text/javascript" src="/js/filter.js"></script>
+         <script type="text/javascript" src="/js/jquery.cookie.js"></script>
+  
+
+          <style>
+          	body{
+			color:#676767
+		}
+    	.labelSwitcher
+		{
+			    margin-left: 10px;
+				vertical-align: top;
+				font-size: 20px;
+				font-weight: 100;
+		}
+		.inline{
+			display:inline-block;
+			margin-right: 15px;
+		}
+		.chip{
+			display: inline-block;
+			padding: 0 15px;
+			height: 40px;
+			font-size: 16px;
+			line-height: 35px;
+			border-radius: 25px;
+			background-color: #f1f1f1;
+			
+		}
+		.chipButton{
+		cursor: pointer;
+			border-width: 3px;
+			border-color: #efeeee;
+			border-style: solid;
+			margin: 5px;
+		}
+		.chipButton:hover{
+		border-color: #fffac4;
+		}
+		.textPeriod{
+		    vertical-align: text-bottom;
+			}
+           </style>
+   
+     </head> 
+     <body>
+
+
+<nav  id="menu" class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">AMOBIRD</a>
+    </div>
+
+  <div id="panelFilter" class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-right">
+         <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+              {$userdata}
+               <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Выйти</a></li>
+            </ul>
+        </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+<div class="well well-lg">
+         <div class="panel panel-primary">
+          <div class="panel-heading">
+     <h4 class="panel-title">
+          <a data-toggle="collapse" href="#collapse1">Фильтры</a>
+        </h4>
+  </div>
+<div id="collapse1" class="panel-collapse collapse">
+          <div class="panel-body">   
+ 
+
+           <div class="form-group" style="margin-bottom:20px">
+               <div class="inline textPeriod" >
+                    <h4>Выберите период: </h4>
+               </div>
+
+              <div class="inline" id="sandbox-container">
+                    <div class="input-group date">
+                    <div class="input-daterange input-group" id="datepicker">
+                             <input type="text" class="input-sm form-control" name="start" />
+                             <span class="input-group-addon">по</span>
+                             <input type="text" class="input-sm form-control" name="end" />
+                          
+                         </div>
+                    </div>
+               </div>
+          </div>
+           <div class="form-group" id="check-group"></div>    
+    <div id="chip-group" class="form-group"></div>
+            
+           <div class="form-group" >
+               <div class="">
+                   <h4>Итого: <span id="Sum"></span> </h4>
+              </div>
+          </div>
+     
+ </div>
+</div>
+      
+ <div class="panel panel-default">
+            <table id="table" 
+               data-toggle="table"
+                data-url="/getLeads.php"
+              >
+            <thead>
+            <tr>
+                <th data-field="name" data-sortable="true">Наименование сделки</th>
+                <th data-field="phone" data-sortable="true">Контакты</th>
+                <th data-field="date_create" data-sortable="true" data-sorter="dateSorter" >Дата создания</th>
+                <th data-field="last_modified"  data-sortable="true" data-sorter="dateSorter">Последнее изменение</th>
+                <th data-field="price" data-sortable="true">Сумма</th>
+                <th data-field="pipeline" data-sortable="true">Воронка</th>
+                <th data-field="status" data-formatter="cheapFormatter" data-sortable="true">Этап воронки</th>
+            </tr>
+            </thead>
+        </table>
+   </div>
+
+   
+</div>
+          <script>
+               var Data;
+               function dateSorter(a,b){
+                    if (toDate(a) < toDate(b)) return 1;
+                    if (toDate(a) > toDate(b)) return -1;
+                    return 0;
+               }
+               function toDate(stringDate){
+                    if (stringDate){
+                         var parts =stringDate.split('.');
+                         var myDate = new Date(parts[2],parts[1]-1,parts[0]); 
+                         return myDate
+                    }
+                    return new Date(0);
+               }
+               function cheapFormatter(value){
+                    if (value){
+                         var split = value.split('^');
+                         if (split.length>1){
+                              var text=split[0];
+                              var color =split[1];      
+                              return " <div class='chip' style=\"background-color:"+color+"\">"+text+"</div>";
+                         }
+                    
+                    }
+                    return "";
+               };
+                    function filterTable(from, to){
+                            // var grepFunc = function (item) {
+                           //     alert(item);
+                           //         return item.date_create >= from;
+                           //     };
+                         $("#table").bootstrapTable('load', $.grep(Data, function (row) {
+                          return dateCheck(from, to, toDate(row.last_modified)); }));
+                    //  $table.bootstrapTable('load', $.grep(jsonData, grepFunc));
+                    }
+                    function dateCheck(from,to,check) {
+
+                        var fDate,lDate,cDate;
+                        fDate = Date.parse(from);
+                        lDate = Date.parse(to);
+                        cDate = Date.parse(check);
+
+                        if((cDate < lDate && cDate >= fDate)) {
+                            return true;
+                        }
+                        return false;
+                    }
+
+
+               $(function () {
+
+
+
+                    $('.input-daterange').datepicker({
+                        language: "ru",                        
+                         todayBtn: "linked",
+                         OnChange :function() {
+                            alert("jj");
+                        }
+                    }).datepicker().on('changeDate', function(e) {
+                        var dates =$(this).data().datepicker.dates;
+                        if (dates.length>1){
+
+
+                       var start = dates[0]
+                       start.setHours(0);
+                       var end = dates[1];
+                      
+
+                        if (dates.length>0 && start.getTime()!=end.getTime() )
+                        {
+                              end.setDate(end.getDate()+1);
+                              end.setHours(0);
+                           //   alert(dates);
+                             filterTable(start,end);
+                             totalSum();
+                             
+
+                        }
+                   }
+                    });
+
+      
+
+                    $("#table").on('load-success.bs.table', function (e, arg1, arg2) {
+                          Data = $("#table").bootstrapTable('getData');
+                       totalSum();
+                    });
+                    $.ajax({
+                      url: "getStatuses.php",
+                      success:function(data){
+                        data = JSON.parse(data);                   
+                        loadCheckbox(data);
+                     }
+                    });
+               });
+
+               function totalSum(){
+                      var  data = $("#table").bootstrapTable('getData');
+                              var result = 0;
+                         for (var i=0;i<data.length;i++){
+                              var sum = parseInt(data[i].price);
+                              result += sum;
+                         }
+                         $("#Sum").text(result.toLocaleString()+" руб");
+               }
+            
+            </script>
+     </body> 
+</html>

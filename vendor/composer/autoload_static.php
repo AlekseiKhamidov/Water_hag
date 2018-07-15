@@ -4,21 +4,12 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitd2d7e550724270e2d27957d891e1a170
+class ComposerStaticInit76faf173bc2acb2269b0703f3646a58a
 {
     public static $prefixLengthsPsr4 = array (
         'V' => 
         array (
             'VK\\' => 3,
-        ),
-        'P' => 
-        array (
-            'Psr\\Log\\' => 8,
-            'PhpConsole\\' => 11,
-        ),
-        'M' => 
-        array (
-            'Monolog\\' => 8,
         ),
         'A' => 
         array (
@@ -31,18 +22,6 @@ class ComposerStaticInitd2d7e550724270e2d27957d891e1a170
         array (
             0 => __DIR__ . '/..' . '/vkcom/vk-php-sdk/src/VK',
         ),
-        'Psr\\Log\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/psr/log/Psr/Log',
-        ),
-        'PhpConsole\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/php-console/php-console/src/PhpConsole',
-        ),
-        'Monolog\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/monolog/monolog/src/Monolog',
-        ),
         'AmoCRM\\' => 
         array (
             0 => __DIR__ . '/..' . '/dotzero/amocrm/src',
@@ -52,8 +31,8 @@ class ComposerStaticInitd2d7e550724270e2d27957d891e1a170
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitd2d7e550724270e2d27957d891e1a170::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitd2d7e550724270e2d27957d891e1a170::$prefixDirsPsr4;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit76faf173bc2acb2269b0703f3646a58a::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit76faf173bc2acb2269b0703f3646a58a::$prefixDirsPsr4;
 
         }, null, ClassLoader::class);
     }
