@@ -1,24 +1,15 @@
-<?php
-  require_once "check.php";
-  require_once "config.php";
-  require_once "mysql.php";
 
-  if (checkLogin() == -1) {
-    header("Location: login.php"); exit();
-  };
-  $userdata = getUserdata(intval($_COOKIE['id']));
-?>
-<html> 
+<html>
  <head>
     <title>
         Статистика
     </title>
        <link rel="stylesheet" href="../css/bootstrap.min.css">
        <link href="../css/mdb.min.css" rel="stylesheet">
- 
+
   <link href="../css/style.css" rel="stylesheet">
     <link href="../css/compiled.min.css" rel="stylesheet">
-    <!-- <link href="../css/materialize.min.css" rel="stylesheet"> -->        
+    <!-- <link href="../css/materialize.min.css" rel="stylesheet"> -->
         <link rel="stylesheet" href="lib/bootstrap-table-master/src/bootstrap-table.css">
         <link rel="stylesheet" href="lib/bootstrap-table-master/src/extensions/sticky-header/bootstrap-table-sticky-header.css">
         <link rel="stylesheet" type="text/css" href="lib/bootstrap-table-filter-master/src/bootstrap-table-filter.css">
@@ -29,7 +20,7 @@
 
        -->
 <link rel="stylesheet" href="lib/bootstrap-multiselect-master/dist/css/bootstrap-multiselect.css">
-    <style type="text/css"> 
+    <style type="text/css">
     .btn-checkbox {
   background: #f1f1f1 ;
 
@@ -69,7 +60,7 @@ color:#676767;    }
         }
         #legendDiv ul li {
            display:inline-block;
-           margin-right: 10px; 
+           margin-right: 10px;
         }
         #legendDiv ul li span {
             padding: 5px 10px;
@@ -97,14 +88,14 @@ color:#676767;    }
 <div class="dropdown" >
 <!--   <button class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
   <!--  <a type="button" class="btn-floating btn-sm purple-gradient  dropdown-toggle"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-filter" aria-hidden="true"></i></a> -->
- 
+
    <a type="button" class=" icons-sm fb-ic"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-filter" aria-hidden="true"></i></a>
     <!-- <i class="fa fa-toggle-down"></i> -->
   </button>
   <div class="dropdown-menu dropdown-menu-right">
     <div>
       <label class="dropdown-item">
-        <input type="checkbox" value="Select All" checked="checked" class="dropdown-filter-menu-item select-all" data-column="0" data-index="0"> 
+        <input type="checkbox" value="Select All" checked="checked" class="dropdown-filter-menu-item select-all" data-column="0" data-index="0">
         Select All
       </label>
       <label class="dropdown-item">
@@ -116,15 +107,15 @@ color:#676767;    }
          bootstrap-show-password
        </label>
        <label class="dropdown-item">
-        <input type="checkbox" value="bootstrap-table" checked="checked" class="dropdown-filter-menu-item item" data-column="0" data-index="0"> 
+        <input type="checkbox" value="bootstrap-table" checked="checked" class="dropdown-filter-menu-item item" data-column="0" data-index="0">
           bootstrap-table
         </label>
         <label class="dropdown-item">
-          <input type="checkbox" value="multiple-select" checked="checked" class="dropdown-filter-menu-item item" data-column="0" data-index="0"> 
+          <input type="checkbox" value="multiple-select" checked="checked" class="dropdown-filter-menu-item item" data-column="0" data-index="0">
           multiple-select
         </label>
         <label class="dropdown-item">
-          <input type="checkbox" value="scutech-redmine" checked="checked" class="dropdown-filter-menu-item item" data-column="0" data-index="0"> 
+          <input type="checkbox" value="scutech-redmine" checked="checked" class="dropdown-filter-menu-item item" data-column="0" data-index="0">
           scutech-redmine
         </label>
       </div>
@@ -163,26 +154,26 @@ color:#676767;    }
 
     <div class="container-fluid">
 <div id="filter-bar"></div>
-    <table id="table"  data-toolbar="#filter-bar" 
+    <table id="table"  data-toolbar="#filter-bar"
     data-show-toggle="true" data-show-columns="true" data-show-filter="true" data-search="true">
       <thead>
       <tr>
-        <th data-field="name" class="excel-filter">Name</th>
+        <th data-field="name"  class="excel-filter">Name</th>
         <th data-field="stargazers_count" >Stars</th>
         <th data-field="forks_count" class="excel-filter">Forks</th>
         <th data-field="description">Description</th>
       </tr>
       </thead>
     </table>
-    
-</div>
 
 </div>
 
-                             
+</div>
 
 
- 
+
+
+
  <script type="text/javascript" src="../js/jquery-3.2.1.min.js"></script>
     <!-- Bootstrap tooltips -->
     <script type="text/javascript" src="../js/popper.min.js"></script>
@@ -257,7 +248,7 @@ color:#676767;    }
       'id':1
     }
   ];
-    
+
     $(function() {
       $('#table').bootstrapTable({data: data});
        $('#table').excelTableFilter();
@@ -265,5 +256,5 @@ color:#676767;    }
     </script>
 <script>
 </script>
-</body> 
+</body>
 </html>
