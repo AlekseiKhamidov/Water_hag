@@ -8,11 +8,11 @@
     <title>Анкета Центр правовой поддержки</title>
     <!-- Font Awesome -->
     <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> -->
-    <!-- Bootstrap core CSS --> 
+    <!-- Bootstrap core CSS -->
     <link href="../css/bootstrap.min.css" rel="stylesheet">
     <!-- Material Design Bootstrap -->
     <link href="../css/mdb.min.css" rel="stylesheet">
-    
+
     <!-- Your custom styles (optional) -->
     <link href="../css/style.css" rel="stylesheet">
     <link href="../css/compiled.min.css" rel="stylesheet">
@@ -46,7 +46,7 @@
       }   */
       .picker__footer{
           display: none!important
-      }  
+      }
     </style>
 </head>
 
@@ -73,10 +73,10 @@
 <div class="row justify-content-center">
     <div class="col-md-6 mb-4" style="width: 90%">
 
-        
+
 <!-- Material form register -->
 <form id="formReg">
-   
+
  <div class="header blue-gradient">
 
             <div class="row d-flex justify-content-center">
@@ -88,16 +88,16 @@
     <div class="card text-center">
     <div class="card-body">
         <h5 class="card-title">Здравствуйте!</h5>
-        <p class="card-text"> 
+        <p class="card-text">
 Вы хотите воспользоваться услугами «Центр правовой поддержки», но у Вас нет свободных средств? Мы поможем оформить Вам рассрочку на 6 месяцев без переплаты. Рассрочка оформляется через банки-партнеры. Никаких справок, поручителей и беготни по отделениям. Всё просто и в одном месте. Вам остается только следовать инструкции и корректно отвечать на вопросы.
 Спасибо за то, что Вы с нами!</p>
-       
+
     </div>
 </div>
 
 
  <!-- Material input text -->
- 
+
     <div class="mt-4 ml-2">
        <div class="row justify-content-center">
       <label for="age" >Ваш возраст 21 и более полных лет?</label>
@@ -127,13 +127,13 @@
     <input type="text" id="course" name="course" required class="form-control validate">
     <label for="course" data-error="Введите название оказываемых услуг" data-success="Верно">Введите название оказываемых услуг*</label>
 </div>
- <div class="md-form "> 
+ <div class="md-form ">
     <i class="fa fa-rub prefix grey-text"></i>
     <input type="text" min="0"  id="price" name="price" required class="form-control validate currency"/>
     <label for="price" data-error="Укажите стоимость услуг" data-success="Верно">Укажите стоимость услуг*</label>
 </div>
 
-<div class="md-form "> 
+<div class="md-form ">
     <input type="number" min="6" max="36"  id="credit_term" name="credit_term" required class="form-control validate"/>
     <label for="credit_term" data-error="Введите число от 6 до 36" data-success="Верно">Введите желаемый срок кредита (в мес)*</label>
 </div>
@@ -168,7 +168,7 @@
         <input type="email" id="email" name="email" required class="form-control validate">
         <label for="email" data-error="Укажите email" data-success="Верно">Укажите Вашу электронную почту*</label>
     </div>
-     
+
 </div>
 <div stepindex="3">
  <div class="card text-center">
@@ -250,7 +250,7 @@
         <input type="tel" id="friend_phone" name="friend_phone" required class="form-control validate phoneMask" value="+7"  >
         <label for="friend_phone" data-error="+7xxxxxxxxxx" data-success="Верно">Номер мобильного телефона (контактного лица)*</label>
     </div>
-    
+
 </div>
 <div stepindex="6">
   <div class="card text-center">
@@ -313,7 +313,7 @@
                 <label for="flat_loc" data-error="Введите данные" data-success="Верно">Квартира (место жительства)</label>
             </div>
         </div>
-        
+
     </div>
 </div>
 <div stepindex="8">
@@ -351,16 +351,16 @@
         <input type="text" id="post_work" name="post_work" required class="form-control validate">
         <label for="post_work" data-error="Введите данные" data-success="Верно">Укажите вашу должность*</label>
     </div>
-    <div class="md-form "> 
+    <div class="md-form ">
         <input type="number" min="0" step="1"  id="count_work" name="count_work" required class="form-control validate"/>
         <label for="count_work" data-error="Введите количество месяцев" data-success="Верно">Укажите количество месяцев на последнем месте работы*</label>
     </div>
-    <div class="md-form "> 
+    <div class="md-form ">
         <i class="fa fa-rub prefix grey-text"></i>
         <input type="text" min="0"  id="income_work" name="income_work" required class="form-control validate currency"/>
         <label for="income_work" data-error="Введите данные" data-success="Верно">Укажите ежемесячный доход по основному месту работы*</label>
     </div>
-   
+
 </div>
 
 <div stepindex="9">
@@ -384,8 +384,8 @@
                 </div>
 
                 <div class="file-path-wrapper">
-                  
-                  <input class="file-path validate readonly"  name="photo_passport_text" type="text" required >  
+
+                  <input class="file-path validate readonly"  name="photo_passport_text" type="text" required >
                     <!-- <input class="file-path validate" id="tmp" type="text" required  readonly> -->
                     <label for="photo_passport_text" data-error="Только форматы: jpg, jpeg, png или gif" data-success="Верно" class="active" style="width: 100%;margin-left: 5px;"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>
                 </div>
@@ -407,8 +407,8 @@
 
                 </div>
                   <div class="file-path-wrapper">
-                  
-                  <input class="file-path validate readonly"  name="photo_passport_reg_text" type="text" required  >  
+
+                  <input class="file-path validate readonly"  name="photo_passport_reg_text" type="text" required  >
                     <label for="photo_passport_reg_text" data-error="Только форматы: jpg, jpeg, png или gif" data-success="Верно" class="active" style="width: 100%;margin-left: 5px;"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>
                 </div>
             </div>
@@ -429,9 +429,9 @@
                     <input type="file" required id="photo_selfi" name="photo_selfi" accept='image/gif, image/jpeg, image/jpg, image/png'>
                 </div>
                 <div class="file-path-wrapper">
-                  
+
                   <!-- <input class="file-path validate" name="photo_selfi_text" type="text" required style="display: none;"  >   -->
-                  <input class="file-path validate readonly"  name="photo_selfi_text" type="text" required  ="">  
+                  <input class="file-path validate readonly"  name="photo_selfi_text" type="text" required  ="">
                     <!-- <input class="file-path validate" id="tmp" type="text" required  readonly> -->
                     <label for="photo_selfi_text" data-error="Только форматы: jpg, jpeg, png или gif" data-success="Верно" class="active" style="width: 100%;margin-left: 5px;"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>
                 </div>
@@ -462,7 +462,7 @@
     <div class="card text-center">
         <div class="card-body">
             <h5 class="card-title">Поздравляем!</h5>
-            <p class="card-text"> 
+            <p class="card-text">
                 Ваши данные отправлены на рассмотрение, в ближайшее время с Вами свяжется наш специалист.<br/>
                 Спасибо за то, что Вы с нами!</p>
         </div>
@@ -477,7 +477,7 @@
         <div class="card-body">
             <h5 class="card-title">Вы не дали согласие на обработку персональных данных</h5>
               <h5 class="card-title">Ваша заявка не будет рассмотрена</h5>
-            <p class="card-text"> 
+            <p class="card-text">
                 Ваша анкета не сохранена.<br/>
                 При необходимости заполните анкету заново.<br/>
                 Спасибо за то, что Вы с нами!</p>
@@ -493,7 +493,7 @@
     <div class="card text-center">
         <div class="card-body">
             <h5 class="card-title">Нет 21 года</h5>
-            <p class="card-text"> 
+            <p class="card-text">
                Рассмотрение заявки возможно только если вам более 21 года.<br/>
                 Спасибо за то, что Вы с нами!</p>
         </div>
@@ -504,7 +504,7 @@
         <button type="button" dir="reload" onclick="reload()" class="btn btn-primary">Заполнить заявку еще раз</button>
     </div>
 </div>
-   
+
  <div id="paginator" class="row justify-content-between md-form">
             <!-- Default button -->
             <button type="button" dir="prev" onclick="prev()" class="btn btn-outline-primary waves-effect">Назад</button>
@@ -517,13 +517,13 @@
 
 
 <!-- Material form register -->
-                      
+
     </div>
 </div>
 
 </section>
-            
-            
+
+
 
   <!--Pagination -->
 
@@ -562,7 +562,7 @@ $('.mdb-select').material_select();
     e.preventDefault();
   });
  $(function() {
-   preload(partner);
+   preload(850545, "pos-credit");
   $("#paginator").hide();
   $("[stepindex]:not([stepindex=" + stepIndex + "])").hide();
   $("[def]").hide();

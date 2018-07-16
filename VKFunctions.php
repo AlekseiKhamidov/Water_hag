@@ -100,7 +100,8 @@
       if ($e->getCode() == 6) {
         usleep(1000);
         goto retrySaveDocument;
-      } else printf('%s: Error (%d): %s' . PHP_EOL, __FUNCTION__,  $e->getCode(), $e->getMessage());
+      } else printf('%s: Error (%d): %s %s' . PHP_EOL, __FUNCTION__,  $e->getCode(), $e->getMessage(), print_r($e));
+
     }
   }
 
@@ -142,6 +143,7 @@
             break;
 
           case 'application/pdf':
+          case 'application/msword':
             $url = getWallUploadURL("document");
             printf('Файл %s (%s) будет загружен по этой ссылке:<br>%s' . PHP_EOL, $file, $fileType, $url);
             $uploadedDocument = curlUploadFile($url, $file, "file");

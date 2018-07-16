@@ -1,4 +1,4 @@
- function submit(partner) {
+ function submit(partner,pipeline) {
     var id = guid();
 
     $("#paginator").hide();
@@ -30,10 +30,10 @@
       }
     }
     // Serialize the data in the form
-    var serializedData = $form.serialize();
-    console.log(serializedData);
-    console.log(pdf_array);
-    fileUpload(id, $form, pdf_array,partner);
+  //  var serializedData = $form.serialize();
+  //  console.log(serializedData);
+//    console.log(pdf_array);
+    fileUpload(id, $form, pdf_array,partner, pipeline);
   };
 
   function guid() {
@@ -50,7 +50,7 @@
 
 
 
-  function fileUpload(id, $for, data, partner) {
+  function fileUpload(id, $for, data, partner, pipeline) {
 
   //  var form = $("#form_photo_passport");
 
@@ -63,12 +63,13 @@
     return;
   }
   var form_data = new FormData();
-  form_data.append('photo_passport', file1[0]);
-  form_data.append('photo_passport_reg', file2[0]);
-  form_data.append('photo_selfi', file3[0]);
+  form_data.append('file1', file1[0]);
+  form_data.append('file2', file2[0]);
+  form_data.append('file3', file3[0]);
   form_data.append('guid', id);
   form_data.append('partner', partner);
   form_data.append('data', JSON.stringify(data));
+  form_data.append('pipeline', pipeline);
 
 
 $("#mdb-preloader").show();
@@ -205,7 +206,7 @@ function getExt(name){
       }
 
   };
-  function preload(partner){
+  function preload(partner, pipeline){
      $(".phoneMask").mask("+7(999) 999-9999");
   $(".datepickerMask").mask("99.99.9999", {placeholder: "ДД.ММ.ГГГГ" });
 
@@ -280,7 +281,7 @@ function getExt(name){
 
 
     //  next();
-      submit(partner);
+      submit(partner, pipeline);
 
     } else {
       next(stepAccessError);

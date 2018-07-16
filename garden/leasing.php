@@ -12,7 +12,7 @@
     <link href="../css/bootstrap.min.css" rel="stylesheet">
     <!-- Material Design Bootstrap -->
     <link href="../css/mdb.min.css" rel="stylesheet">
-    
+
     <!-- Your custom styles (optional) -->
     <link href="../css/style.css" rel="stylesheet">
     <link href="../css/compiled.min.css" rel="stylesheet">
@@ -43,7 +43,7 @@
 }   */
 .picker__footer{
     display: none!important
-}  
+}
 </style>
 </head>
 
@@ -70,10 +70,10 @@
 <div class="row justify-content-center">
     <div class="col-md-6 mb-4" style="width: 90%">
 
-        
+
 <!-- Material form register -->
 <form id="formReg">
-   
+
  <div class="header blue-gradient">
 
             <div class="row d-flex justify-content-center">
@@ -85,15 +85,15 @@
     <div class="card text-center">
     <div class="card-body">
         <h5 class="card-title">Здравствуйте!</h5>
-        <p class="card-text"> 
+        <p class="card-text">
 Вы хотите приобрести станок Garden Group , но у Вас нет свободных средств? Мы поможем Вам оформить кредит на любой для Вас удобный срок. Кредит оформляется через банки-партнеры. Никаких справок, поручителей и беготни по отделениям. Все просто и в одном месте. Вам остается только следовать инструкциям и корректно отвечать на вопросы. Спасибо за то, что Вы с нами!</p>
-       
+
     </div>
 </div>
 
 
  <!-- Material input text -->
- 
+
     <div class="mt-4 ml-2">
        <div class="row justify-content-center">
       <label for="age" >Ваш возраст 21 и более полных лет?</label>
@@ -123,7 +123,7 @@
     <input type="text" id="course" name="course" required class="form-control validate">
     <label for="course" data-error="Данные отсутсвуют" data-success="Верно">Введите наименование оборудования*</label>
 </div>
- <div class="md-form "> 
+ <div class="md-form ">
     <i class="fa fa-rub prefix grey-text"></i>
     <input type="text" min="0"  id="price" name="price" required class="form-control validate currency"/>
     <label for="price" data-error="Данные отсутсвуют" data-success="Верно">Укажите стоимость оборудования*</label>
@@ -136,12 +136,12 @@
     </div>
   </div>
     <div class="md-form ">
-        <input type="text" id="friend_name1" name="friend_name1" required class="form-control validate">
-        <label for="friend_name1" data-error="Данные отсутсвуют" data-success="Верно">Фамилия Имя Отчество контактного лица*</label>
+        <input type="text" id="name" name="name" required class="form-control validate">
+        <label for="name" data-error="Данные отсутсвуют" data-success="Верно">Фамилия Имя Отчество контактного лица*</label>
     </div>
      <div class="md-form">
-        <input type="tel" id="friend_phone1" name="friend_phone1" required class="form-control validate phoneMask" value="+7"  >
-        <label for="friend_phone1" data-error="+7xxxxxxxxxx" data-success="Верно">Номер телефона контактного лица*</label>
+        <input type="tel" id="phone" name="phone" required class="form-control validate phoneMask" value="+7"  >
+        <label for="phone" data-error="+7xxxxxxxxxx" data-success="Верно">Номер телефона контактного лица*</label>
     </div>
      <div class="md-form">
         <input type="text" id="manager" name="manager" class="form-control">
@@ -169,8 +169,8 @@
                 </div>
 
                 <div class="file-path-wrapper">
-                  
-                  <input class="file-path validate readonly"  name="commercial_text" type="text" required >  
+
+                  <input class="file-path validate readonly"  name="commercial_text" type="text" required >
                     <!-- <input class="file-path validate" id="tmp" type="text" required  readonly> -->
                     <label for="commercial_text" data-error="Доступен только формат: pdf" data-success="Верно" class="active" style="width: 100%;margin-left: 5px;"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>
                 </div>
@@ -192,8 +192,8 @@
 
                 </div>
                   <div class="file-path-wrapper">
-                  
-                  <input class="file-path validate readonly"  name="info_card_text" type="text" required  >  
+
+                  <input class="file-path validate readonly"  name="info_card_text" type="text" required  >
                     <label for="info_card_text" data-error="Доступны форматы: pdf, doc, docx, jpg, jpeg, png или gif" data-success="Верно" class="active" style="width: 100%;margin-left: 5px;"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>
                 </div>
             </div>
@@ -214,8 +214,8 @@
                     <input type="file" required id="statement" name="statement" number="2" accept='application/pdf, application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'>
                 </div>
                 <div class="file-path-wrapper">
-                  
-                  <input class="file-path validate readonly"  name="statement_text" type="text" required>  
+
+                  <input class="file-path validate readonly"  name="statement_text" type="text" required>
                     <label for="statement_text" data-error="Доступны форматы: pdf, doc, docx, xls и xlsx" data-success="Верно" class="active" style="width: 100%;margin-left: 5px;"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>
                 </div>
             </div>
@@ -250,7 +250,7 @@
     <div class="card text-center">
         <div class="card-body">
             <h5 class="card-title">Поздравляем!</h5>
-            <p class="card-text"> 
+            <p class="card-text">
                 Ваши данные отправлены на рассмотрение, в ближайшее время с Вами свяжется наш специалист.<br/>
                 Спасибо за то, что Вы с нами!
         </div>
@@ -264,7 +264,7 @@
      <div class="card text-center">
         <div class="card-body">
             <h5 class="card-title">Вы не дали согласие на обработку персональных данных</h5>
-            <p class="card-text"> 
+            <p class="card-text">
                 Ваша анкета не сохранена.<br/>
                 При необходимости заполните анкету заново.<br/>
                 Спасибо за то, что Вы с нами!</p>
@@ -280,7 +280,7 @@
     <div class="card text-center">
         <div class="card-body">
             <h5 class="card-title">Нет 21 года</h5>
-            <p class="card-text"> 
+            <p class="card-text">
                Рассмотрение заявки возможно только если вам более 21 года.<br/>
                 Спасибо за то, что Вы с нами!</p>
         </div>
@@ -295,7 +295,7 @@
      <div class="card text-center">
         <div class="card-body">
             <h5 class="card-title">Отправленные файлы не корректны</h5>
-            <p class="card-text"> 
+            <p class="card-text">
                 Загрузите файлы еще раз<br/>
                 Внимание, размер файлов должен быть меньше 8 Мб<br/>
         </div>
@@ -310,7 +310,7 @@
             <button type="button" dir="prev" onclick="prev()" class="btn btn-outline-primary waves-effect">Назад</button>
             <button type="button" dir="next" onclick="next()" class="btn btn-primary">Вперед</button>
         </div>
-                      
+
     </div>
 </div>
 </section>
@@ -346,13 +346,13 @@ $('.mdb-select').material_select();
         .toString(16)
         .substring(1);
     };
-    return s4() + s4();
+    return "_"+s4() + s4();
   };
   function reload() {
     location.reload();
   };
 
-      
+
   function submit() {
     var id = guid();
 
@@ -398,23 +398,24 @@ $('.mdb-select').material_select();
  // var imageType = /image.*/;
 
   if (!isGoodFileExt(file1[0], 0) || !isGoodFileExt(file2[0], 1) || !isGoodFileExt(file3[0], 2) || !isGoodFileSize(file1[0]) || !isGoodFileSize(file2[0]) || !isGoodFileSize(file3[0])) {
-    next(stepDoc);  
+    next(stepDoc);
     return;
   }
 
   var form_data = new FormData();
-  form_data.append('doc1', file1[0]);
-  form_data.append('doc2', file2[0]);
-  form_data.append('doc3', file3[0]);
+  form_data.append('file1', file1[0]);
+  form_data.append('file2', file2[0]);
+  form_data.append('file3', file3[0]);
   form_data.append('guid', id);
-  form_data.append('partner', "Leasing");
+  form_data.append('partner', 32927);
   form_data.append('data', JSON.stringify(data));
+  form_data.append('pipeline', "leasing");
 
-  
+
 
 $("#mdb-preloader").show();
   $.ajax({
-    url: '../uploadLeasing.php',
+    url: '../upload.php',
     cache: false,
     contentType: false,
     processData: false,
@@ -479,7 +480,7 @@ function fileValid($target,isValid, text=null){
         label.attr("data-error", text);
       }
     }
-   
+
 };
 
 $(function() {
@@ -607,7 +608,7 @@ function validate() {
       //добавить к formGroup класс .has-error, удалить .has-success
       $(this).addClass('invalid').removeClass('valid');
       $(this).siblings("label").addClass("active");
-      //отметить форму как невалидную 
+      //отметить форму как невалидную
       formValid = false;
     }
   });
@@ -618,9 +619,9 @@ function validate() {
 };
 
 
- 
-     
- 
+
+
+
 
 </script>
 </body>
