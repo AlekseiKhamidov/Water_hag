@@ -384,14 +384,14 @@
 
                 <div class="btn btn-primary btn-sm float-left">
                     <span>Выберите файл</span>
-                    <input required id="photo_passport" name="photo_passport" type="file" accept='image/gif, image/jpeg, image/jpg, image/png' >
+                    <input required id="photo_passport" name="photo_passport" type="file" accept='image/gif, image/jpeg, image/jpg' >
                 </div>
 
                 <div class="file-path-wrapper">
 
                   <input class="file-path validate readonly"  name="photo_passport_text" type="text" required >
                     <!-- <input class="file-path validate" id="tmp" type="text" required  readonly> -->
-                    <label for="photo_passport_text" data-error="Только форматы: jpg, jpeg, png или gif" data-success="Верно" class="active" style="width: 100%;margin-left: 5px;"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>
+                    <label for="photo_passport_text" data-error="Только форматы: jpg, jpeg или gif" data-success="Верно" class="active" style="width: 100%;margin-left: 5px;"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>
                 </div>
             </div>
         </div>
@@ -407,13 +407,13 @@
             <div class="file-field">
                 <div class="btn btn-primary btn-sm float-left">
                     <span>Выберите файл</span>
-                    <input type="file" required id="photo_passport_reg" name="photo_passport_reg" accept='image/gif, image/jpeg, image/jpg, image/png'>
+                    <input type="file" required id="photo_passport_reg" name="photo_passport_reg" accept='image/gif, image/jpeg, image/jpg'>
 
                 </div>
                   <div class="file-path-wrapper">
 
                   <input class="file-path validate readonly"  name="photo_passport_reg_text" type="text" required  >
-                    <label for="photo_passport_reg_text" data-error="Только форматы: jpg, jpeg, png или gif" data-success="Верно" class="active" style="width: 100%;margin-left: 5px;"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>
+                    <label for="photo_passport_reg_text" data-error="Только форматы: jpg, jpeg или gif" data-success="Верно" class="active" style="width: 100%;margin-left: 5px;"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>
                 </div>
             </div>
 
@@ -430,14 +430,14 @@
             <div class="file-field">
                 <div class="btn btn-primary btn-sm float-left">
                     <span>Выберите файл</span>
-                    <input type="file" required id="photo_selfi" name="photo_selfi" accept='image/gif, image/jpeg, image/jpg, image/png'>
+                    <input type="file" required id="photo_selfi" name="photo_selfi" accept='image/gif, image/jpeg, image/jpg'>
                 </div>
                 <div class="file-path-wrapper">
 
                   <!-- <input class="file-path validate" name="photo_selfi_text" type="text" required style="display: none;"  >   -->
                   <input class="file-path validate readonly"  name="photo_selfi_text" type="text" required  ="">
                     <!-- <input class="file-path validate" id="tmp" type="text" required  readonly> -->
-                    <label for="photo_selfi_text" data-error="Только форматы: jpg, jpeg, png или gif" data-success="Верно" class="active" style="width: 100%;margin-left: 5px;"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>
+                    <label for="photo_selfi_text" data-error="Только форматы: jpg, jpeg или gif" data-success="Верно" class="active" style="width: 100%;margin-left: 5px;"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>
                 </div>
             </div>
 

@@ -35,11 +35,11 @@
         $courseKey = array_search('course', array_column($tmp, 'id'));
      var_dump($tmp[$termKey]['a']);
     $message = 'Партнер: '.$partner.chr(10).
-              ($tmp[$nameKey] ? 'Имя: '. $tmp[$nameKey]['a'] .chr(10) : "").
-              ($tmp[$courseKey] ? 'Продукт: '.$tmp[$courseKey]['a'].chr(10) : "").
-              ($tmp[$priceKey] ? 'Стоимость: '.$tmp[$priceKey]['a'].chr(10) : "").
-              ($tmp[$termKey] ? 'Срок кредита: '.$tmp[$termKey]['a'].chr(10) : "").
-              ($tmp[$phoneKey] ? 'Телефон: '.$tmp[$phoneKey]['a'] : "");
+              ($nameKey !== false ? 'Имя: '. $tmp[$nameKey]['a'] .chr(10) : "").
+              ($courseKey !== false  ? 'Продукт: '.$tmp[$courseKey]['a'].chr(10) : "").
+              ($priceKey !== false ? 'Стоимость: '.$tmp[$priceKey]['a'].chr(10) : "").
+              ($termKey !== false ? 'Срок кредита: '.$tmp[$termKey]['a'].chr(10) : "").
+              ($phoneKey !== false ? 'Телефон: '.$tmp[$phoneKey]['a'] : "");
 
     return $message;
   }

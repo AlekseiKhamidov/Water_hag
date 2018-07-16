@@ -17,9 +17,9 @@
 				}
 				$attachments = createAttachements($files);
 				$message = parseDataForMessage($_POST['data'],
-																			$_POST['partner'] ?
+																			$_POST['partner'] && is_numeric($_POST['partner']) ?
 																			AMOCRM["lead_CFs"]["partners_list"][$_POST['partner']]
-																			: "");
+																			: $_POST['partner']);
 				$post = postToGroupWall($message, $attachments);
 				$VKPostURL = "https://vk.com/aktiv_kredit?w=wall-".VK["group_id"]."_".$post."%2Fall";
 				sendMessageToChat($message.chr(10).$VKPostURL);

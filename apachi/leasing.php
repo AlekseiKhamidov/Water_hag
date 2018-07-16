@@ -403,11 +403,11 @@ $('.mdb-select').material_select();
   }
 
   var form_data = new FormData();
-  form_data.append('doc1', file1[0]);
-  form_data.append('doc2', file2[0]);
-  form_data.append('doc3', file3[0]);
+  form_data.append('file1', file1[0]);
+  form_data.append('file2', file2[0]);
+  form_data.append('file3', file3[0]);
   form_data.append('guid', id);
-  form_data.append('partner', "");
+  form_data.append('partner', "Apachi");
   form_data.append('data', JSON.stringify(data));
   form_data.append('pipeline', "leasing");
 

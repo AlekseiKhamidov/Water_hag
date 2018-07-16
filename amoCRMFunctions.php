@@ -98,7 +98,7 @@
       $lead = $GLOBALS["amo"]->lead;
       $lead['date_create'] = time();
 
-      $partnerName = $partner ?
+      $partnerName = $partner && is_numeric($partner) ?
                       AMOCRM["lead_CFs"]["partners_list"][$partner]
                       : "";
 
@@ -106,26 +106,23 @@
                       AMOCRM["pipelines"][$pipeline]["statuses"]["new"]
                       : AMOCRM["pipelines"]["pos-credit"]["statuses"]["new"];
 
-      $lead['name'] = $data[$nameKey] ?
+      $lead['name'] = $nameKey !== false ?
                       $data[$nameKey]['a'].' ('.$partnerName.')'
                       : "Имя не найдено";
 
-      $lead['price'] = $data[$priceKey] ?
+      $lead['price'] = $priceKey !== false ?
                       $data[$priceKey]['a']
                       : 0;
 
       $lead['responsible_user_id'] = AMOCRM["users"]["РОП"];
       $lead['tags'] = ['aktivkredit.ru', $partnerName];
 
-      if ($data[$manager]) {
+      if ($manager !== false) {
         $lead->addCustomField(AMOCRM["lead_CFs"]["manager"], $data[$manager]['a']);
       }
       if ($partner) {
         $lead->addCustomField(AMOCRM["lead_CFs"]["partner"], $partner);
       }
-      $lead['price'] = $data[$priceKey] ? $data[$priceKey]['a'] : 0;
-      $lead['responsible_user_id'] = AMOCRM["users"]["РОП"];
-      $lead['tags'] = ['aktivkredit.ru', $partnerName];
       $leadId = $lead->apiAdd();
 
 
@@ -139,17 +136,17 @@
 
 
       $contact = $GLOBALS["amo"]->contact;
-      $contact['name'] = $data[$nameKey] ?
+      $contact['name'] = $nameKey !== false ?
                         $data[$nameKey]['a']
                         : "Имя не найдено";
 
-      if ($data[$phoneKey]) {
+      if ($phoneKey !== false) {
         $contact->addCustomField(AMOCRM["contact_CFs"]["phone"], $data[$phoneKey]['a']);
       }
-      if ($data[$emailKey]) {
+      if ($emailKey !== false) {
         $contact->addCustomField(AMOCRM["contact_CFs"]["email"], $data[$emailKey]['a']);
       }
-      if ($data[$cityKey]) {
+      if ($cityKey !== false) {
         $contact->addCustomField(AMOCRM["contact_CFs"]["city"], $data[$cityKey]['a']);
       }
 
