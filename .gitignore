@@ -1,0 +1,13 @@
+# Lines starting with '#' are considered comments.
+# Ignore any file named config.php.
+config.php
+cookie.txt
+/_docs/*
+/_logs/*
+_PDF.pdf
+_FACE.jpg
+_PASSPORT.jpg
+_UROD.png
+_UROD.jpeg
+_UROD.gif
+my_app.log
