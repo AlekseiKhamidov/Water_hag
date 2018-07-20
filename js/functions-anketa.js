@@ -7,7 +7,7 @@ function guid() {
   return "_" + s4() + s4();
 };
 
-function init(id, partner, pipeline) {
+function init_anketa(id, partner, pipeline) {
   $(".phoneMask").mask("+7(999) 999-9999");
   $(".datepickerMask").mask("99.99.9999", {
     placeholder: "ДД.ММ.ГГГГ"
@@ -227,7 +227,12 @@ function init(id, partner, pipeline) {
 
   $(".currency").on('keyup', function() {
     var n = parseInt($(this).val().replace(/\D/g, ''), 10);
-    $(this).val(n.toLocaleString());
+    if (isNaN(n)){
+      $(this).val("");
+    }
+    else {
+      $(this).val(n.toLocaleString());
+    }
   });
 
   $('input[type="file"]').change(function(e) {

@@ -1,3 +1,6 @@
+<?php
+	require_once '../bundles.php';
+  ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +8,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Анкета Живая вода</title>
+    <title>Анкета <?php echo title['alivewater']?></title>
     <!-- Font Awesome -->
     <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> -->
     <!-- Bootstrap core CSS -->
@@ -80,21 +83,16 @@
  <div class="header blue-gradient">
 
             <div class="row d-flex justify-content-center">
-                <h3 class="white-text mb-3 pt-3 font-weight-bold">Живая вода</h3>
+                <h3 class="white-text mb-3 pt-3 font-weight-bold"><?php echo title['alivewater']?></h3>
             </div>
 
         </div>
 <div stepindex="0">
     <div class="card text-center">
     <div class="card-body">
-        <h5 class="card-title">Здравствуйте!</h5>
+        <h5 class="card-title"><?php echo step[0]?></h5>
         <p class="card-text">
-Вы хотите купить оборудование компании «Живая вода», но у Вас нет свободных средств?
-Мы поможем оформить Вам рассрочку на 12 месяцев без переплаты.
-Рассрочка оформляется через банки-партнеры. Никаких справок, поручителей и беготни по отделениям.
- Всё просто и в одном месте.
- Вам остается только следовать инструкции и корректно отвечать на вопросы.
-Спасибо за то, что Вы с нами!</p>
+<?php echo hello['alivewater']?></p>
 
     </div>
 </div>
@@ -104,7 +102,7 @@
 
     <div class="mt-4 ml-2">
        <div class="row justify-content-center">
-      <label for="age" >Ваш возраст 21 и более полных лет?</label>
+      <label for="age" ><?php echo anketa['age']?></label>
   </div>
 
   <div class="row justify-content-center">
@@ -121,9 +119,9 @@
 </div>
 
 <div stepindex="1" style="display: none">
-   <div class="card text-left">
+   <div class="card text-center">
     <div class="card-body">
-        <h5 class="card-title" style="margin-bottom: 0px">Название оборудования и срок кредита</h5>
+        <h5 class="card-title" style="margin-bottom: 0px"><?php echo step[1]["equipment"]?></h5>
       <!--   <p class="card-text">Название семинара и срок кредита </p> -->
     </div>
   </div>
@@ -146,7 +144,7 @@
 <div stepindex="2" style="display: none">
   <div class="card text-center">
     <div class="card-body">
-        <h5 class="card-title" style="margin-bottom: 0px">Личные данные</h5>
+        <h5 class="card-title" style="margin-bottom: 0px"><?php echo step[2]?></h5>
     </div>
   </div>
     <div class="md-form ">
@@ -177,7 +175,7 @@
 <div stepindex="3" style="display: none">
  <div class="card text-center">
     <div class="card-body">
-        <h5 class="card-title" style="margin-bottom: 0px">Смена фамилии</h5>
+        <h5 class="card-title" style="margin-bottom: 0px"><?php echo step[3]?></h5>
     </div>
   </div>
      <div class="mt-4 ml-2">
@@ -205,7 +203,7 @@
 <div stepindex="4" style="display: none">
   <div class="card text-center">
     <div class="card-body">
-        <h5 class="card-title" style="margin-bottom: 0px">Данные супруга/супруги</h5>
+        <h5 class="card-title" style="margin-bottom: 0px"><?php echo step[4]?></h5>
     </div>
   </div>
       <div class="mt-4 ml-2">
@@ -242,8 +240,8 @@
 <div stepindex="5" style="display: none">
   <div class="card text-center">
     <div class="card-body">
-        <h5 class="card-title" style="margin-bottom: 0px">Лицо для экстренной связи</h5>
-        <p class="card-text">Укажите данные лица (не супруга(и)) для экстренной связи с Вами.</p>
+        <h5 class="card-title" style="margin-bottom: 0px"><?php echo step[5]["title"]?></h5>
+        <p class="card-text"><?php echo step[5]["text"]?></p>
     </div>
   </div>
     <div class="md-form ">
@@ -259,7 +257,7 @@
 <div stepindex="6" style="display: none">
   <div class="card text-center">
     <div class="card-body">
-        <h5 class="card-title" style="margin-bottom: 0px">Адрес регистрации</h5>
+        <h5 class="card-title" style="margin-bottom: 0px"><?php echo step[6]?></h5>
     </div>
   </div>
      <div class="md-form ">
@@ -282,7 +280,7 @@
 <div stepindex="7" style="display: none">
   <div class="card text-center">
     <div class="card-body">
-        <h5 class="card-title" style="margin-bottom: 0px">Адрес фактического места жительства</h5>
+        <h5 class="card-title" style="margin-bottom: 0px"><?php echo step[7]?></h5>
     </div>
   </div>
      <div class="mt-4 ml-2">
@@ -323,8 +321,8 @@
 <div stepindex="8" style="display: none">
    <div class="card text-center">
     <div class="card-body">
-        <h5 class="card-title" style="margin-bottom: 0px">Информация о месте работы</h5>
-        <p class="card-text">Укажите фактический адрес</p>
+        <h5 class="card-title" style="margin-bottom: 0px"><?php echo step[8]["title"]?></h5>
+        <p class="card-text"><?php echo step[8]["text"]?></p>
     </div>
   </div>
      <div class="md-form ">
@@ -370,7 +368,7 @@
 <div stepindex="9" style="display: none">
    <div class="card text-center">
     <div class="card-body">
-        <h5 class="card-title" style="margin-bottom: 0px">Документы</h5>
+        <h5 class="card-title" style="margin-bottom: 0px"><?php echo step[9]?></h5>
     </div>
   </div>
     <div class="mt-5 ml-2">
@@ -448,7 +446,7 @@
 <div stepindex="10" style="display: none">
     <div class="mt-4 ml-2">
         <div class="row justify-content-center">
-            <label for="is_person" >Даете ли Вы свое согласие на обработку персональных данных для рассмотрения заявки на кредит?</label>
+            <label for="is_person" ><?php echo step[10]?></label>
         </div>
         <div class="row justify-content-center">
             <div  data-toggle="buttons">
@@ -465,54 +463,50 @@
 <div stepindex="11" style="display: none">
     <div class="card text-center">
         <div class="card-body">
-            <h5 class="card-title">Поздравляем!</h5>
+            <h5 class="card-title"><?php echo step[11]["all"]["title"]?></h5>
             <p class="card-text">
-                Ваши данные отправлены на рассмотрение, в ближайшее время с Вами свяжется наш специалист.<br/>
-                Спасибо за то, что Вы с нами!</p>
+              <?php echo step[11]["all"]["text"]?></p>
         </div>
     </div>
     <div class="row justify-content-center md-form">
             <!-- Default button -->
-        <button type="button" onclick="reload()" dir="reload" class="btn btn-primary">Заполнить заявку еще раз</button>
+        <button type="button"  dir="reload" class="btn btn-primary"><?php echo button['reload']?></button>
     </div>
 </div>
 <div stepindex="12" style="display: none">
      <div class="card text-center">
         <div class="card-body">
-            <h5 class="card-title">Вы не дали согласие на обработку персональных данных</h5>
-            <h5 class="card-title">Ваша заявка не будет рассмотрена</h5>
+            <h5 class="card-title"><?php echo step[12]["title"][1]?></h5>
+            <h5 class="card-title"><?php echo step[12]["title"][2]?></h5>
             <p class="card-text">
-                Ваша анкета не сохранена.<br/>
-                При необходимости заполните анкету заново.<br/>
-                Спасибо за то, что Вы с нами!</p>
+              <?php echo step[12]["text"]?></p>
         </div>
     </div>
     <div class="row justify-content-between md-form">
             <!-- Default button -->
-             <button type="button" dir="prev"  class="btn btn-outline-primary waves-effect">Назад</button>
-        <button type="button" dir="reload" onclick="reload()" class="btn btn-primary">Заполнить заявку еще раз</button>
+             <button type="button" dir="prev"  class="btn btn-outline-primary waves-effect"><?php echo button['prev']?></button>
+        <button type="button" dir="reload"  class="btn btn-primary"><?php echo button['reload']?></button>
     </div>
 </div>
 <div stepindex="13" style="display: none">
     <div class="card text-center">
         <div class="card-body">
-            <h5 class="card-title">Нет 21 года</h5>
+            <h5 class="card-title"><?php echo step[13]["title"]?></h5>
             <p class="card-text">
-               Рассмотрение заявки возможно только если вам более 21 года.<br/>
-                Спасибо за то, что Вы с нами!</p>
+               <?php echo step[13]["text"]?></p>
         </div>
     </div>
     <div class="row justify-content-between md-form">
             <!-- Default button -->
-              <button type="button" dir="allprev"   class="btn btn-outline-primary waves-effect">Назад</button>
-        <button type="button" dir="reload" onclick="reload()" class="btn btn-primary">Заполнить заявку еще раз</button>
+              <button type="button" dir="allprev"   class="btn btn-outline-primary waves-effect"><?php echo button['prev']?></button>
+        <button type="button" dir="reload"  class="btn btn-primary"><?php echo button['reload']?></button>
     </div>
 </div>
 
  <div id="paginator" class="row justify-content-between md-form">
             <!-- Default button -->
-            <button type="button" dir="prev" class="btn btn-outline-primary waves-effect">Назад</button>
-            <button type="button" dir="next"  class="btn btn-primary">Вперед</button>
+            <button type="button" dir="prev" class="btn btn-outline-primary waves-effect"><?php echo button['prev']?></button>
+            <button type="button" dir="next"  class="btn btn-primary"><?php echo button['next']?></button>
         </div>
 
 <!-- <div class="text-center mt-4">
@@ -567,7 +561,7 @@ $('.mdb-select').material_select();
   });
 $(function() {
   var id = guid();
-   init(id, 32929, "pos-credit");
+   init_anketa(id, 32929, "pos-credit");
   $("#paginator").hide();
   $("[stepindex]:not([stepindex=" + stepIndex + "])").hide();
   $("[def]").hide();

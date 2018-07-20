@@ -2,8 +2,8 @@
 # Ignore any file named config.php.
 config.php
 cookie.txt
-/_docs/*
 /_logs/*
+/_docs/*
 _PDF.pdf
 _FACE.jpg
 _PASSPORT.jpg

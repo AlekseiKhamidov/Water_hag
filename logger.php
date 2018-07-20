@@ -15,7 +15,8 @@
    	$date = date("Ymd");
    //	print_r($today);
    	$dir =" _logs/$date";
-   	$file = "log.txt";
+    $id=$data['id'];
+   	$file = "log_$id.txt";
 
    	if (!file_exists($dir)) {
      		 mkdir($dir, 0777, true);
