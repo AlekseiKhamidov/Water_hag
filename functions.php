@@ -33,7 +33,7 @@
         $termKey = array_search('credit_term', array_column($tmp, 'id'));
         $priceKey = array_search('price', array_column($tmp, 'id'));
         $courseKey = array_search('course', array_column($tmp, 'id'));
-     var_dump($tmp[$termKey]['a']);
+    // var_dump($tmp[$termKey]['a']);
     $message = 'Партнер: '.$partner.chr(10).
               ($nameKey !== false ? 'Имя: '. $tmp[$nameKey]['a'] .chr(10) : "").
               ($courseKey !== false  ? 'Продукт: '.$tmp[$courseKey]['a'].chr(10) : "").

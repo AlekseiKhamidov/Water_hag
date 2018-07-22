@@ -15,17 +15,27 @@
 				if (isset($_POST['pipeline']) && $_POST['pipeline'] == "pos-credit") {
 					$files[] = doPDF($_POST['data'], $_POST['guid'], $files);
 				}
-				$attachments = createAttachements($files);
-				$message = parseDataForMessage($_POST['data'],
-																			$_POST['partner'] && is_numeric($_POST['partner']) ?
-																			AMOCRM["lead_CFs"]["partners_list"][$_POST['partner']]
-																			: $_POST['partner']);
-				$post = postToGroupWall($message, $attachments);
-				$VKPostURL = "https://vk.com/aktiv_kredit?w=wall-".VK["group_id"]."_".$post."%2Fall";
-			//	sendMessageToChat($message.chr(10).$VKPostURL);
-				moveFilesToDocs($files);
 
-				postLead($_POST['data'], $VKPostURL, $_POST['partner'], $_POST['pipeline']);
+				if (isset($_POST['group'])) {
+					try {
+						$group = json_decode($_POST['group'], true);
+
+
+						$attachments = createAttachements($files, $group['id']);
+						$message = parseDataForMessage($_POST['data'],
+																					$_POST['partner'] && is_numeric($_POST['partner']) ?
+																					AMOCRM["lead_CFs"]["partners_list"][$_POST['partner']]
+																					: $_POST['partner']);
+						$post = postToGroupWall($message, $attachments, $group['id']);
+						$VKPostURL = "https://vk.com/".$group['name']."?w=wall-".$group['id']."_".$post."%2Fall";
+					//	sendMessageToChat($message.chr(10).$VKPostURL);
+						moveFilesToDocs($files);
+
+						postLead($_POST['data'], $VKPostURL, $_POST['partner'], $_POST['pipeline']);
+					} catch (\Exception $e) {
+			      printf('%s: Error (%d): %s' . PHP_EOL, __FUNCTION__,  $e->getCode(), $e->getMessage());
+			    }
+				}
 	    }
 		}
 	}

@@ -13,13 +13,7 @@
 					<form id="formReg">
 						<?php	require_once '../parts/form.php';	?>
 					</form>
-					<?php
-								require_once '../parts/step10.php';
-					 			require_once '../parts/step11_success.php';
-								require_once '../parts/step12_accessError.php';
-								require_once '../parts/step13_ageError.php';
-								require_once '../parts/paginator.php';
-					?>
+					<?php require_once '../parts/footer.php';	?>
 		    </div>
 			</div>
 		</section>
@@ -35,6 +29,10 @@
 		  var stepDoc = 9;
 			var partner = 836257;
 			var pipeline = "pos-credit";
+			var group = <?php
+				require_once '../config.php';
+				echo json_encode(VK['group']['main']);
+			?>;
 		  $(".readonly").on('keydown paste', function(e){
 		    e.preventDefault();
 		  });

@@ -21,7 +21,7 @@
   //   echo "</pre>";
 ########################################################################################################################################################
 
-	function getWallUploadURL($type = "photo") {
+	function getWallUploadURL($type = "photo", $groupId) {
     retryGetWallUploadURL:
     try {
       switch ($type) {
@@ -35,7 +35,7 @@
       return ($VKApiObject->getWallUploadServer(
         VK["user_token"],
         array(
-          "group_id" => VK["group_id"],
+          "group_id" => $groupId,
       )))['upload_url'];
 
     } catch (\VK\Exceptions\VKApiException $e) {
@@ -65,13 +65,13 @@
     }
 	};
 
-  function savePhotoToGroupWall($uploadedPhoto) {
+  function savePhotoToGroupWall($uploadedPhoto, $groupId) {
     retrySavePhotoToGroupWall:
     try {
       $photo = $GLOBALS['vk']->photos()->saveWallPhoto(
         VK["user_token"],
         array(
-          "group_id" => VK["group_id"],
+          "group_id" => $groupId,
           "photo" => $uploadedPhoto["photo"],
           "server" => $uploadedPhoto["server"],
           "hash" => $uploadedPhoto["hash"],
@@ -125,7 +125,7 @@
     }
   }
 
-  function createAttachements($files) {
+  function createAttachements($files, $groupId) {
     $attachments = "";
     try {
       foreach ($files as $file) {
@@ -134,22 +134,22 @@
           case 'image/gif':
           case 'image/png':
           case 'image/jpeg':
-            $url = getWallUploadURL("photo");
-            printf('Файл %s (%s) будет загружен по этой ссылке:<br>%s' . PHP_EOL, $file, $fileType, $url);
+            $url = getWallUploadURL("photo", $groupId);
+            // printf('Файл %s (%s) будет загружен по этой ссылке:<br>%s' . PHP_EOL, $file, $fileType, $url);
             $uploadedPhoto = curlUploadFile($url, $file, "photo");
-            $savedPhoto = savePhotoToGroupWall($uploadedPhoto);
+            $savedPhoto = savePhotoToGroupWall($uploadedPhoto, $groupId);
             $attachments .= 'photo'.VK["user_id"].'_'.$savedPhoto['id'].',';
-            print_r($attachments);
+            // print_r($attachments);
             break;
 
           case 'application/pdf':
           case 'application/msword':
-            $url = getWallUploadURL("document");
-            printf('Файл %s (%s) будет загружен по этой ссылке:<br>%s' . PHP_EOL, $file, $fileType, $url);
+            $url = getWallUploadURL("document", $groupId);
+            // printf('Файл %s (%s) будет загружен по этой ссылке:<br>%s' . PHP_EOL, $file, $fileType, $url);
             $uploadedDocument = curlUploadFile($url, $file, "file");
             $savedDocument = saveDocument($uploadedDocument);
-            $attachments .= 'doc-'.VK["group_id"].'_'.$savedDocument['id'].',';
-            print_r($attachments);
+            $attachments .= 'doc-'.$groupId.'_'.$savedDocument['id'].',';
+            // print_r($attachments);
             break;
 
           default:
@@ -164,14 +164,14 @@
     }
   }
 
-  function postToGroupWall($message, $attachments) {
+  function postToGroupWall($message, $attachments, $groupId) {
     retryPostToGroupWall:
     try {
       $wall = $GLOBALS['vk']->wall();
       return $wall->post(
         VK["user_token"],
         array(
-          "owner_id" => -VK["group_id"],
+          "owner_id" => -$groupId,
           "message" => $message,
           "attachments" => $attachments,
         )

@@ -2,74 +2,74 @@
   require_once "vendor/autoload.php";
   require_once "config.php";
 
-  use Monolog\Logger;
-  use Monolog\Handler\PhpConsoleHandler;
-  use Monolog\Handler\StreamHandler;
-
-
-  // Create the logger
-  $logger = new Logger('my_logger');
-  // Now add some handlers
-  $logger->pushHandler(new PHPConsoleHandler());
-  $stream = new StreamHandler(__DIR__.'/my_app.log', Logger::DEBUG);
-  $logger->pushHandler($stream);
-
+  // use Monolog\Logger;
+  // use Monolog\Handler\PhpConsoleHandler;
+  // use Monolog\Handler\StreamHandler;
+  //
+  //
+  // // Create the logger
+  // $logger = new Logger('my_logger');
+  // // Now add some handlers
+  // $logger->pushHandler(new PHPConsoleHandler());
+  // $stream = new StreamHandler(__DIR__.'/my_app.log', Logger::DEBUG);
+  // // $logger->pushHandler($stream);
+  //
 
   try {
-    $listener = new \AmoCRM\Webhooks\Listener();
-
-    // Добавление обработчика на уведомление contacts->add
-    $listener->on('add_contact', function ($domain, $id, $data) {
-        // $domain Поддомен amoCRM
-        // $id Id объекта связанного с уведомлением
-        // $data Поля возвращаемые уведомлением
-        $GLOBALS["logger"]->info("Add Contact", [print_r($data, true)]);
-    });
-
-    $listener->on('add_lead', function ($domain, $id, $data) {
-        // $domain Поддомен amoCRM
-        // $id Id объекта связанного с уведомлением
-        // $data Поля возвращаемые уведомлением
-        $GLOBALS["logger"]->info("Add Lead", [print_r($data, true)]);
-    });
-
-    $listener->on('update_lead', function ($domain, $id, $data) {
-        // $domain Поддомен amoCRM
-        // $id Id объекта связанного с уведомлением
-        // $data Поля возвращаемые уведомлением
-        $GLOBALS["logger"]->info("Update Lead", [print_r($data, true)]);
-    });
-
-    $listener->on('update_contact', function ($domain, $id, $data) {
-        // $domain Поддомен amoCRM
-        // $id Id объекта связанного с уведомлением
-        // $data Поля возвращаемые уведомлением
-        $GLOBALS["logger"]->info("Update Contact", [print_r($data, true)]);
-    });
-
-    $listener->on('note_lead', function ($domain, $id, $data) {
-        // $domain Поддомен amoCRM
-        // $id Id объекта связанного с уведомлением
-        // $data Поля возвращаемые уведомлением
-        $GLOBALS["logger"]->info("Note Lead", [print_r($data, true)]);
-    });
-
-    $listener->on('delete_contact', function ($domain, $id, $data) {
-        // $domain Поддомен amoCRM
-        // $id Id объекта связанного с уведомлением
-        // $data Поля возвращаемые уведомлением
-        $GLOBALS["logger"]->info("Delete Contact", [print_r($data, true)]);
-    });
-
-    $listener->on('delete_lead', function ($domain, $id, $data) {
-        // $domain Поддомен amoCRM
-        // $id Id объекта связанного с уведомлением
-        // $data Поля возвращаемые уведомлением
-        $GLOBALS["logger"]->info("Delete Lead", [print_r($data, true)]);
-    });
-
-    // Вызов обработчика уведомлений
-    $listener->listen();
+  //   $listener = new \AmoCRM\Webhooks\Listener();
+  //
+  //   // Добавление обработчика на уведомление contacts->add
+  //   $listener->on('add_contact', function ($domain, $id, $data) {
+  //       // $domain Поддомен amoCRM
+  //       // $id Id объекта связанного с уведомлением
+  //       // $data Поля возвращаемые уведомлением
+  //       $GLOBALS["logger"]->info("Add Contact", [print_r($data, true)]);
+  //   });
+  //
+  //   $listener->on('add_lead', function ($domain, $id, $data) {
+  //       // $domain Поддомен amoCRM
+  //       // $id Id объекта связанного с уведомлением
+  //       // $data Поля возвращаемые уведомлением
+  //       $GLOBALS["logger"]->info("Add Lead", [print_r($data, true)]);
+  //   });
+  //
+  //   $listener->on('update_lead', function ($domain, $id, $data) {
+  //       // $domain Поддомен amoCRM
+  //       // $id Id объекта связанного с уведомлением
+  //       // $data Поля возвращаемые уведомлением
+  //       $GLOBALS["logger"]->info("Update Lead", [print_r($data, true)]);
+  //   });
+  //
+  //   $listener->on('update_contact', function ($domain, $id, $data) {
+  //       // $domain Поддомен amoCRM
+  //       // $id Id объекта связанного с уведомлением
+  //       // $data Поля возвращаемые уведомлением
+  //       $GLOBALS["logger"]->info("Update Contact", [print_r($data, true)]);
+  //   });
+  //
+  //   $listener->on('note_lead', function ($domain, $id, $data) {
+  //       // $domain Поддомен amoCRM
+  //       // $id Id объекта связанного с уведомлением
+  //       // $data Поля возвращаемые уведомлением
+  //       $GLOBALS["logger"]->info("Note Lead", [print_r($data, true)]);
+  //   });
+  //
+  //   $listener->on('delete_contact', function ($domain, $id, $data) {
+  //       // $domain Поддомен amoCRM
+  //       // $id Id объекта связанного с уведомлением
+  //       // $data Поля возвращаемые уведомлением
+  //       $GLOBALS["logger"]->info("Delete Contact", [print_r($data, true)]);
+  //   });
+  //
+  //   $listener->on('delete_lead', function ($domain, $id, $data) {
+  //       // $domain Поддомен amoCRM
+  //       // $id Id объекта связанного с уведомлением
+  //       // $data Поля возвращаемые уведомлением
+  //       $GLOBALS["logger"]->info("Delete Lead", [print_r($data, true)]);
+  //   });
+  //
+  //   // Вызов обработчика уведомлений
+  //   $listener->listen();
 
     $amo = new \AmoCRM\Client(
       AMOCRM['subdomain'],
@@ -107,7 +107,7 @@
                       : AMOCRM["pipelines"]["pos-credit"]["statuses"]["new"];
 
       $lead['name'] = $nameKey !== false ?
-                      $data[$nameKey]['a'].' ('.$partnerName.')'
+                      $data[$nameKey]['a'].' ('.($partnerName ? $partnerName : $partner).')'
                       : "Имя не найдено";
 
       $lead['price'] = $priceKey !== false ?
@@ -115,7 +115,7 @@
                       : 0;
 
       $lead['responsible_user_id'] = AMOCRM["users"]["РОП"];
-      $lead['tags'] = ['aktivkredit.ru', $partnerName];
+      $lead['tags'] = ['aktivkredit.ru', $partnerName ? $partnerName : $partner];
 
       if ($manager !== false) {
         $lead->addCustomField(AMOCRM["lead_CFs"]["manager"], $data[$manager]['a']);

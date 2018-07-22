@@ -35,6 +35,10 @@
 		  var stepDoc = 9;
 			var partner = "like";
 			var pipeline = "pos-credit";
+			var group = <?php
+				require_once '../config.php';
+				echo json_encode(VK['group']['like']);
+			?>;
 		  $(".readonly").on('keydown paste', function(e){
 		    e.preventDefault();
 		  });

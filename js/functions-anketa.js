@@ -7,7 +7,7 @@ function guid() {
   return "_" + s4() + s4();
 };
 
-function init_anketa(id, partner, pipeline) {
+function init_anketa(id, partner, pipeline, group) {
   $(".phoneMask").mask("+7(999) 999-9999");
   $(".datepickerMask").mask("99.99.9999", {
     placeholder: "ДД.ММ.ГГГГ"
@@ -82,6 +82,10 @@ function init_anketa(id, partner, pipeline) {
     form_data.append('partner', partner);
     form_data.append('data', JSON.stringify(data));
     form_data.append('pipeline', pipeline);
+    form_data.append('group', JSON.stringify(group));
+
+
+
 
     setLog("fileUpload");
 
@@ -95,13 +99,22 @@ function init_anketa(id, partner, pipeline) {
       type: 'POST',
       success: function(response) {
         console.log(response);
+        if (response != ""){
+          setLog(response);
+          next(stepError);
+        }
+        else {
+          next(stepSuccess);
+          setLog("success");
+        }
       },
       error: function(error) {
         console.log(error);
+          next(stepError);
       },
       complete: function() {
         $("#mdb-preloader").hide();
-        next(stepSuccess);
+    //    next(stepSuccess);
       }
     })
   };
