@@ -2,7 +2,7 @@
 # Ignore any file named config.php.
 config.php
 cookie.txt
-/_logs/*
+/ _logs/*
 /_docs/*
 _PDF.pdf
 _FACE.jpg

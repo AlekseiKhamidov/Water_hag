@@ -1,6 +1,6 @@
 <?php
 	require_once '../bundles.php';
-    $PAGE = "garden";
+    $PAGE = "rocket";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -33,7 +33,7 @@
 		  var stepAge = 0;
 		  var maxSize = 8000000;
 		  var stepDoc = 9;
-			var partner = 32927;
+			var partner = 865049;
 			var pipeline = "pos-credit";
 		  $(".readonly").on('keydown paste', function(e){
 		    e.preventDefault();

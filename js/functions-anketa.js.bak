@@ -15,7 +15,8 @@ function init_anketa(id, partner, pipeline) {
   setLog("init");
 
   function submit() {
-     hidePaginator();
+    var id = guid();
+    $("#paginator").hide();
     $form = $("#formReg");
 
     var pdf_array = [];
@@ -115,7 +116,7 @@ function init_anketa(id, partner, pipeline) {
       $("[stepindex=" + stepIndex + "]").show();
       setLog("next");
       if (stepIndex == stepAccess) {
-         hidePaginator();
+        $("#paginator").hide();
       }
     }
   };
@@ -133,7 +134,7 @@ function init_anketa(id, partner, pipeline) {
         case stepAccess:
           $('[stepindex="' + stepIndex + '"] input:radio').each(function() {
             $(this).prop("checked", false);
-             hidePaginator();
+            $("#paginator").hide();
           });
           break
         default:
@@ -238,7 +239,7 @@ function init_anketa(id, partner, pipeline) {
 
     var file = e.target.files[0];
     if (!isGoodFileExt(file)) {
-      fileValid($(e.target), false, "Только форматы: jpg, jpeg или gif");
+      fileValid($(e.target), false, "Только форматы: jpg, jpeg, png или gif");
     } else {
       if (isGoodFileSize(file)) {
         fileValid($(e.target), true);
@@ -248,29 +249,22 @@ function init_anketa(id, partner, pipeline) {
     }
 
   });
-  function showPaginator(){
-      $("#paginator").removeClass("divHide");
-  };
-  function hidePaginator(){
-      $("#paginator").addClass("divHide");
-  };
 
   $("input[name='age']").change(function() {
     //  $("[stepindex=0]").hide();
     if ($("input[name='age']:checked").val() == "true") {
       next();
-  //    $("#paginator").show();
-    showPaginator();
+      $("#paginator").show();
 
     } else {
       next(stepAgeError);
-    //   hidePaginator();
+      $("#paginator").hide();
     }
     // Do something interesting here
   });
   $("input[name='is_person']").change(function() {
     //  $("[stepindex=0]").hide();
-     hidePaginator();
+    $("#paginator").hide();
     if ($("input[name='is_person']:checked").val() == "true") {
 
 
@@ -279,7 +273,7 @@ function init_anketa(id, partner, pipeline) {
 
     } else {
       next(stepAccessError);
-       hidePaginator();
+      $("#paginator").hide();
     }
     // Do something interesting here
   });
@@ -324,4 +318,6 @@ function init_anketa(id, partner, pipeline) {
   $("button[dir='reload']").click(function() {
     location.reload();
   });
+
+  stepAgeError
 }

@@ -12,7 +12,7 @@
       $text = $text."info=".$data['info']."\r\n";
     }
   // 	print_r($_POST['id']);
-   	$date = date("Ymd");
+   	$date = date("Y-m-d");
    //	print_r($today);
    	$dir =" _logs/$date";
     $id=$data['id'];
