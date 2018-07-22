@@ -19,9 +19,8 @@
           <span>
             <?php echo file["text"]?>
           </span>
-          <input required id="photo_passport" name="photo_passport" type="file" accept='
-            <?php echo file["accept"]["photo_passport"]?>
-            ' >
+          <input required id="photo_passport" name="photo_passport" type="file" data-error="<?php echo error["photo_passport"]?>"
+          accept='<?php echo file["accept"]["photo_passport"]?>' pipeline="poscredit">
         </div>
         <div class="file-path-wrapper">
           <input class="file-path validate readonly"  name="photo_passport_text" type="text" required >
@@ -43,14 +42,13 @@
          <span>
            <?php echo file["text"]?>
          </span>
-         <input type="file" required id="photo_passport_reg" name="photo_passport_reg" accept='
-          <?php echo file["accept"]["photo_passport"]?>
-         '>
+         <input type="file" required id="photo_passport_reg" name="photo_passport_reg" data-error="<?php echo error["photo_passport"]?>"
+         accept='<?php echo file["accept"]["photo_passport"]?>' pipeline="poscredit">
        </div>
        <div class="file-path-wrapper">
          <input class="file-path validate readonly"  name="photo_passport_reg_text" type="text" required  >
          <label for="photo_passport_reg_text" data-error="<?php echo error["photo_passport_reg"]?>"
-           data-success="  <?php echo success["all"]?>" class="active" style="width: 100%;margin-left: 5px;"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+           data-success="<?php echo success["all"]?>" class="active" style="width: 100%;margin-left: 5px;"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
        </div>
      </div>
    </div>
@@ -67,9 +65,8 @@
           <span>
             <?php echo file["text"]?>
           </span>
-          <input type="file" required id="photo_selfi" name="photo_selfi" accept='
-            <?php echo file["accept"]["photo_passport"]?>
-          '>
+          <input type="file" required id="photo_selfi" name="photo_selfi" data-error="<?php echo error["photo_passport"]?>"
+          accept='<?php echo file["accept"]["photo_passport"]?>' pipeline="poscredit">
         </div>
         <div class="file-path-wrapper">
           <input class="file-path validate readonly"  name="photo_selfi_text" type="text" required  ="">

@@ -70,7 +70,23 @@ function init_anketa(id, partner, pipeline, group) {
     var file2 = $form.find("input[type='file']")[1].files;
     var file3 = $form.find("input[type='file']")[2].files
 
-    if (!isGoodFileExt(file1[0], 0) || !isGoodFileExt(file2[0], 1) || !isGoodFileExt(file3[0], 2) || !isGoodFileSize(file1[0]) || !isGoodFileSize(file2[0]) || !isGoodFileSize(file3[0])) {
+
+    if (pipeline){
+      var id1 = $form.find("input[type='file']")[0].id;
+      var extFile1 = getExtByID(id1);
+      var id2 = $form.find("input[type='file']")[1].id;
+      var extFile2 = getExtByID(id2);
+      var id3 = $form.find("input[type='file']")[2].id;
+      var extFile3 = getExtByID(id3);
+    }
+    else {
+     var extFile1 = extFilePos;
+     var extFile2 = extFilePos;
+     var extFile3 = extFilePos;
+    }
+
+
+    if (!isGoodFileExt(file1[0],extFile1) || !isGoodFileExt(file2[0],extFile2) || !isGoodFileExt(file3[0],extFile3) || !isGoodFileSize(file1[0]) || !isGoodFileSize(file2[0]) || !isGoodFileSize(file3[0])) {
       next(stepDoc);
       return;
     }
@@ -179,7 +195,7 @@ function init_anketa(id, partner, pipeline, group) {
     return (mas.length > 0) ? mas[mas.length - 1] : "";
   };
 
-  function isGoodFileExt(file) {
+  function isGoodFileExt(file, extFile) {
     var ext = getExt(file.name);
     return (!file || extFile.indexOf(ext) == -1) ? false : true;
   };
@@ -188,7 +204,25 @@ function init_anketa(id, partner, pipeline, group) {
     var size = file.size;
     return (!file || size > maxSize) ? false : true;
   };
-  var extFile = ["jpg", "jpeg", "gif", "JPG", "JPEG", "GIF"]; //,"png","PNG"];//Только форматы: jpg, jpeg, png или gif
+//  var extFilePos1 = ["jpg", "jpeg", "gif", "JPG", "JPEG", "GIF"]; //,"png","PNG"];//Только форматы: jpg, jpeg, png или gif
+  // var extFile = [{
+  //                   ext : ["pdf","PDF"],
+  //                   error:"Доступен только формат: pdf",
+  //                 },
+  //                 {
+  //                   ext:["pdf","PDF","doc","DOC","docx","DOCX","jpg","jpeg","png","gif","JPG","JPEG","GIF","PNG"],
+  //                   error:"Доступны форматы: pdf, doc, docx, jpg, jpeg, png или gif"
+  //                 },
+  //                 {
+  //                   ext:["pdf","PDF","doc","DOC","docx","DOCX","xls","XLS","xlsx","XLSX"],
+  //                   error:"Доступны форматы: pdf, doc, docx, xls и xlsx"
+  //                 }
+  //               ];
+var extFilePos = ["jpg", "jpeg", "gif", "JPG", "JPEG", "GIF"];
+var extFile_commercial =  ["pdf","PDF"];
+var extFile_info_card = ["pdf","PDF","doc","DOC","docx","DOCX","jpg","jpeg","png","gif","JPG","JPEG","GIF","PNG"];
+var extFile_statement = ["pdf","PDF","doc","DOC","docx","DOCX","xls","XLS","xlsx","XLSX"];
+
   function fileValid($target, isValid, text) {
     var input = $target.parent().siblings().find("input[type='text']");
     var label = $target.parent().siblings().find("label");
@@ -246,12 +280,14 @@ function init_anketa(id, partner, pipeline, group) {
       $(this).val(n.toLocaleString());
     }
   });
-
   $('input[type="file"]').change(function(e) {
 
     var file = e.target.files[0];
-    if (!isGoodFileExt(file)) {
-      fileValid($(e.target), false, "Только форматы: jpg, jpeg или gif");
+      var id = e.target.id;
+      var extFile = getExtByID(id);
+    if (!isGoodFileExt(file,extFile)) {
+      var errorText = $(e.target).attr("data-error");
+      fileValid($(e.target), false, errorText);
     } else {
       if (isGoodFileSize(file)) {
         fileValid($(e.target), true);
@@ -261,6 +297,31 @@ function init_anketa(id, partner, pipeline, group) {
     }
 
   });
+
+
+  function getExtByID(id){
+    var extFile = null;
+    if (pipeline == "leasing") {
+
+      switch (id) {
+        case "commercial":
+          extFile = extFile_commercial;
+          break;
+        case "info_card":
+          extFile = extFile_info_card;
+          break;
+        case "statement":
+            extFile = extFile_statement;
+            break;
+        default:
+            extFile = extFile_statement;
+      }
+    }
+    else {
+        extFile = extFilePos;
+    }
+    return extFile;
+  }
   function showPaginator(){
       $("#paginator").removeClass("divHide");
   };

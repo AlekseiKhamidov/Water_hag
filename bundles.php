@@ -11,7 +11,6 @@
 		"terminalpack" => "Terminal-Pack",
 		"zenit" => "Зенит",
 		"rocket" => "ROCKET",
-
 	];
   const hello = [
     "alivewater" =>"Вы хотите купить оборудование компании «Живая вода», но у Вас нет свободных средств?</br>
@@ -162,7 +161,8 @@
       "title" => "При загрузке данных возникли технические неполадки",
       "text" => "Сообщите о проблеме по телефону +7 (342) 234-00-60<br/>
        Спасибо за то, что Вы с нами!"
-    ]
+    ],
+		"2_leasing" => "Контактное лицо",
   ];
   const button = [
     "next" => "Вперед",
@@ -231,6 +231,11 @@
 		"friend_phone1" => "Номер мобильного телефона (первого контактного лица)*",
 		"friend_name2" => "Фамилия Имя Отчество второго контактного лица*",
 		"friend_phone2" => "Номер мобильного телефона (второго контактного лица)*",
+		"commercial" => "Коммерческое приложение от ООО \"ТЛК\" с НДС*",
+		"info_card" => "Информационная карта компании клиента*",
+		"statement" => "Выписка 51 счета от клиента (в разбивке по месяцам)*",
+		"manager" => "Менеджер Garden Group, курирующий данную сделку",
+		"comment" => "Комментарий",
   ];
 	const success = [
 		"all" => "Верно"
@@ -267,14 +272,26 @@
 		"friend_name1" => "Данные совпадают с Вашим ФИО",
 		"friend_phone1" => "+7xxxxxxxxxx",
 		"friend_name2" => "Данные совпадают с Вашим ФИО",
-		"friend_phone2" => "+7xxxxxxxxxx"
+		"friend_phone2" => "+7xxxxxxxxxx",
+		"commercial" => "Доступен только формат: pdf",
+		"info_card" => "Доступны форматы: pdf, doc, docx, jpg, jpeg, png или gif",
+		"statement" => "Доступны форматы: pdf, doc, docx, xls и xlsx",
 	];
 	const file = [
 		"text" => "Выберите файл",
 		"accept" =>[
 			"photo_passport" => "image/gif, image/jpeg, image/jpg",
 			"photo_passport_reg" => "image/gif, image/jpeg, image/jpg",
-			"photo_selfi" => "image/gif, image/jpeg, image/jpg"
+			"photo_selfi" => "image/gif, image/jpeg, image/jpg",
+			"commercial" => "application/pdf",
+			"info_card" => "application/pdf, application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document, image/gif, image/jpeg, image/jpg, image/png",
+			"statement" => "application/pdf, application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,"
+		],
+		"ext" =>[
+			"commercial" => ["pdf","PDF"],
+			"info_card" => ["pdf","PDF","doc","DOC","docx","DOCX","jpg","jpeg","png","gif","JPG","JPEG","GIF","PNG"],
+			"statement" => ["pdf","PDF","doc","DOC","docx","DOCX","xls","XLS","xlsx","XLSX"],
+			"poscredit" => ["jpg", "jpeg", "gif", "JPG", "JPEG", "GIF"]
 		]
 	];
 

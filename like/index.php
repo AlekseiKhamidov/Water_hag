@@ -25,14 +25,6 @@
 		</section>
 		<?php 	require_once '../parts/addScript.php'; ?>
 		<script>
-			var stepIndex=0;
-		  var stepSuccess = 11;
-		  var stepAgeError = 13;
-		  var stepAccessError =12;
-		  var stepAccess = 10;
-		  var stepAge = 0;
-		  var maxSize = 8000000;
-		  var stepDoc = 9;
 			var partner = "like";
 			var pipeline = "pos-credit";
 			var group = <?php

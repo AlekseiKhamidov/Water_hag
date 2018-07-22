@@ -9,6 +9,9 @@ var maxSize = 8000000;
 var stepDoc = 9;
 $(function() {
   var id = guid();
+  if (pipeline == "leasing"){
+     stepAccess = 4
+  }
   init_anketa(id, partner, pipeline, group);
   $("[stepindex]:not([stepindex=" + stepIndex + "])").hide();
   $("[def]").hide();
