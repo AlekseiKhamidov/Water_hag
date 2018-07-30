@@ -87,10 +87,10 @@
       $nameKey = array_search('name', array_column($data, 'id'));
       $phoneKey = array_search('phone', array_column($data, 'id'));
       $emailKey = array_search('email', array_column($data, 'id'));
-      $courseKey = array_search('course', array_column($data, 'id'));
+        $courseKey = array_search('course', array_column($data, 'id'));
       $priceKey = array_search('price', array_column($data, 'id'));
       $cityKey = array_search('city', array_column($data, 'id'));
-
+  
       $friendName = array_search('friend_name1', array_column($data, 'id'));
       $friendPhone = array_search('friend_phone1', array_column($data, 'id'));
       $manager = array_search('manager', array_column($data, 'id'));
@@ -141,17 +141,15 @@
                         : "Имя не найдено";
 
       if ($phoneKey !== false) {
-        $contact->addCustomField(AMOCRM["contact_CFs"]["phone"], $data[$phoneKey]['a']);
+        $contact->addCustomField(AMOCRM["contact_CFs"]["phone"], $data[$phoneKey]['a'], "WORK");
       }
       if ($emailKey !== false) {
-        $contact->addCustomField(AMOCRM["contact_CFs"]["email"], $data[$emailKey]['a']);
+        $contact->addCustomField(AMOCRM["contact_CFs"]["email"], $data[$emailKey]['a'],"WORK");
       }
       if ($cityKey !== false) {
         $contact->addCustomField(AMOCRM["contact_CFs"]["city"], $data[$cityKey]['a']);
       }
-
       $contactId = $contact->apiAdd();
-
 
       $link = $GLOBALS["amo"]->links;
       $link['from'] = 'leads';

@@ -6,7 +6,6 @@
 <!-- MDB core JavaScript -->
 <script type="text/javascript" src="../js/mdb.min.js"></script>
 <script type="text/javascript" src="../js/materialize.min.js"></script>
-<script type="text/javascript" src="../js/jspdf.min.js"></script>
 <script type="text/javascript" src="../js/jquery.maskedinput.min.js"></script>
 <script type="text/javascript" src="../js/functions-anketa.js"></script>
 <script>

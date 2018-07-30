@@ -1,6 +1,6 @@
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <title>Анкета
       <?php require_once '../bundles.php';
@@ -12,7 +12,6 @@
   </title>
   <link href="../css/bootstrap.min.css" rel="stylesheet">
   <link href="../css/mdb.min.css" rel="stylesheet">
-  <link href="../css/style.css" rel="stylesheet">
   <link href="../css/compiled.min.css" rel="stylesheet">
   <style type="text/css">
     .md-form label{
