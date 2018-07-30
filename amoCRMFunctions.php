@@ -96,7 +96,7 @@
       $manager = array_search('manager', array_column($data, 'id'));
 
       $lead = $GLOBALS["amo"]->lead;
-      $lead['date_create'] = time();
+      // $lead['date_create'] = time();
 
       $partnerName = $partner && is_numeric($partner) ?
                       AMOCRM["lead_CFs"]["partners_list"][$partner]
