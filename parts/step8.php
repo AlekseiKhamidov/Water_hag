@@ -30,6 +30,16 @@
     <label for="flat_work" data-error="<?php echo error["all"]?>"
       data-success="<?php echo success["all"]?>"><?php echo anketa['flat_work']?></label>
   </div>
+  <?php  if (isset($GLOBALS['PAGE'])){
+      $page = $GLOBALS['PAGE'];
+      $type = type[$page];
+      if ($page == "oyli") { ?>
+        <div class="md-form ">
+          <input type="text" id="site_work" name="site_work" class="form-control validate">
+          <label for="site_work" data-error="<?php echo error["all"]?>"
+            data-success="<?php echo success["all"]?>"><?php echo anketa['site_work']?></label>
+        </div>
+  <?php  }}  ?>
   <div class="md-form">
     <input type="tel" id="phone_work" name="phone_work" required class="form-control validate phoneMask" value="+7"  >
     <label for="phone_work" data-error="<?php echo error["phone_work"]?>"

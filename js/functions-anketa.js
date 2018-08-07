@@ -54,7 +54,7 @@ function init_anketa(id, partner, pipeline, group) {
       stepIndex: stepIndex,
       date: new Date(),
       client: JSON.stringify(client),
-      info:info
+      info:JSON.stringify(info)
     }
     $.ajax({
       url: '../logger.php',

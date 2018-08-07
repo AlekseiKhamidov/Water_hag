@@ -83,20 +83,20 @@
 
   function postLead($data, $VKPostURL, $partner, $pipeline = '') {
     try {
-      $data = json_decode($data, true);
+       $data = json_decode($data, true);
       $nameKey = array_search('name', array_column($data, 'id'));
       $phoneKey = array_search('phone', array_column($data, 'id'));
       $emailKey = array_search('email', array_column($data, 'id'));
-        $courseKey = array_search('course', array_column($data, 'id'));
+       $courseKey = array_search('course', array_column($data, 'id'));
       $priceKey = array_search('price', array_column($data, 'id'));
       $cityKey = array_search('city', array_column($data, 'id'));
-  
+
       $friendName = array_search('friend_name1', array_column($data, 'id'));
       $friendPhone = array_search('friend_phone1', array_column($data, 'id'));
       $manager = array_search('manager', array_column($data, 'id'));
 
       $lead = $GLOBALS["amo"]->lead;
-      // $lead['date_create'] = time();
+      //$lead['date_create'] = time();
 
       $partnerName = $partner && is_numeric($partner) ?
                       AMOCRM["lead_CFs"]["partners_list"][$partner]
@@ -144,12 +144,14 @@
         $contact->addCustomField(AMOCRM["contact_CFs"]["phone"], $data[$phoneKey]['a'], "WORK");
       }
       if ($emailKey !== false) {
-        $contact->addCustomField(AMOCRM["contact_CFs"]["email"], $data[$emailKey]['a'],"WORK");
+        $contact->addCustomField(AMOCRM["contact_CFs"]["email"], $data[$emailKey]['a'], "WORK");
       }
       if ($cityKey !== false) {
         $contact->addCustomField(AMOCRM["contact_CFs"]["city"], $data[$cityKey]['a']);
       }
+
       $contactId = $contact->apiAdd();
+
 
       $link = $GLOBALS["amo"]->links;
       $link['from'] = 'leads';
