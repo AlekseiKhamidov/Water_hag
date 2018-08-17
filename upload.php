@@ -10,6 +10,8 @@
   	$files['file2'] = processFile($_FILES['file2'], "_file2", $_POST['guid']);
   	$files['file3'] = processFile($_FILES['file3'], "_file3", $_POST['guid']);
 
+		$files =	moveFilesToDocs($files);
+
     if (isset($_POST['data'])) {
     	if (isset($_POST['partner'])) {
 				if (isset($_POST['pipeline']) && $_POST['pipeline'] == "pos-credit") {
@@ -29,7 +31,7 @@
 						$post = postToGroupWall($message, $attachments, $group['id']);
 						$VKPostURL = "https://vk.com/".$group['name']."?w=wall-".$group['id']."_".$post."%2Fall";
 					//	sendMessageToChat($message.chr(10).$VKPostURL);
-						moveFilesToDocs($files);
+	moveFilesToDocs($files);
 
 						postLead($_POST['data'], $VKPostURL, $_POST['partner'], $_POST['pipeline']);
 					} catch (\Exception $e) {

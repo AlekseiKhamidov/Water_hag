@@ -15,7 +15,7 @@ function toDate(stringDate) {
     var parts = stringDate.split('.');
     var myDate = new Date(parts[2], parts[1] - 1, parts[0]);
     if (!isNaN( myDate.getTime())){
-      return myDate  
+      return myDate
     }
      stringDate = parseInt(stringDate)*1000;
 
@@ -32,7 +32,7 @@ function roundButtonFormatter(value){
       var text = split[1];
       var color = split[2];
     //  return ' <span class="badge badge-pill " style="background-color:' + color + '">' + text +'</span>'
-      return ' <button type="button" class="btn btn-rounded" style="background-color:' + color + '; overflow: hidden; white-space: nowrap;font-size: 0.7rem;color: #676767; cursor: default;">' + text +'</button>';
+      return ' <button type="button" class="btn btn-rounded" style="background-color:' + color + '; overflow: hidden; white-space: nowrap;font-size: 0.6rem;color: #676767; cursor: default;">' + text +'</button>';
     }
 
   }
@@ -91,10 +91,10 @@ function totalSum() {
        from.setHours(0);
         from.setMinutes(0);
         from.setSeconds(0)
-         
+
         to.setHours(23);
-        to.setMinutes(59); 
-         to.setSeconds(59); 
+        to.setMinutes(59);
+         to.setSeconds(59);
         console.log(from," ", to);
     };
     function getTimePHP(date){
@@ -116,4 +116,8 @@ function totalSum() {
     function setBeginYear(){
       var now = new Date();
       return new Date(now.getFullYear(),0,1);
+    };
+    function setBeginMonth(){
+      var now = new Date();
+      return new Date(now.getFullYear(),now.getMonth(),1);
     };

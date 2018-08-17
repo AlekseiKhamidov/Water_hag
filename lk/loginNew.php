@@ -1,6 +1,6 @@
 <?php
   require_once "check.php";
-  require_once "config.php";
+  require_once "../config.php";
   require_once "mysql.php";
 
 
@@ -17,7 +17,7 @@
     <link href="../css/compiled.min.css" rel="stylesheet">
 
         <style>
-          
+
 .form-simple .font-small {
   font-size: 0.8rem; }
 
@@ -40,8 +40,8 @@
 
 .form-simple input[type=password]:focus:not([readonly]) + label {
   color: #4f4f4f; }
-                
-          
+
+
         </style>
     </head>
     <body>
@@ -52,10 +52,10 @@
 <form id="formLogin">
             <!-- Grid row -->
             <div class="row justify-content-center">
-            
+
               <!-- Grid column -->
               <div class="col-md-6 mb-5 mt-5" style="width: 90%">
-            
+
                 <div class="card mx-xl-5">
                     <div class="card-body">
 
@@ -94,17 +94,17 @@
                     </div> -->
 
                 </div>
-            
+
               </div>
               <!-- Grid column -->
-            
-            
+
+
             </div>
             <!-- Grid row -->
 
         </div>
     </form></section>
-            
+
   <script type="text/javascript" src="../js/jquery-3.2.1.min.js"></script>
     <!-- Bootstrap tooltips -->
     <script type="text/javascript" src="../js/popper.min.js"></script>
@@ -114,7 +114,7 @@
     <script type="text/javascript" src="../js/mdb.min.js"></script>
     <script type="text/javascript" src="../js/materialize.min.js"></script>
      <script type="text/javascript" src="../js/jquery.maskedinput.min.js"></script>
-       
+
 
         <script>
             // Variable to hold request
@@ -164,7 +164,7 @@
                 else {
                        $("#error").text("");
                     $("#error").hide();
-                    window.location.replace("indexnew.php")
+                    window.location.replace("indexnew2.php")
                 }
             });
 
@@ -201,7 +201,7 @@
 		      //добавить к formGroup класс .has-error, удалить .has-success
 		      $(this).addClass('invalid').removeClass('valid');
 		      $(this).siblings("label").addClass("active");
-		      //отметить форму как невалидную 
+		      //отметить форму как невалидную
 		      formValid = false;
 		    }
 		  });

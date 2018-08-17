@@ -20,10 +20,15 @@
     if (!file_exists("_docs/$date")) {
       mkdir("_docs/$date", 0777, true);
     }
-
     foreach ($files as $filename) {
-      rename($filename, "_docs/$date/$filename");
+      if (!file_exists("_docs/$date/$filename")){
+        print_r($filename);
+        rename($filename, "_docs/$date/$filename");
+      }
+      $newFiles[] = "_docs/$date/$filename";
+
     }
+    return $newFiles;
   }
 
   function parseDataForMessage($json, $partner) {
