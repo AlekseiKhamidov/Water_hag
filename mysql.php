@@ -1,27 +1,22 @@
 <?php
 
- require_once "../config.php";
-
-	// echo "<pre>";
-	// print_r(getUserdata(1));
-	// echo "</pre>";
+ require_once "config.php";
 
 
-	function deleteLeads($partnerId = 0) {
-	//		 print_r($partnerId);
-		if ($partnerId) {
-	//		 print_r(" hop\n");
-			$sql = 'DELETE from `leads` where `partnerId` ='. $partnerId;
-		} else {
-			$sql = 'DELETE from `leads`';
-		}
-		processQuery($sql);
-	};
+	// function deleteLeads($partnerId = 0) {
+	// //		 print_r($partnerId);
+	// 	if ($partnerId) {
+	// //		 print_r(" hop\n");
+	// 		$sql = 'DELETE from `leads` where `partnerId` ='. $partnerId;
+	// 	} else {
+	// 		$sql = 'DELETE from `leads`';
+	// 	}
+	// 	processQuery($sql);
+	// };
 
 	function getUserdata($userId) {
 		$sql = "SELECT * FROM users WHERE user_id = $userId LIMIT 1";
 		$result = getNamedResult($sql);
-
 		return $result ? $result[0] : null;
 	};
 
@@ -29,11 +24,50 @@
 		$sql = $partnerId ? "SELECT * FROM `leads` where `partnerId` = $partnerId order by `number` desc"
 							: "SELECT * FROM `leads` order by `createdAt` desc";
 
-		// print_r($sql);
+	//	 print_r($sql);
 
 		$result = getNamedResult($sql);
 		return $result;
 	};
+
+  function insertLead($lead) {
+    $sql = "INSERT INTO `leads_info` (
+                        `id`,
+                        `name`,
+                        `source`,
+                        `chief`,
+                        `manager`,
+                        `created_at`,
+                        `price`,
+                        `status`,
+                        `contact_name`,
+                        `contact_phone`,
+                        `contact_city`,
+                        `note_text`,
+                        `note_created_at`) VALUES ";
+
+      $sql .= "('"
+            . $lead['id']."',
+          '". $lead['Наименование']	."',
+          '". $lead['Источник сделки']	."',
+          '". $lead['РОП']		."',
+          '". $lead['Менеджер']	."',
+          '". $lead['Дата создания']		."',
+          '". $lead['Бюджет']		."',
+          '". $lead['Статус']		."',
+          '". $lead['Имя контакта']		."',
+          '". $lead['Телефон']		."',
+          '". $lead['Город']		."',
+          '". $lead['Текст']		."',
+          '". $lead['Дата изменения']		."')";
+
+    // $sql .= ' ON DUPLICATE KEY UPDATE '.
+    // 		'`status` = '	.$lead['status'].', '.
+    // 		'`context` = '	.$lead['context'];
+
+    print_r($sql."\n ***********************************************************************************************\n");
+    return processQuery($sql);
+  }
 
 	function insertLeads($leads) {
 		$sql = "INSERT INTO `leads` (`id`,

@@ -1,6 +1,6 @@
 <?php
 // Страница авторизации
- require('config.php');
+ require('../config.php');
 // Функция для генерации случайной строки
 function generateCode($length=6) {
     $chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHI JKLMNOPRQSTUVWXYZ0123456789";
@@ -13,7 +13,8 @@ function generateCode($length=6) {
 }
 
 // Соединямся с БД
- $link=mysqli_connect(MYSQL_HOST, MYSQL_LOGIN, MYSQL_PASS, MYSQL_DBNAME);
+  $link=mysqli_connect(MYSQL["host"], MYSQL["login"], MYSQL["password"], MYSQL["dbname"]);
+  print_r("sss");
 
 if(isset($_POST['login']))
 {
@@ -21,7 +22,7 @@ if(isset($_POST['login']))
     // Вытаскиваем из БД запись, у которой логин равняеться введенному
     $query = mysqli_query($link,"SELECT user_id, user_password FROM users WHERE user_login='".mysqli_real_escape_string($link,$_POST['login'])."' LIMIT 1");
     $data = mysqli_fetch_assoc($query);
-  //  print_r($data);
+    print_r($data);
 
     // Сравниваем пароли
     if($data['user_password'] === md5(md5($_POST['password'])))
@@ -53,4 +54,4 @@ if(isset($_POST['login']))
    // echo "Вы ввели неправильный логин/пароль";
 }
 //echo "Вы ввели неправильный логин/пароль";
-?> 
+?>
