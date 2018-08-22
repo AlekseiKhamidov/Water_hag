@@ -4,9 +4,9 @@
   require_once "mysql.php";
 
 
-  // if (checkLogin() != -1) {
-  //   header("Location: index.php"); exit();
-  // };
+   if (checkLogin() != -1) {
+     header("Location: index.php"); exit();
+   };
 
 ?>
 <html>

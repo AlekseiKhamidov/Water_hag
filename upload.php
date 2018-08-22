@@ -26,7 +26,7 @@
 						$attachments = createAttachements($files, $group['id']);
 						$message = parseDataForMessage($_POST['data'],
 																					$_POST['partner'] && is_numeric($_POST['partner']) ?
-																					AMOCRM["lead_CFs"]["partners_list"][$_POST['partner']]
+																					AMOCRM["partners_list"][$_POST['partner']]
 																					: $_POST['partner']);
 						$post = postToGroupWall($message, $attachments, $group['id']);
 						$VKPostURL = "https://vk.com/".$group['name']."?w=wall-".$group['id']."_".$post."%2Fall";
