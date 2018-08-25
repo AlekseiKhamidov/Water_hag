@@ -1,5 +1,6 @@
 function tableFilter(data){
        var ths = $table.find("th.excel-filter");
+    //      $(filterContainer).empty();
        for (var i = 0; i < ths.length; i++) {
          var column = $(ths[i]).attr("data-field");
          var formatterValue = $(ths[i]).data().searchFormatter== undefined ? undefined:window[$(ths[i]).data().searchFormatter];//window[$(ths[i]).data().formatter]
@@ -8,6 +9,7 @@ function tableFilter(data){
          var id = "filter-"+column;
     //     addIcon($(ths[i]).find(".th-inner "));
          addIcon($(ths[i]).find(".fht-cell"), column);
+
          createUl(id,data,column, formatterValue);
        }
 
@@ -36,58 +38,32 @@ function tableFilter(data){
       // createUl(id);
 
        function createUl(id, data, column, formatter){
-
-         var div = '<div id="'+id+'" isActive="false" column-name="'+column+'" tabindex="-1" class="dropdown-menu" x-placement="bottom-end" style="display:none; position: absolute; transform: translate3d(0px, 35px, 0px);  will-change: transform; overflow:auto">'
-          +' <div class="dropdown-filter-search"><input type="text" class="dropdown-filter-menu-search form-control" data-column="4" data-index="0" placeholder="Search"></div>'
-           +' <label class="dropdown-item"><input type="checkbox" value="Select All" class="select_all" checked="checked" >Выбрать все'
-           +' <div class="dropdown-divider"></div>'
-           +'</label>';
+         var resultObject = {};
+         $("#"+id).empty();
+         if ($("#"+id).length>=0){
+           var div = '<div id="'+id+'" isActive="false" column-name="'+column+'" tabindex="-1" class="dropdown-menu" x-placement="bottom-end" style="display:none; position: absolute; transform: translate3d(0px, 35px, 0px);  will-change: transform; overflow:auto">'
+             +' <div class="dropdown-filter-search"><input type="text" class="dropdown-filter-menu-search form-control" data-column="4" data-index="0" placeholder="Search"></div>'
+             +' <label class="dropdown-item"><input type="checkbox" value="Select All" class="select_all" checked="checked" >Выбрать все'
+             +' <div class="dropdown-divider"></div>'
+             +'</label>';
            $(filterContainer).append(div);
 
+               resultObject = searchArray(column, data);
 
 
-           function setHeightFilter($div){
-             var height = $div.height();
-             if (height>$(window).height()*0.8 )
-           $div.height($(window).height()*0.6);
-           }
+
+              for (var i=0;i<Object.keys(resultObject).length;i++){
+
+                var elem = Object.keys(resultObject)[i];
+                var dopValue = elem;
+                if (formatter) elem = formatter(elem);
+                addOption($(filterContainer).find('#'+id), elem,dopValue);
+              }
+         }
 
 
-           function searchArray(nameKey, myArray){
-             var result = {};
-             for (var i=0; i < myArray.length; i++) {
-               result[myArray[i][nameKey]] = i;
-             }
-             return result
-            }
-           var resultObject = searchArray(column, data);
+          resultObject = searchArray(column, data);
 
-           function addOption($parent, elem, dopValue){
-             function guid() {
-                 var S4 = function() {
-                    return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
-                 };
-                 return S4()+S4()+"-"+S4();
-             }
-           //  var guid = elem ;
-             elem=elem ==""? "Пусто": elem;
-       //      dopValue = dopValue? dopValue: "Пусто"
-
-           //  dopValue = dopValue? dopValue:elem;
-           var id=guid();
-
-             var label ='<label class="dropdown-item" for="'+id+'"><input type="checkbox" id="'+id+'" data-field="name" value="'+dopValue+'" checked="checked"> '+elem+'</label>';
-              $parent.append(label);
-           //  parent.appendChild();
-           }
-
-           for (var i=0;i<Object.keys(resultObject).length;i++){
-
-             var elem = Object.keys(resultObject)[i];
-             var dopValue = elem;
-             if (formatter) elem = formatter(elem);
-             addOption($(filterContainer).find('#'+id), elem,dopValue);
-           }
 
             var text = Object.keys(resultObject).length>0? "Выбрано "+Object.keys(resultObject).length: "";
 
@@ -98,6 +74,39 @@ function tableFilter(data){
             setHeightFilter($("#"+id))
        }
 
+
+       function setHeightFilter($div){
+         var height = $div.height();
+         if (height>$(window).height()*0.8 )
+       $div.height($(window).height()*0.6);
+       }
+
+
+       function searchArray(nameKey, myArray){
+         var result = {};
+         for (var i=0; i < myArray.length; i++) {
+           result[myArray[i][nameKey]] = i;
+         }
+         return result
+        }
+       function addOption($parent, elem, dopValue){
+         function guid() {
+             var S4 = function() {
+                return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
+             };
+             return S4()+S4()+"-"+S4();
+         }
+       //  var guid = elem ;
+         elem=elem ==""? "Пусто": elem;
+   //      dopValue = dopValue? dopValue: "Пусто"
+
+       //  dopValue = dopValue? dopValue:elem;
+       var id=guid();
+
+         var label ='<label class="dropdown-item" for="'+id+'"><input type="checkbox" id="'+id+'" data-field="name" value="'+dopValue+'" checked="checked"> '+elem+'</label>';
+          $parent.append(label);
+       //  parent.appendChild();
+       }
      };
      function openDropdown(a){
 

@@ -3,7 +3,7 @@
 //	print_r($_POST['id']);
 //	$id=json_decode()
   if (isset($_POST['data'])) {
-	$data = $_POST['data'];
+	$data = urldecode_array($_POST['data']);
   	//print_r(json_decode($data['client']));
  //  if (isset($_POST['id']) && isset($_POST['fields']) && isset($_POST['stepIndex']) && isset($_POST['date'])) {
 
@@ -49,4 +49,12 @@
 		fwrite($fileopen,$write);
 		fclose($fileopen);
 	}
+
+  function urldecode_array($var){
+    foreach ($var as $key=>$value){
+            $value=urldecode($value);
+        $var[$key]=$value;
+    }
+    return $var;
+}
 ?>

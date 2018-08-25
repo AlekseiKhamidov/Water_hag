@@ -80,10 +80,35 @@ color:#676767;    }
       position: relative;
     left: auto;
 }
+.dateType{
+  width: 110px;
+text-align: center;
+border: 1px solid #ced4da;
+border-radius: .25rem;
+}
+.input-group-append{
+  margin-right: -1;
+}
+.input-group-text{
+  border-radius: 0px;
+}
+#start{
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
+#end{
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+}
+#chartDiv{
+  height: 50vh;
+  width: 90vw;
+}
     </style>
 
 </head>
  <body>
+   <?php require_once '../parts/preloader.php'	?>
   <header>
 
     <nav id="menu" class="navbar fixed-top navbar-expand-lg navbar-dark black scrolling-navbar">
@@ -123,28 +148,40 @@ color:#676767;    }
    <div id="toolbar">
  <!-- <button class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-filter mr-1"></i> Фильтры</button> -->
 
-  <button class="btn btn-primary " data-toggle="modal" data-target="#chartModal"><i class="fa fa-bar-chart"></i> Диаграммы</button>
-
-       <input type="text" id="start" required name="start" class="validate datepickerMask" pattern="(0[1-9]|1[0-9]|2[0-9]|3[01]).(0[1-9]|1[012]).[0-9]{4}">
-       <input type="text" id="end" name="end"  class=" validate datepickerMask" pattern="(0[1-9]|1[0-9]|2[0-9]|3[01]).(0[1-9]|1[012]).[0-9]{4}">
-
+  <button class="btn btn-primary " data-toggle="modal" onclick="analyze()" data-target="#chartModal"><i class="fa fa-bar-chart"></i> Диаграммы</button>
+<div class="btn-group">
+       <input type="text" id="start" required name="start" class="dateType validate datepickerMask" pattern="(0[1-9]|1[0-9]|2[0-9]|3[01]).(0[1-9]|1[012]).[0-9]{4}">
+       <div class="input-group-append">
+        <span class="input-group-text" id="basic-addon2">по</span>
+      </div>
+       <input type="text" id="end" name="end"  class="dateType validate datepickerMask" pattern="(0[1-9]|1[0-9]|2[0-9]|3[01]).(0[1-9]|1[012]).[0-9]{4}">
+</div>
     </div>
 
 
      <table id="table" class="exampleTable table table-hover table-striped"
-
-        data-toolbar="#toolbar"
-        data-show-export="true"
-         data-show-columns="true"
-          data-filter-control="true"
-
-            data-show-toggle="true"
-           data-mobile-responsive="true"
-           data-check-on-init="true"
-           data-export-types="['excel']"
-
-        >
-        </table>
+      data-toolbar="#toolbar"
+      data-show-export="true"
+      data-show-columns="true"
+      data-filter-control="true"
+      data-show-toggle="true"
+      data-check-on-init="true"
+      data-export-types="['excel']">
+        <thead>
+          <tr>
+            <th data-field="contact_name" class="fio" data-filter-control="input">ФИО клиента</th>
+            <th data-field="contact_phone" class="contact" data-formatter="textFormat" data-filter-control="input">Телефон</th>
+            <th data-field="created_at" class="dateTo" data-sortable="true" data-sorter="data-sorter" data-formatter="dateFormat">Дата создания</th>
+             <?php if ($userdata['user_login'] != 'admin') echo '
+             <th data-field="manager" class="managerCell excel-filter" data-sortable="true" >Менеджер '.$userdata['user_login'].'</th>
+             <th data-field="chief" class="managerCell excel-filter" data-formatter="textFormat" data-search-formatter="textFormat"  data-sortable="true" >РОП</th>
+             ' ?>
+            <th data-field="price" class="sumCell" data-align="right" data-sortable="true" data-formatter="priceFormatter">Сумма</th>
+            <th data-field="status" class="typeCell excel-filter" data-align="center" data-sortable="true" data-formatter="roundButtonFormatter" data-search-formatter="statusFormatterSelect">Этап воронки</th>
+            <th data-field="note_text" >Примечание</th>
+          </tr>
+        </thead>
+      </table>
         <div id="ulContainer"></div>
 </div>
 
@@ -154,168 +191,60 @@ color:#676767;    }
 
 <!-- Modal -->
 <div class="modal fade" id="chartModal" tabindex="-1" role="dialog" aria-labelledby="chartModalLabel"  aria-hidden="true">
-    <div class="modal-dialog modal-full-height modal-top modal-notify modal-info" role="document">
+    <!-- <div class="modal-dialog modal-full-height modal-top modal-notify modal-info" role="document"> -->
+    <div class="modal-dialog modal-fluid" role="document">
         <div class="modal-content">
             <div class="modal-header">
-          <p class="heading lead">Диаграммы</p>
+          <p class="heading lead">Диаграмма</p>
 
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true" class="white-text">&times;</span>
               </button>
             </div>
             <div class="modal-body">
- <div class="row d-flex"  >
-                <!--Grid column-->
-                <div class="col-md-6 mb-4 d-flex">
-
-
-
-                           <canvas id="chartCount" height="500px"  ></canvas>
-
-                    </div>
-                    <!--/.Card-->
-
-                <!--Grid column-->
-  <div class="col-md-6 mb-4 d-flex">
-
-
-                         <canvas id="chartSum"   height="500px"></canvas>
-
-                    </div>
-                    <!--/.Card-->
-
+              <div class="row d-flex justify-content-center align-items-center"  >
+                  <div id="chartDiv" >
+                    <canvas id="comboChart" ></canvas>
                 </div>
-
+              </div>
             </div>
             <div class="modal-footer ">
-                <button type="button" class="btn btn-outline-primary waves-effect" data-dismiss="modal">Закрыть</button>
-
+              <button type="button" class="btn btn-outline-primary waves-effect" data-dismiss="modal">Закрыть</button>
             </div>
         </div>
     </div>
 </div>
-
-
-
-
-
- <script type="text/javascript" src="../js/jquery-3.2.1.min.js"></script>
-    <!-- Bootstrap tooltips -->
-    <script type="text/javascript" src="../js/popper.min.js"></script>
-    <!-- Bootstrap core JavaScript -->
-    <script type="text/javascript" src="../js/bootstrap.min.js"></script>
-    <!-- MDB core JavaScript -->
-    <script type="text/javascript" src="../js/mdb.min.js"></script>
-    <script type="text/javascript" src="../js/materialize.min.js"></script>
-        <script src="lib/bootstrap-table-master/src/bootstrap-table.js"></script>
-           <script src="lib/bootstrap-table-master/src/extensions/filter-control/bootstrap-table-filter-control.js"></script>
-    <script src="lib/bootstrap-table-master/src/locale/bootstrap-table-ru-RU.js"></script>
-    <script type="text/javascript" src="lib/moment-master/min/moment.min.js"></script>
-    <script type="text/javascript" src="lib/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
-    <script type="text/javascript" src="lib/bootstrap-datepicker/js/bootstrap-datepicker.ru.min.js"></script>
-    <script type="text/javascript" src="js/filter.js"></script>
-    <script type="text/javascript" src="js/util-table.js"></script>
-    <script type="text/javascript" src="lib/bootstrap-table-master/src/extensions/export/bootstrap-table-export.js"></script>
-    <script type="text/javascript" src="js/tableExport.js"></script>
-       <script type="text/javascript" src="lib/bootstrap-table-master/src/extensions/mobile/bootstrap-table-mobile.js"></script>
-        <script type="text/javascript" src="lib/bootstrap-table-master/src/extensions/sticky-header/bootstrap-table-sticky-header.js"></script>
-    <script src="js/spin.min.js"></script>
-    <script src="js/extensions.js"></script>
-       <script type="text/javascript" src="../js/jquery.maskedinput.min.js"></script>
-       <script src="js/multiselect.js"></script>
-    <script type="text/javascript">
-      $(document).ready(function() {
-    $('.mdb-select').material_select();
+<script type="text/javascript" src="../js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="../js/popper.min.js"></script>
+<script type="text/javascript" src="../js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../js/mdb.min.js"></script>
+<script type="text/javascript" src="../js/materialize.min.js"></script>
+<script src="lib/bootstrap-table-master/src/bootstrap-table.js"></script>
+<script src="lib/bootstrap-table-master/src/extensions/filter-control/bootstrap-table-filter-control.js"></script>
+<script src="lib/bootstrap-table-master/src/locale/bootstrap-table-ru-RU.js"></script>
+<script type="text/javascript" src="js/filter.js"></script>
+<script type="text/javascript" src="js/util-table.js"></script>
+<script type="text/javascript" src="lib/bootstrap-table-master/src/extensions/export/bootstrap-table-export.js"></script>
+<script type="text/javascript" src="js/tableExport.js"></script>
+<script type="text/javascript" src="lib/bootstrap-table-master/src/extensions/sticky-header/bootstrap-table-sticky-header.js"></script>
+<script src="js/spin.min.js"></script>
+<script src="js/extensions.js"></script>
+<script type="text/javascript" src="../js/jquery.maskedinput.min.js"></script>
+<script src="js/multiselect.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() {
+    //$('.mdb-select').material_select();
     $(".datepickerMask").mask("99.99.9999", {placeholder: "ДД.ММ.ГГГГ" });
   });
-    </script>
+</script>
 <script>
-var Data;
-    var filterContainer = "#ulContainer";
-    var $table = $("table");
-
-   function getColumns() {
-    columns = [
-    <?php
-        if ($userdata['user_login'] != 'admin') echo ' {
-            field: "number",
-            title: "№",
-            sortable: "true",
-            class:"number"
-        }
-        , '?>
-         {
-            field: "name",
-            title: "ФИО клиента",
-            class: "fio",
-            // width: "270",
-            filterControl: "input"
-                //   formatter:formatter
-        }, {
-            field: "phone",
-            title: "Телефон",
-            class: "contact",
-            // width: "140",
-            filterControl:"input"
-            //     formatter:durationFormat
-        }, {
-            field: "createdAt",
-            title: "Дата создания",
-            class: "dateTo",
-            // width: "140",
-            sortable: "true",
-            sorter: "dateSorter",
-            formatter: dateFormat
-        },
-         <?php if ($userdata['user_login'] != 'admin') echo '
-        {
-            field: "manager",
-            title: "Менеджер '.$userdata['user_login'].'",
-            class: "managerCell excel-filter",
-            // width: "180",
-            sortable: "true",
-
-        }, ';
-          if ($userdata['user_login'] == 'OyLi') echo '
-        {
-              field: "rop",
-              title: "РОП",
-            class: "managerCell excel-filter",
-            // width: "180",
-            sortable: "true",
-
-        }, '
-         ?>
-        {
-            field: "price",
-            title: "Сумма",
-            formatter: priceFormatter,
-            align: "right",
-            class: "sumCell",
-            // width: "120",
-            sortable: "true",
-        }, {
-            field: "status",
-            title: "Этап воронки",
-            formatter: roundButtonFormatter,
-            // width: "240",
-            class: "typeCell excel-filter",
-            align: "center",
-            sortable: "true",
-        }, {
-            field: "context",
-            title: "Примечание",
-            //      formatter:formatter
-        }
-    ];
-    console.log(columns);
-    return columns;
-}
-
-var managers = {};
-var stages = {};
-var DataStatus={};
-function getStatuses() {
+  var Data;
+  var filterContainer = "#ulContainer";
+  var $table = $("table");
+  var managers = {};
+  var stages = {};
+  var DataStatus={};
+  function getStatuses() {
     $.ajax({
         url: "getStatuses.php",
         success: function(data) {
@@ -337,67 +266,67 @@ function getStatuses() {
               }
 
             }
-            $("#saveFilter").on('click', function() {
+          //   $("#saveFilter").on('click', function() {
+          //
+          //     console.log("saveFilter");
+          //     dateFrom = toDate(from_picker.get("valueSubmit"))
+          //     dateFrom.setHours(0);
+          //     console.log(dateFrom);
+          //     dateTo = toDate(to_picker.get("valueSubmit"));
+          //     dateTo.setDate(dateTo.getDate() + 1);
+          //     dateTo.setHours(0);
+          //      console.log(dateTo);
+          // //    filterTable(dateFrom, dateTo);
+          //
+          //     var switches = $(".switch.round.blue-white-switch").find("input[type='checkbox']");
+          //     var statusList=[];
+          //     for (var i=0; i<switches.length;i++){
+          //       console.log(switches[i])
+          //       var switch_div = $(switches[i]).parents(".switch.round.blue-white-switch");
+          //       var idGroup = switch_div.attr("for");
+          //       var pipeline = switch_div.attr("pipeline");
+          //
+          //
+          //
+          //       if ($(switches[i]).prop("checked")){
+          //          var status = $("#"+idGroup).find("input[type='checkbox']:checked").each(saveFilter);
+          //       }
+          //       else {
+          //        // var status = $("#"+idGroup).find("input[type='checkbox']").each(saveFilter);
+          //        //statusList.push("");
+          //       }
+          //     }
+          //     function saveFilter(){
+          //       var color = $(this).parent().attr("color")
+          //       statusList.push(pipeline+'^'+$(this).parent().attr("value")+'^'+color)
+          //     };
+          //     console.log(statusList);
+          //     var values = [{
+          //       name: "status",
+          //       values: statusList
+          //     }];
+          //     filterBy($("#table"), values);
+          //
+          //     //var data = $table.bootstrapTable('getData');
+          //     if (statusList.length>0){
+          //       analyze(statusList);
+          //     }
+          //     else {
+          //       analyze(DataStatus.status);
+          //     }
+          //
+          //
+          //     $('#exampleModal').modal("hide");
+          //     totalSum();
+          //   });
 
-              console.log("saveFilter");
-              dateFrom = toDate(from_picker.get("valueSubmit"))
-              dateFrom.setHours(0);
-              console.log(dateFrom);
-              dateTo = toDate(to_picker.get("valueSubmit"));
-              dateTo.setDate(dateTo.getDate() + 1);
-              dateTo.setHours(0);
-               console.log(dateTo);
-          //    filterTable(dateFrom, dateTo);
 
-              var switches = $(".switch.round.blue-white-switch").find("input[type='checkbox']");
-              var statusList=[];
-              for (var i=0; i<switches.length;i++){
-                console.log(switches[i])
-                var switch_div = $(switches[i]).parents(".switch.round.blue-white-switch");
-                var idGroup = switch_div.attr("for");
-                var pipeline = switch_div.attr("pipeline");
-
-
-
-                if ($(switches[i]).prop("checked")){
-                   var status = $("#"+idGroup).find("input[type='checkbox']:checked").each(saveFilter);
-                }
-                else {
-                 // var status = $("#"+idGroup).find("input[type='checkbox']").each(saveFilter);
-                 //statusList.push("");
-                }
-              }
-              function saveFilter(){
-                var color = $(this).parent().attr("color")
-                statusList.push(pipeline+'^'+$(this).parent().attr("value")+'^'+color)
-              };
-              console.log(statusList);
-              var values = [{
-                name: "status",
-                values: statusList
-              }];
-              filterBy($("#table"), values);
-
-              //var data = $table.bootstrapTable('getData');
-              if (statusList.length>0){
-                analyze(statusList);
-              }
-              else {
-                analyze(DataStatus.status);
-              }
-
-
-              $('#exampleModal').modal("hide");
-              totalSum();
-            });
-
-
-            initTable($("#table"), getColumns());
+            initTable($("#table"));
         }
     })
 };
  var Data;
- function initTable($table, columns) {
+ function initTable($table) {
   var stickyHeaderOffsetY=0;
      if ( $('.navbar.fixed-top').css('height') ) {
               stickyHeaderOffsetY = +$('.navbar.fixed-top').css('height').replace('px','');
@@ -409,7 +338,7 @@ function getStatuses() {
      var to = getTimePHP(end);
      $table.bootstrapTable({
          url: "getData.php",
-         columns: columns,
+      //   columns: columns,
           minWidth: 1000,
           // stickyHeader: true,
           // stickyHeaderOffsetY:'60px',
@@ -434,7 +363,8 @@ function getStatuses() {
      $table.on('load-success.bs.table', function(data) {
          Data = $table.bootstrapTable('getData');
         tableFilter(Data);
-         analyze(DataStatus.status);
+        $("#mdb-preloader").hide();
+    //     analyze(DataStatus.status);
       //   filterTable(start, end);
           totalSum();
          //  alert('o');
@@ -446,16 +376,23 @@ function getStatuses() {
 
      $('.mdb-select').material_select();
  };
- function loadDate(){
-   initTable($("#table"), getColumns());
- };
-function analyze(statuses){
+ // function loadDate(){
+ //   initTable($("#table"), getColumns());
+ // };
+function analyze(){
   var data = $("#table").bootstrapTable('getData');
   //var statuses = statuses.status;
   var colors = [];
-  var datasetCount = [];
-  var datasetSum = [];
+  var dataCount = [];
+  var dataSum = [];
   var labels = [];
+  var statuses = [];
+
+$("#filter-status [type='checkbox']:checked:not(.select_all)").each(function(){
+  statuses.push(this.value);
+})
+
+
   for (var i=0;i<statuses.length;i++){
     var count =0;
     var sum = 0;
@@ -467,37 +404,46 @@ function analyze(statuses){
       }
     }
    colors.push(parseStatus(statuses[i]).color);
-    labels.push(parseStatus(statuses[i]).val);
+    labels.push(statusFormatterSelect(statuses[i]));
 
-      datasetSum.push(sum);
-      datasetCount.push(count);
+      dataSum.push(parseInt(sum)/1000000);
+      dataCount.push(count);
   }
-  console.log(datasetCount);
-  console.log(datasetSum);
+  console.log(dataCount);
+  console.log(dataSum);
+
+  var datasets = [{
+    label: "Сумма заявок",
+    data: dataSum,
+    backgroundColor:colors
+  },{
+    label: "Количество заявок",
+    data: dataCount,
+    type: 'line'
+  }]
   //chartPie(labels, datasetCount, colors)
-  chartBar(document.getElementById("chartCount"),labels, datasetCount, colors, 'Количество заявок',function(value, index, values) {
-   //return value.toLocaleString()+" руб";
-     var num = parseInt(value);
-      return num;
-  },);
-   chartBar(document.getElementById("chartSum"),labels, datasetSum, colors, "Сумма заявок",function(value, index, values) {
-   //return value.toLocaleString()+" руб";
-     var num = parseInt(value)/1000000;
-      return num.toLocaleString()+" млн руб";
-  },
-    function(tooltipItem, data){
-      return tooltipItem.xLabel.toLocaleString()+" руб";
-    })
+  chartBar(document.getElementById("comboChart"),labels, datasets, colors);
+  //  chartBar(document.getElementById("chartSum"),labels, datasetSum, colors, "Сумма заявок",function(value, index, values) {
+  //  //return value.toLocaleString()+" руб";
+  //    var num = parseInt(value)/1000000;
+  //     return num.toLocaleString()+" млн руб";
+  // },
+  //   function(tooltipItem, data){
+  //     return tooltipItem.xLabel.toLocaleString()+" руб";
+  //   })
 };
 
 function resetCanvas($chart,$parent) {
   $parent.empty();
+//  $parent.width($(".modal-body").width())
   var id=$chart.attr("id");
   $parent.append('<canvas id="'+id+'" class="chartjs-render-monitor"><canvas>');
   canvas = document.querySelector('#'+id); // why use jQuery?
   ctx = canvas.getContext('2d');
   ctx.canvas.width = $parent.width(); // resize to parent width
-  ctx.canvas.width = "600"; // resize to parent width
+  ctx.canvas.height = $parent.height() ; // resize to parent height
+  //ctx.canvas.width = $parent.width(); // resize to parent width
+  //ctx.canvas.width = "600"; // resize to parent width
   var x = canvas.width/2;
   var y = canvas.height/2;
   ctx.font = '10pt Verdana';
@@ -507,13 +453,13 @@ function resetCanvas($chart,$parent) {
 };
 
 
-function chartBar(chart, labels,dataset, colors, name, callbackX=null, callbackTooltip){
-  if (!callbackX) {
-    callbackX = function(value, index, values) {return value; }
-  }
-  if (!callbackTooltip) {
-    callbackTooltip = function(tooltipItem, data) {return tooltipItem.xLabel; }
-  }
+function chartBar(chart, labels,datasets, colors){
+  // if (!callbackX) {
+  //   callbackX = function(value, index, values) {return value; }
+  // }
+  // if (!callbackTooltip) {
+  //   callbackTooltip = function(tooltipItem, data) {return tooltipItem.xLabel; }
+  // }
   var ctx = resetCanvas($(chart), $(chart).parent());
   //var ctx = chart.getContext('2d');
   const maxTooltipLength = 24;
@@ -544,21 +490,23 @@ function chartBar(chart, labels,dataset, colors, name, callbackX=null, callbackT
     }
 
 var myChart = new Chart(ctx, {
-    type: 'horizontalBar',
+    type: 'bar',
     data: {
-        labels: labelsMultiLines,
+        labels: labels,//labelsMultiLines,
       //  labels: labels,
-        datasets: [{
-            label: name,
-            data: dataset,
-            backgroundColor:colors,
-            borderWidth: 1
-        }]
+         datasets: datasets,//[{
+        //     label: name,
+        //     data: dataset,
+        //     backgroundColor:colors,
+        //     borderWidth: 1
+        // }]
     },
     options: {
        tooltips: {
         callbacks: {
-          label: callbackTooltip,
+          // label: function(){
+          //
+          // },
           // afterLabel: otherLabels.bind(this)
         }
       },
@@ -571,10 +519,10 @@ var myChart = new Chart(ctx, {
             }],
             xAxes: [{
                       ticks: {
-                        autoSkip: false,
-                        maxRotation: 90,
-                        minRotation: 0,
-                        callback: callbackX
+                        // autoSkip: false,
+                        // maxRotation: 90,
+                        // minRotation: 0,
+                        // callback: callbackX
                       }
                     }]
         },
@@ -593,6 +541,21 @@ var myChart = new Chart(ctx, {
 }
  var start, end;
  var firstDate = new Date(2017,0,1)
+// $("#start").keyup(function(){
+//   console.log($(this).val());
+// });
+
+$("#end").change(function(){
+  end = $(this).val() ? toDate($(this).val()) : setBeginMonth();
+  start = $("#start").val() ? toDate($("#start").val()) : new Date();
+  end = (end>new Date()) ?new Date(): end;
+  end = (start >end) ? start.addDays(1) : end;
+
+  $(this).val(end.toLocaleDateString()) ;
+  $("#start").val(start.toLocaleDateString());
+
+  loadDate(start, end);
+})
 $("#start").change(function(){
   start = $(this).val() ? toDate($(this).val()) : setBeginMonth();
   end = $("#end").val() ? toDate($("#end").val()) : new Date();
@@ -601,6 +564,7 @@ $("#start").change(function(){
 
   $(this).val(start.toLocaleDateString()) ;
   $("#end").val(end.toLocaleDateString());
+
 
   loadDate(start, end);
 })
@@ -611,18 +575,16 @@ Date.prototype.addDays = function(days) {
 }
 
 function loadDate(from, to){
+    $("#mdb-preloader").show();
     var from = getTimePHP(from);
     var to = getTimePHP(to);
     $("#textPeriod").text("Период: "+start.toLocaleDateString()+" - "+end.toLocaleDateString());
-   $("#table").bootstrapTable('refreshOptions',{
- //  data:Data,
-         queryParams:function(p){
-      //  return {start:start.getTime()/1000|0, end:end.getTime()/1000|0}
+    $("#table").bootstrapTable('refreshOptions',{
+      queryParams:function(p){
         return {start:from, end:to}
       }
-      //    url:"getStatistics1.php" ,
-       // data:Data
-      });
+    });
+
   }
 
 
@@ -632,27 +594,23 @@ function loadDate(from, to){
      end = new Date();
      $("#start").val(start.toLocaleDateString());
      $("#end").val(end.toLocaleDateString());
-     $("#start").attr("max", end.toLocaleDateString() );
-     $("#end").attr("min", start.toLocaleDateString() );
-      // $('[name="start"]').val(start.toLocaleDateString());
-      // $('[name="end"]').val(end.toLocaleDateString());
-
-
       getStatuses();
       loading();
 
-      $('.collapse').on('hidden.bs.collapse', function() {
-          resize();
-      })
-      $('.collapse').on('shown.bs.collapse', function() {
-          resize();
-      })
+      // $('.collapse').on('hidden.bs.collapse', function() {
+      //     resize();
+      // })
+      // $('.collapse').on('shown.bs.collapse', function() {
+      //     resize();
+      // })
+
+
   });
- function resize() {
-    $("#table").bootstrapTable('resetView', {
-        height: getHeightState()
-    });
-  };
+ // function resize() {
+ //    $("#table").bootstrapTable('resetView', {
+ //        height: getHeightState()
+ //    });
+ //  };
 
 
 
@@ -741,6 +699,11 @@ function setHeight(){
  height += $('#toolbar').outerHeight();
  return window.innerHeight- height;
 }
+
+$('#table').on('reset-view.bs.table', function (e) {
+ //  Data = $table.bootstrapTable('getData');
+ // tableFilter(Data);
+});
 </script>
 </body>
 </html>

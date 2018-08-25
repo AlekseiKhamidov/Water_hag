@@ -277,7 +277,7 @@ var extFile_statement = ["pdf","PDF","doc","DOC","docx","DOCX","xls","XLS","xlsx
       $(this).val("");
     }
     else {
-      $(this).val(n.toLocaleString());
+      $(this).val(n.toLocaleString('ru'));
     }
   });
   $('input[type="file"]').change(function(e) {
