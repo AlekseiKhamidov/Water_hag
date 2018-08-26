@@ -7,6 +7,8 @@
     $leadFI = getLeadFullInfo($lead["id"]);
     insertLead($leadFI);
   }
+
+
   echo "</pre>";
 
 ?>
