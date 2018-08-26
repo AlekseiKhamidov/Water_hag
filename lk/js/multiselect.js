@@ -161,7 +161,7 @@ function tableFilter(data){
 
          $('.dropdown-menu [type="checkbox"].select_all').unbind("change").change(function(e) {
             $(this).parents("div.dropdown-menu").find("[type='checkbox']:not(.select_all)").prop("checked",$(this).prop("checked"))
-             applyFilterBy($(a).attr("column-name"));
+             applyFilterBy($(this).parents("div.dropdown-menu").attr("column-name"));
           });
 
           $('.dropdown-menu [type="checkbox"]:not(.select_all)').unbind("change").change(function(e) {
@@ -175,7 +175,7 @@ function tableFilter(data){
             else{
               $(this).parents("div.dropdown-menu").find("[type='checkbox'].select_all").prop("checked",false);
             }
-            applyFilterBy($(a).attr("column-name"));
+            applyFilterBy($(this).parents("div.dropdown-menu").attr("column-name"));
           });
 
           function applyFilterBy(column){

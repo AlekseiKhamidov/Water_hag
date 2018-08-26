@@ -145,18 +145,18 @@ border-radius: .25rem;
 
     </div>
 
-   <div id="toolbar">
- <!-- <button class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-filter mr-1"></i> Фильтры</button> -->
+    <div id="toolbar">
+   <button class="btn btn-primary " data-toggle="modal" onclick="analyze()" data-target="#chartModal"><i class="fa fa-bar-chart"></i> Диаграммы</button>
+   <div class="btn-group">
+     <input type="text" id="start" required name="start" class="dateType validate datepickerMask" pattern="(0[1-9]|1[0-9]|2[0-9]|3[01]).(0[1-9]|1[012]).[0-9]{4}">
+     <div class="input-group-append">
+       <span class="input-group-text" id="basic-addon2">по</span>
+     </div>
+     <input type="text" id="end" name="end"  class="dateType validate datepickerMask" pattern="(0[1-9]|1[0-9]|2[0-9]|3[01]).(0[1-9]|1[012]).[0-9]{4}">
+   </div>
 
-  <button class="btn btn-primary " data-toggle="modal" onclick="analyze()" data-target="#chartModal"><i class="fa fa-bar-chart"></i> Диаграммы</button>
-<div class="btn-group">
-       <input type="text" id="start" required name="start" class="dateType validate datepickerMask" pattern="(0[1-9]|1[0-9]|2[0-9]|3[01]).(0[1-9]|1[012]).[0-9]{4}">
-       <div class="input-group-append">
-        <span class="input-group-text" id="basic-addon2">по</span>
-      </div>
-       <input type="text" id="end" name="end"  class="dateType validate datepickerMask" pattern="(0[1-9]|1[0-9]|2[0-9]|3[01]).(0[1-9]|1[012]).[0-9]{4}">
-</div>
-    </div>
+
+  </div>
 
 
      <table id="table" class="exampleTable table table-hover table-striped"
@@ -324,6 +324,13 @@ border-radius: .25rem;
         }
     })
 };
+function clearFilter(){
+     $table.bootstrapTable('filterBy', {});
+      $(filterContainer).find(".select_all").each(function(){
+          $(this).prop("checked","")
+        $(this).click()
+      })
+}
  var Data;
  function initTable($table) {
   var stickyHeaderOffsetY=0;
@@ -364,11 +371,21 @@ border-radius: .25rem;
          Data = $table.bootstrapTable('getData');
         tableFilter(Data);
         $("#mdb-preloader").hide();
+
+        var btnClearFilter = '<button class="btn btn-secondary" title="Очистить фильтр"  onclick="clearFilter()" >'
+    //    +'<span class="fa-stack">'
+        +'<i class="fa fa-filter fa-2x"></i>'
+        +'<i class="fa fa-ban"></i>'
+        //+'</span>'
+        +'</button>';
+        $(".columns").prepend(btnClearFilter);
     //     analyze(DataStatus.status);
       //   filterTable(start, end);
           totalSum();
          //  alert('o');
      });
+
+
 
      $table.on('refresh.bs.table', function(e, arg1, arg2) {
          clearFilter();
