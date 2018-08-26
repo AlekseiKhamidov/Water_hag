@@ -170,7 +170,7 @@ border-radius: .25rem;
           <tr>
             <th data-field="contact_name" class="fio" data-filter-control="input">ФИО клиента</th>
             <th data-field="contact_phone" class="contact" data-formatter="textFormat" data-filter-control="input">Телефон</th>
-            <th data-field="created_at" class="dateTo" data-sortable="true" data-sorter="data-sorter" data-formatter="dateFormat">Дата создания</th>
+            <th data-field="created_at" class="dateTo" data-sortable="true" data-sorter="dateSorter" data-formatter="dateFormat">Дата создания</th>
              <?php if ($userdata['user_login'] != 'admin') echo '
              <th data-field="manager" class="managerCell excel-filter" data-sortable="true" >Менеджер '.$userdata['user_login'].'</th>
              <th data-field="chief" class="managerCell excel-filter" data-formatter="textFormat" data-search-formatter="textFormat"  data-sortable="true" >РОП</th>
@@ -391,16 +391,7 @@ function analyze(){
     fill: false,
     yAxisID: 'y-axis-2'
   }]
-  //chartPie(labels, datasetCount, colors)
   chartBar(document.getElementById("comboChart"),labels, datasets, colors);
-  //  chartBar(document.getElementById("chartSum"),labels, datasetSum, colors, "Сумма заявок",function(value, index, values) {
-  //  //return value.toLocaleString()+" руб";
-  //    var num = parseInt(value)/1000000;
-  //     return num.toLocaleString()+" млн руб";
-  // },
-  //   function(tooltipItem, data){
-  //     return tooltipItem.xLabel.toLocaleString()+" руб";
-  //   })
 };
 // Chart.pluginService.register({
 //     afterDraw: function(chartInstance) {
@@ -468,7 +459,7 @@ function chartBar(chart, labels,datasets, colors){
 var myChart = new Chart(ctx, {
     type: 'bar',
     data: {
-        labels: labels,//labelsMultiLines,
+        labels: labelsMultiLines,
          datasets: datasets,
 
 
@@ -479,6 +470,7 @@ var myChart = new Chart(ctx, {
         // }]
     },
     options: {
+      responsive:true,
        tooltips: {
          mode:'index',
          intersect: 'false',
@@ -503,17 +495,40 @@ var myChart = new Chart(ctx, {
         }
       },
       scales: {
+          xAxes: [{
+                   // gridLines: {
+                   //   display: true,
+                   //   tickMarkLength: 10,
+                   //   color: 'rgba(50,50,50,0.1)',
+                   //   // offsetGridLines:true
+                   //   drawTicks: false,
+                   // },
+                   ticks: {
+                     padding:10,
+                    autoSkip: false,
+                    maxRotation: 90,
+                    minRotation: 0,
+                  }
+            }],
 						yAxes: [{
 							type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
 							display: true,
 							position: 'left',
 							id: 'y-axis-1',
+              scaleLabel: {
+                 display: true,
+                 labelString: 'Сумма заявок, млн. руб'
+               }
 
 						}, {
 							type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
 							display: true,
 							position: 'right',
 							id: 'y-axis-2',
+              scaleLabel: {
+                 display: true,
+                 labelString: 'Количество заявок'
+               },
 							gridLines: {
 								drawOnChartArea: false
 							}
