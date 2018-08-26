@@ -8,6 +8,7 @@
 
   $startdate = isset($_GET['start']) ? $_GET['start'] : strtotime('-1 month');
   $enddate = isset($_GET['end']) ? $_GET['end'] : strtotime('now');
+  $leasing = isset($_GET['leasing']);
 
-  echo selectLeads($partnerId, $startdate, $enddate);
+  echo selectLeads($partnerId, $startdate, $enddate, $leasing);
 ?>

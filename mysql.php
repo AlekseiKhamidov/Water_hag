@@ -20,10 +20,10 @@
 		return $result ? $result[0] : null;
 	};
 
-	function selectLeads($partnerId = 0, $startDate = 0, $endDate = 1893456000, $json = TRUE) {
+	function selectLeads($partnerId = 0, $startDate = 0, $endDate = 1893456000, $leasing = FALSE, $json = TRUE) {
 		$sql = "SELECT * FROM `leads_info` WHERE ".
             ($partnerId ? "`source` LIKE '%$partnerId' AND " : "").
-
+            ($leasing ? "`status` LIKE 'Лизинг%' AND " : "`status` LIKE 'Потреб%' AND ").
             "`created_at` >= $startDate AND `created_at` <= $endDate ORDER BY `created_at` DESC";
 	  // print_r($sql);
 
