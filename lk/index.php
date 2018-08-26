@@ -3,7 +3,8 @@
   require_once "../mysql.php";
   echo "<pre>";
 
-  insertLead(getLeadFullInfo(15233141));
+  print_r(selectLeads(0, 1525132800, 1527724800));
+
 
 
   echo "</pre>";

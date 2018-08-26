@@ -20,14 +20,15 @@
 		return $result ? $result[0] : null;
 	};
 
-	function selectLeads($partnerId = 0) {
-		$sql = $partnerId ? "SELECT * FROM `leads` where `partnerId` = $partnerId order by `number` desc"
-							: "SELECT * FROM `leads` order by `createdAt` desc";
+	function selectLeads($partnerId = 0, $startDate = 0, $endDate = 1893456000, $json = TRUE) {
+		$sql = "SELECT * FROM `leads_info` WHERE ".
+            ($partnerId ? "`source` LIKE '%$partnerId' AND " : "").
 
-	//	 print_r($sql);
+            "`created_at` >= $startDate AND `created_at` <= $endDate ORDER BY `created_at` DESC";
+	  // print_r($sql);
 
 		$result = getNamedResult($sql);
-		return $result;
+		return $json ? json_encode($result) : $result;
 	};
 
   function insertLead($lead) {
@@ -75,6 +76,11 @@
         "`note_created_at` = '" .$lead['Дата изменения']."'";
         print_r($sql."\n ***********************************************************************************************\n");
 
+    return processQuery($sql);
+  }
+
+  function deleteLead($id) {
+    $sql = "DELETE FROM `leads_info` WHERE `id` = $id";
     return processQuery($sql);
   }
 

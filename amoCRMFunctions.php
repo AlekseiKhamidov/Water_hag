@@ -1,78 +1,33 @@
 <?php
   require_once "vendor/autoload.php";
   require_once "config.php";
-  // use Monolog\Logger;
-  // use Monolog\Handler\PhpConsoleHandler;
-  // use Monolog\Handler\StreamHandler;
-  //
-  //
-  // // Create the logger
-  // $logger = new Logger('my_logger');
-  // // Now add some handlers
-  // $logger->pushHandler(new PHPConsoleHandler());
-  // $stream = new StreamHandler(__DIR__.'/my_app.log', Logger::DEBUG);
-  // // $logger->pushHandler($stream);
-  //
+  require_once "mysql.php";
+
   try {
-  //   $listener = new \AmoCRM\Webhooks\Listener();
-  //
-  //   // Добавление обработчика на уведомление contacts->add
-  //   $listener->on('add_contact', function ($domain, $id, $data) {
-  //       // $domain Поддомен amoCRM
-  //       // $id Id объекта связанного с уведомлением
-  //       // $data Поля возвращаемые уведомлением
-  //       $GLOBALS["logger"]->info("Add Contact", [print_r($data, true)]);
-  //   });
-  //
-  //   $listener->on('add_lead', function ($domain, $id, $data) {
-  //       // $domain Поддомен amoCRM
-  //       // $id Id объекта связанного с уведомлением
-  //       // $data Поля возвращаемые уведомлением
-  //       $GLOBALS["logger"]->info("Add Lead", [print_r($data, true)]);
-  //   });
-  //
-  //   $listener->on('update_lead', function ($domain, $id, $data) {
-  //       // $domain Поддомен amoCRM
-  //       // $id Id объекта связанного с уведомлением
-  //       // $data Поля возвращаемые уведомлением
-  //       $GLOBALS["logger"]->info("Update Lead", [print_r($data, true)]);
-  //   });
-  //
-  //   $listener->on('update_contact', function ($domain, $id, $data) {
-  //       // $domain Поддомен amoCRM
-  //       // $id Id объекта связанного с уведомлением
-  //       // $data Поля возвращаемые уведомлением
-  //       $GLOBALS["logger"]->info("Update Contact", [print_r($data, true)]);
-  //   });
-  //
-  //   $listener->on('note_lead', function ($domain, $id, $data) {
-  //       // $domain Поддомен amoCRM
-  //       // $id Id объекта связанного с уведомлением
-  //       // $data Поля возвращаемые уведомлением
-  //       $GLOBALS["logger"]->info("Note Lead", [print_r($data, true)]);
-  //   });
-  //
-  //   $listener->on('delete_contact', function ($domain, $id, $data) {
-  //       // $domain Поддомен amoCRM
-  //       // $id Id объекта связанного с уведомлением
-  //       // $data Поля возвращаемые уведомлением
-  //       $GLOBALS["logger"]->info("Delete Contact", [print_r($data, true)]);
-  //   });
-  //
-  //   $listener->on('delete_lead', function ($domain, $id, $data) {
-  //       // $domain Поддомен amoCRM
-  //       // $id Id объекта связанного с уведомлением
-  //       // $data Поля возвращаемые уведомлением
-  //       $GLOBALS["logger"]->info("Delete Lead", [print_r($data, true)]);
-  //   });
-  //
-  //   // Вызов обработчика уведомлений
-  //   $listener->listen();
     $amo = new \AmoCRM\Client(
       AMOCRM['subdomain'],
       AMOCRM['login'],
       AMOCRM['hash']
     );
+
+    $listener = new \AmoCRM\Webhooks\Listener();
+    $listener->on(['add_lead', 'update_lead', 'note_lead'], function ($domain, $id, $data) {
+        // $domain Поддомен amoCRM
+        // $id Id объекта связанного с уведомлением
+        // $data Поля возвращаемые уведомлением
+        insertLead(getLeadFullInfo($id));
+    });
+
+    $listener->on('delete_lead', function ($domain, $id, $data) {
+        // $domain Поддомен amoCRM
+        // $id Id объекта связанного с уведомлением
+        // $data Поля возвращаемые уведомлением
+        deleteLead($id);
+    });
+
+    // Вызов обработчика уведомлений
+    $listener->listen();
+
   } catch (\AmoCRM\Exception $e) {
     $logger->error(sprintf('Error (%d): %s' . PHP_EOL, $e->getCode(), $e->getMessage()));
   }
@@ -112,7 +67,7 @@
   }
   function postLead($data, $VKPostURL, $partner, $pipeline = '') {
     try {
-       $data = json_decode($data, true);
+      $data = json_decode($data, true);
       $nameKey = array_search('name', array_column($data, 'id'));
       $phoneKey = array_search('phone', array_column($data, 'id'));
       $emailKey = array_search('email', array_column($data, 'id'));
