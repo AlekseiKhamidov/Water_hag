@@ -76,6 +76,7 @@
   } catch (\AmoCRM\Exception $e) {
     $logger->error(sprintf('Error (%d): %s' . PHP_EOL, $e->getCode(), $e->getMessage()));
   }
+
   function getLeadFullInfo($id) {
     // "Потребительский кредит^Отказ^#D5D8DB"
     $pipelines = $GLOBALS["amo"]->pipelines->apiList();
