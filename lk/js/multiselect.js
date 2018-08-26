@@ -40,29 +40,33 @@ function tableFilter(data){
        function createUl(id, data, column, formatter){
          var resultObject = {};
          $("#"+id).empty();
-         if ($("#"+id).length>=0){
+         if ($("#"+id).length==0){
            var div = '<div id="'+id+'" isActive="false" column-name="'+column+'" tabindex="-1" class="dropdown-menu" x-placement="bottom-end" style="display:none; position: absolute; transform: translate3d(0px, 35px, 0px);  will-change: transform; overflow:auto">'
-             +' <div class="dropdown-filter-search"><input type="text" class="dropdown-filter-menu-search form-control" data-column="4" data-index="0" placeholder="Search"></div>'
+             +' <div class="dropdown-filter-search"><input type="text" class="dropdown-filter-menu-search form-control" data-column="4" data-index="0" placeholder="Поиск"></div>'
              +' <label class="dropdown-item"><input type="checkbox" value="Select All" class="select_all" checked="checked" >Выбрать все'
              +' <div class="dropdown-divider"></div>'
-             +'</label>';
+             +'</label></div>';
            $(filterContainer).append(div);
 
-               resultObject = searchArray(column, data);
+         }
+         else {
+           var search = ' <div class="dropdown-filter-search"><input type="text" class="dropdown-filter-menu-search form-control" data-column="4" data-index="0" placeholder="Поиск"></div>'
+              +' <label class="dropdown-item"><input type="checkbox" value="Select All" class="select_all" checked="checked" >Выбрать все'
+              +' <div class="dropdown-divider"></div>'
+              +'</label>';
+           $("#"+id).append(search)
+         }
+            resultObject = searchArray(column, data);
+         for (var i=0;i<Object.keys(resultObject).length;i++){
 
-
-
-              for (var i=0;i<Object.keys(resultObject).length;i++){
-
-                var elem = Object.keys(resultObject)[i];
-                var dopValue = elem;
-                if (formatter) elem = formatter(elem);
-                addOption($(filterContainer).find('#'+id), elem,dopValue);
-              }
+           var elem = Object.keys(resultObject)[i];
+           var dopValue = elem;
+           if (formatter) elem = formatter(elem);
+           addOption($(filterContainer).find('#'+id), elem,dopValue);
          }
 
 
-          resultObject = searchArray(column, data);
+    //      resultObject = searchArray(column, data);
 
 
             var text = Object.keys(resultObject).length>0? "Выбрано "+Object.keys(resultObject).length: "";

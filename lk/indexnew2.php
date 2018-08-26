@@ -164,7 +164,6 @@ border-radius: .25rem;
       data-show-export="true"
       data-show-columns="true"
       data-filter-control="true"
-      data-show-toggle="true"
       data-check-on-init="true"
       data-export-types="['excel']">
         <thead>
@@ -361,6 +360,7 @@ border-radius: .25rem;
      })
     // $("#textPeriod").text("Итого: " + result.toLocaleString() + " руб");
      $table.on('load-success.bs.table', function(data) {
+       $table.bootstrapTable('filterBy', {})
          Data = $table.bootstrapTable('getData');
         tableFilter(Data);
         $("#mdb-preloader").hide();
