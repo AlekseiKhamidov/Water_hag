@@ -118,11 +118,6 @@ border-radius: .25rem;
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
-              <?php if ($userdata[ 'user_login']!='admin' ) echo '
-                 <li class="nav-item">
-                    <a class="nav-link" onclick="reLoad()">Обновить данные <span class="sr-only">(current)</span></a>
-                </li>
-                '?>
                  <li class="nav-item ">
                     <a class="nav-link" href="logout.php" id="navbarDropdownMenuLink" >
                        <?php echo "{$userdata['user_login']}"; if ($userdata[ 'partner_name']) { echo " ({$userdata['partner_name']})"; } ?> (Выйти)
@@ -473,7 +468,7 @@ var myChart = new Chart(ctx, {
       responsive:true,
        tooltips: {
          mode:'index',
-         intersect: 'false',
+         intersect: false,
         callbacks: {
           label: function(tooltipItem, data){
             var label = data.datasets[tooltipItem.datasetIndex].label || '';

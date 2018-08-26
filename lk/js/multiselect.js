@@ -88,6 +88,9 @@ function tableFilter(data){
 
        function searchArray(nameKey, myArray){
          var result = {};
+         myArray.sort(function(a,b){
+            return a[nameKey].trim().localeCompare(b[nameKey].trim())
+        })
          for (var i=0; i < myArray.length; i++) {
            result[myArray[i][nameKey]] = i;
          }
