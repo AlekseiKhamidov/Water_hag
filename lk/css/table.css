@@ -11,6 +11,9 @@
    color: #676767;
 
  }
+ .managerCell{
+   min-width: 120px
+ }
 
  .labelSwitcher {
    margin-left: 10px;
