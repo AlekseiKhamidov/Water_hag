@@ -1,7 +1,7 @@
 <?php
   require_once "check.php";
   require_once "../config.php";
-  require_once "mysql.php";
+  require_once "../mysql.php";
 
   if (checkLogin() == -1) {
     header("Location: login.php"); exit();
@@ -11,7 +11,7 @@
 <html>
  <head>
     <title>
-        Статистика
+        Личный кабинет
     </title>
        <link rel="stylesheet" href="../css/bootstrap.min.css">
        <link href="../css/mdb.min.css" rel="stylesheet">
