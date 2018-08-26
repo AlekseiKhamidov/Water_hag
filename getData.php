@@ -1,6 +1,6 @@
 <?php
-  require_once "../amoCRMFunctions.php";
-  require_once "../mysql.php";
+  require_once "amoCRMFunctions.php";
+  require_once "mysql.php";
 
   $partnerId = getUserdata(
     isset($_COOKIE['id']) ? intval($_COOKIE['id']) : 0

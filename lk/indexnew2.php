@@ -230,6 +230,7 @@ border-radius: .25rem;
 <script src="js/extensions.js"></script>
 <script type="text/javascript" src="../js/jquery.maskedinput.min.js"></script>
 <script src="js/multiselect.js"></script>
+<script src="js/jquery.color.min.js"></script>
 <script type="text/javascript">
   $(document).ready(function() {
     //$('.mdb-select').material_select();
@@ -265,61 +266,6 @@ border-radius: .25rem;
               }
 
             }
-          //   $("#saveFilter").on('click', function() {
-          //
-          //     console.log("saveFilter");
-          //     dateFrom = toDate(from_picker.get("valueSubmit"))
-          //     dateFrom.setHours(0);
-          //     console.log(dateFrom);
-          //     dateTo = toDate(to_picker.get("valueSubmit"));
-          //     dateTo.setDate(dateTo.getDate() + 1);
-          //     dateTo.setHours(0);
-          //      console.log(dateTo);
-          // //    filterTable(dateFrom, dateTo);
-          //
-          //     var switches = $(".switch.round.blue-white-switch").find("input[type='checkbox']");
-          //     var statusList=[];
-          //     for (var i=0; i<switches.length;i++){
-          //       console.log(switches[i])
-          //       var switch_div = $(switches[i]).parents(".switch.round.blue-white-switch");
-          //       var idGroup = switch_div.attr("for");
-          //       var pipeline = switch_div.attr("pipeline");
-          //
-          //
-          //
-          //       if ($(switches[i]).prop("checked")){
-          //          var status = $("#"+idGroup).find("input[type='checkbox']:checked").each(saveFilter);
-          //       }
-          //       else {
-          //        // var status = $("#"+idGroup).find("input[type='checkbox']").each(saveFilter);
-          //        //statusList.push("");
-          //       }
-          //     }
-          //     function saveFilter(){
-          //       var color = $(this).parent().attr("color")
-          //       statusList.push(pipeline+'^'+$(this).parent().attr("value")+'^'+color)
-          //     };
-          //     console.log(statusList);
-          //     var values = [{
-          //       name: "status",
-          //       values: statusList
-          //     }];
-          //     filterBy($("#table"), values);
-          //
-          //     //var data = $table.bootstrapTable('getData');
-          //     if (statusList.length>0){
-          //       analyze(statusList);
-          //     }
-          //     else {
-          //       analyze(DataStatus.status);
-          //     }
-          //
-          //
-          //     $('#exampleModal').modal("hide");
-          //     totalSum();
-          //   });
-
-
             initTable($("#table"));
         }
     })
@@ -343,7 +289,7 @@ function clearFilter(){
      var from = getTimePHP(start);
      var to = getTimePHP(end);
      $table.bootstrapTable({
-         url: "getData.php",
+         url: "../getData.php",
          queryParams:function(p){
           return {start:from, end:to}
         },
@@ -384,9 +330,9 @@ function clearFilter(){
 
 
 
-     $table.on('refresh.bs.table', function(e, arg1, arg2) {
-         clearFilter();
-     });
+     // $table.on('refresh.bs.table', function(e, arg1, arg2) {
+     //     clearFilter();
+     // });
 
      $('.mdb-select').material_select();
  };
@@ -402,11 +348,9 @@ function analyze(){
   var labels = [];
   var statuses = [];
 
-$("#filter-status [type='checkbox']:checked:not(.select_all)").each(function(){
-  statuses.push(this.value);
-})
-
-
+  $("#filter-status [type='checkbox']:checked:not(.select_all)").each(function(){
+    statuses.push(this.value);
+  })
   for (var i=0;i<statuses.length;i++){
     var count =0;
     var sum = 0;
@@ -421,19 +365,31 @@ $("#filter-status [type='checkbox']:checked:not(.select_all)").each(function(){
     labels.push(statusFormatterSelect(statuses[i]));
 
       dataSum.push(parseInt(sum)/1000000);
+  //    dataSum.push(sum);
       dataCount.push(count);
   }
   console.log(dataCount);
   console.log(dataSum);
+  var backgroundColors =[];
+   colors.forEach(function(color){
+    backgroundColors.push(jQuery.Color(color).transition("transparent", 0.5).toRgbaString())
+    //color.alpha(0.5).rgbString()
+  });
 
   var datasets = [{
     label: "Сумма заявок",
     data: dataSum,
-    backgroundColor:colors
+    backgroundColor:backgroundColors,
+    borderColor : colors,
+    borderWidth: 2,
+    yAxisID: 'y-axis-1'
   },{
     label: "Количество заявок",
     data: dataCount,
-    type: 'line'
+    type: 'line',
+    borderColor: 'red',
+    fill: false,
+    yAxisID: 'y-axis-2'
   }]
   //chartPie(labels, datasetCount, colors)
   chartBar(document.getElementById("comboChart"),labels, datasets, colors);
@@ -446,18 +402,32 @@ $("#filter-status [type='checkbox']:checked:not(.select_all)").each(function(){
   //     return tooltipItem.xLabel.toLocaleString()+" руб";
   //   })
 };
-
+// Chart.pluginService.register({
+//     afterDraw: function(chartInstance) {
+//         var ctx = chartInstance.chart.ctx;
+//
+//         // render the value of the chart above the bar
+//         ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontSize, 'normal', Chart.defaults.global.defaultFontFamily);
+//         ctx.textAlign = 'center';
+//         ctx.textBaseline = 'bottom';
+//         ctx.fillStyle =chartInstance.chart.options.defaultFontColor;
+//
+//         chartInstance.data.datasets.forEach(function (dataset) {
+//             for (var i = 0; i < dataset.data.length; i++) {
+//                 var model = dataset._meta[Object.keys(dataset._meta)[0]].data[i]._model;
+//                 ctx.fillText(dataset.data[i], model.x, model.y - 2);
+//             }
+//         });
+//   }
+// });
 function resetCanvas($chart,$parent) {
   $parent.empty();
-//  $parent.width($(".modal-body").width())
   var id=$chart.attr("id");
   $parent.append('<canvas id="'+id+'" class="chartjs-render-monitor"><canvas>');
   canvas = document.querySelector('#'+id); // why use jQuery?
   ctx = canvas.getContext('2d');
   ctx.canvas.width = $parent.width(); // resize to parent width
   ctx.canvas.height = $parent.height() ; // resize to parent height
-  //ctx.canvas.width = $parent.width(); // resize to parent width
-  //ctx.canvas.width = "600"; // resize to parent width
   var x = canvas.width/2;
   var y = canvas.height/2;
   ctx.font = '10pt Verdana';
@@ -468,16 +438,8 @@ function resetCanvas($chart,$parent) {
 
 
 function chartBar(chart, labels,datasets, colors){
-  // if (!callbackX) {
-  //   callbackX = function(value, index, values) {return value; }
-  // }
-  // if (!callbackTooltip) {
-  //   callbackTooltip = function(tooltipItem, data) {return tooltipItem.xLabel; }
-  // }
   var ctx = resetCanvas($(chart), $(chart).parent());
-  //var ctx = chart.getContext('2d');
   const maxTooltipLength = 24;
-
     var wordsToArray = function(words) {
        var lines = [];
        var str = '';
@@ -507,8 +469,9 @@ var myChart = new Chart(ctx, {
     type: 'bar',
     data: {
         labels: labels,//labelsMultiLines,
-      //  labels: labels,
-         datasets: datasets,//[{
+         datasets: datasets,
+
+
         //     label: name,
         //     data: dataset,
         //     backgroundColor:colors,
@@ -517,29 +480,45 @@ var myChart = new Chart(ctx, {
     },
     options: {
        tooltips: {
+         mode:'index',
+         intersect: 'false',
         callbacks: {
-          // label: function(){
-          //
-          // },
+          label: function(tooltipItem, data){
+            var label = data.datasets[tooltipItem.datasetIndex].label || '';
+
+                        if (label) {
+                            label += ': ';
+
+                        label += tooltipItem.yLabel.toLocaleString('ru', {maximumFractionDigits: 1})
+
+                        if (tooltipItem.datasetIndex==0){
+                          label += " млн. руб"
+                            }
+                        }
+
+                //        label += Math.round(tooltipItem.yLabel * 100) / 100;
+                        return label;
+          },
           // afterLabel: otherLabels.bind(this)
         }
       },
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero:true,
+      scales: {
+						yAxes: [{
+							type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
+							display: true,
+							position: 'left',
+							id: 'y-axis-1',
 
-                }
-            }],
-            xAxes: [{
-                      ticks: {
-                        // autoSkip: false,
-                        // maxRotation: 90,
-                        // minRotation: 0,
-                        // callback: callbackX
-                      }
-                    }]
-        },
+						}, {
+							type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
+							display: true,
+							position: 'right',
+							id: 'y-axis-2',
+							gridLines: {
+								drawOnChartArea: false
+							}
+						}],
+					},
         legend: {
           display: false,
           position: 'right',
