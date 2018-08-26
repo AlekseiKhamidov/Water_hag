@@ -344,12 +344,9 @@ function clearFilter(){
      var to = getTimePHP(end);
      $table.bootstrapTable({
          url: "getData.php",
-      //   columns: columns,
-          minWidth: 1000,
-          // stickyHeader: true,
-          // stickyHeaderOffsetY:'60px',
-       //   stickyHeaderOffsetY:stickyHeaderOffsetY + 'px',
-
+         queryParams:function(p){
+          return {start:from, end:to}
+        },
          height: setHeight(),
          exportOptions: {
                 onCellHtmlData: function (cell, rowIndex, colIndex, htmlData) {
@@ -595,7 +592,7 @@ function loadDate(from, to){
     $("#mdb-preloader").show();
     var from = getTimePHP(from);
     var to = getTimePHP(to);
-    $("#textPeriod").text("Период: "+start.toLocaleDateString()+" - "+end.toLocaleDateString());
+  //  $("#textPeriod").text("Период: "+start.toLocaleDateString()+" - "+end.toLocaleDateString());
     $("#table").bootstrapTable('refreshOptions',{
       queryParams:function(p){
         return {start:from, end:to}
