@@ -159,6 +159,7 @@ border-radius: .25rem;
       data-show-columns="true"
       data-filter-control="true"
       data-check-on-init="true"
+      data-filter-show-clear="true"
       data-export-types="['excel']">
         <thead>
           <tr>
@@ -222,7 +223,6 @@ border-radius: .25rem;
 <script type="text/javascript" src="js/util-table.js"></script>
 <script type="text/javascript" src="lib/bootstrap-table-master/src/extensions/export/bootstrap-table-export.js"></script>
 <script type="text/javascript" src="js/tableExport.js"></script>
-<script type="text/javascript" src="lib/bootstrap-table-master/src/extensions/sticky-header/bootstrap-table-sticky-header.js"></script>
 <script src="js/spin.min.js"></script>
 <script src="js/extensions.js"></script>
 <script type="text/javascript" src="../js/jquery.maskedinput.min.js"></script>
@@ -253,6 +253,7 @@ border-radius: .25rem;
 };
 function clearFilter(){
      $table.bootstrapTable('filterBy', {});
+     $(".filter-show-clear").click()
       $(filterContainer).find(".select_all").each(function(){
           $(this).prop("checked","")
         $(this).click()
@@ -303,6 +304,7 @@ function clearFilter(){
         //+'</span>'
         +'</button>';
         $(".columns").prepend(btnClearFilter);
+        $(".filter-show-clear").hide();
     //     analyze(DataStatus.status);
       //   filterTable(start, end);
           totalSum();
