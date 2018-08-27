@@ -1,6 +1,8 @@
 <?php
-	$duration = 3600*24*7;
-	setcookie("id", "", time() - $duration, "/");
-    setcookie("hash", "", time() - $duration, "/");
+	// $duration = 3600*24*7;
+	unset($_COOKIE['id']);
+	unset($_COOKIE['hash']);
+	setcookie("id", null, time()-1, '/', "", TRUE, TRUE);
+    setcookie("hash", null, time()-1, '/', "", TRUE, TRUE); // httponly !!!
     header("Location: login.php"); exit();
 ?>
