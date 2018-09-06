@@ -33,7 +33,7 @@
   <?php  if (isset($GLOBALS['PAGE'])){
       $page = $GLOBALS['PAGE'];
       $type = type[$page];
-      if ($page == "oyli") { ?>
+       if ($page == "oyli" || $page == "voronin.systems") { ?>
         <div class="md-form ">
           <input type="text" id="site_work" name="site_work" class="form-control validate">
           <label for="site_work" data-error="<?php echo error["all"]?>"
