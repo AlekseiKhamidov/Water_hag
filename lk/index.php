@@ -595,18 +595,7 @@ function loadDate(from, to){
 
 
   });
-  function parseStatus(text) {
-    var mas = text.split('^');
-    if (mas.length > 1) {
-      var obj = {
-        pipeline: mas[0],
-        val: mas[1],
-        color: mas[2]
-      };
-      return obj
-    }
-    return null;
-  };
+
   function guid() {
   function s4() {
     return Math.floor((1 + Math.random()) * 0x10000)

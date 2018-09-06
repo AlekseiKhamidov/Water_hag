@@ -56,7 +56,13 @@ function tableFilter(data){
               +'</label>';
            $("#"+id).append(search)
          }
-            resultObject = searchArray(column, data);
+         var format = function(elem){return elem.trim();};
+         if (column == "status"){
+           format = function(elem){
+             return parseStatus(elem).sorter;
+           }
+         }
+            resultObject = searchArray(column, data, format);
          for (var i=0;i<Object.keys(resultObject).length;i++){
 
            var elem = Object.keys(resultObject)[i];
@@ -86,10 +92,19 @@ function tableFilter(data){
        }
 
 
-       function searchArray(nameKey, myArray){
+       function searchArray(nameKey, myArray, format){
          var result = {};
          myArray.sort(function(a,b){
-            return a[nameKey].trim().localeCompare(b[nameKey].trim())
+           var a = format(a[nameKey]);
+           var b = format(b[nameKey]);
+           if (typeof(a) == "string" && typeof(b) == "string"){
+              return format(a).localeCompare(format(b));
+           }
+           if (typeof(a) == "number" && typeof(b) == "number"){
+            return a-b;
+           }
+
+            //return parseStatus(a[nameKey]).sorter.localeCompare(parseStatus(b[nameKey]).sorter)
         })
          for (var i=0; i < myArray.length; i++) {
            result[myArray[i][nameKey]] = i;
@@ -110,7 +125,7 @@ function tableFilter(data){
        //  dopValue = dopValue? dopValue:elem;
        var id=guid();
 
-         var label ='<label class="dropdown-item" for="'+id+'"><input type="checkbox" id="'+id+'" data-field="name" value="'+dopValue+'" checked="checked"> '+elem+'</label>';
+         var label ='<label class="dropdown-item" for="'+id+'"><input type="checkbox" id="'+id+'" data-field="name" value=\''+dopValue+'\' checked="checked"> '+elem+'</label>';
           $parent.append(label);
        //  parent.appendChild();
        }

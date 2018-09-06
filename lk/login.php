@@ -11,6 +11,9 @@
 ?>
 <html>
     <head>
+      <title>
+          Авторизация
+      </title>
         <link rel="stylesheet" href="../css/bootstrap.min.css">
  <link href="../css/mdb.min.css" rel="stylesheet">
   <link href="../css/style.css" rel="stylesheet">

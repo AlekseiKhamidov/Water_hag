@@ -2,6 +2,7 @@
 	require_once 'VKFunctions.php';
 	require_once 'doPDF.php';
 	require_once 'amoCRMFunctions.php';
+	  require_once "config.php";
 
   header('Access-Control-Allow-Origin: *');
 

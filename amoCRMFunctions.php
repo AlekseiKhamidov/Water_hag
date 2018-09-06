@@ -37,20 +37,32 @@
     $pipelines = $GLOBALS["amo"]->pipelines->apiList();
     $lead = $GLOBALS["amo"]->lead;
     $leadObj = fetchEntity($lead, ["id" => $id]);
+  //  print_r($leadObj);
     $leadInfo = getEntityInfo($leadObj, AMOCRM["lead_CFs"]);
     $leadInfo["Бюджет"] = $leadObj["price"];
-    $leadInfo["Дата создания"] = $leadObj["date_create"] > 1483228800 ? $leadObj["date_create"] : $leadObj["last_modified"]; // Дата должна быть больше 01.01.2017
+  //  $leadInfo["Дата создания"] = $leadObj["date_create"] > 1483228800 ? $leadObj["date_create"] : $leadObj["last_modified"]; // Дата должна быть больше 01.01.2017
+    $leadInfo["Дата создания"] = ($leadObj["date_create"] > 1483228800 && $leadObj["date_create"]<= time()) ? $leadObj["date_create"] : $leadObj["last_modified"]; // Дата должна быть больше 01.01.2017 и меньше текущего дня
     $pipeline = $pipelines[$leadObj["pipeline_id"]];
     $status = $pipeline["statuses"][$leadObj["status_id"]];
-    $leadInfo["Статус"] = $pipeline["name"]."^".$status["name"]."^".$status["color"]. ($leadObj["loss_reason_id"] ? "^".AMOCRM["loss_reasons"][$leadObj["loss_reason_id"]] :"");
+    $loss_reason_id = (strpos($status["name"], 'Отказ') !== false)?($leadObj["loss_reason_id"] ? "^".AMOCRM["loss_reasons"][$leadObj["loss_reason_id"]] :""): "";
+    //$leadInfo["Статус"] = $pipeline["name"]."^".$status["name"]."^".$status["sort"]."^".$status["color"].($leadObj["loss_reason_id"] ? "^".AMOCRM["loss_reasons"][$leadObj["loss_reason_id"]] :"");
+    $leadInfo["Статус"] = $pipeline["name"]."^".$status["name"]."^".$status["sort"]."^".$status["color"].$loss_reason_id;
     $contact = $GLOBALS["amo"]->contact;
-    $contactObj = fetchEntity($contact, ["id" => $leadObj["main_contact_id"]]);
-    $contactInfo = getEntityInfo($contactObj, AMOCRM["contact_CFs"]);
-    $leadInfo["Имя контакта"] = $contactInfo["Наименование"];
-    $leadInfo["Телефон"] = isset($contactInfo["Телефон"]) ? $contactInfo["Телефон"] : "";
+    if ($leadObj["main_contact_id"] == ""){
+    //  $leadInfo["Имя контакта"] = isset($leadObj["name"])?$leadObj["name"]:"";
+      $leadInfo["Имя контакта"] = "";
+      $leadInfo["Телефон"] = "";
+      $leadInfo["Город"] = "";
+    }
+    else {
+      $contactObj = fetchEntity($contact, ["id" => $leadObj["main_contact_id"]]);
+      $contactInfo = getEntityInfo($contactObj, AMOCRM["contact_CFs"]);
+      $leadInfo["Имя контакта"] = $contactInfo["Наименование"];
+      $leadInfo["Телефон"] = isset($contactInfo["Телефон"]) ? $contactInfo["Телефон"] : "";
+      $leadInfo["Город"] = isset($contactInfo["Город"]) ? $contactInfo["Город"] : "";
+    }
     $leadInfo["РОП"] = isset($leadInfo["РОП"]) ? $leadInfo["РОП"] : "";
     $leadInfo["Менеджер"] = isset($leadInfo["Менеджер"]) ? $leadInfo["Менеджер"] : "";
-    $leadInfo["Город"] = isset($contactInfo["Город"]) ? $contactInfo["Город"] : "";
     $note = $GLOBALS["amo"]->note;
     $noteObj = fetchEntity($note, [
       "note_type" => 4,
@@ -59,6 +71,7 @@
     ]);
     $leadInfo["Текст"] = stristr($noteObj["text"], "vk.com") === false ? $noteObj["text"] : "";
     $leadInfo["Дата изменения"]  = $noteObj["last_modified"];
+
     return $leadInfo;
   }
   function getAllLeads() {

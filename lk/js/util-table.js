@@ -34,19 +34,19 @@ function roundButtonFormatter(value){
    if (value) {
     var split = value.split('^');
     var text = "";
-    if (split.length > 3){
-      text = split[1]+": "+split[3];
+    if (split.length > 4){
+      text = split[1]+": "+split[4];
     }else {
       if (split.length>0)
       text = split[1]
     }
 
-    if (split.length > 2) {
+    if (split.length > 3) {
       var pipeline = split[0];
-//      var text = split[1];
-      var color = split[2];
+      var sorter = split[2];
+      var color = split[3];
     //  return ' <span class="badge badge-pill " style="background-color:' + color + '">' + text +'</span>'
-      return ' <button type="button" class="btn btn-rounded" style="background-color:' + color + '; overflow: hidden; white-space: nowrap;font-size: 0.6rem;color: #676767; cursor: default;">' + text +'</button>';
+      return ' <button type="button" class="btn btn-rounded" sorter="'+sorter+'" style="background-color:' + color + '; overflow: hidden; white-space: nowrap;font-size: 0.6rem;color: #676767; cursor: default;">' + text +'</button>';
     }
 
   }
@@ -55,8 +55,8 @@ function roundButtonFormatter(value){
 function statusFormatterSelect(value){
    if (value) {
     var split = value.split('^');
-    if (split.length > 3){
-      return  split[1]+": "+split[3];
+    if (split.length > 4){
+      return  split[1]+": "+split[4];
     }else {
       if (split.length>0)
       return  split[1]
@@ -65,7 +65,20 @@ function statusFormatterSelect(value){
   }
   return "";
 };
-
+function parseStatus(text) {
+  var mas = text.split('^');
+  if (mas.length > 1) {
+    var obj = {
+      pipeline: mas[0],
+      val: mas[1],
+    sorter: parseInt(mas[2]),
+  //  sorter: mas[2],
+      color: mas[3]
+    };
+    return obj
+  }
+  return null;
+};
 function cheapFormatter(value) {
   if (value) {
     var split = value.split('^');

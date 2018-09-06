@@ -128,7 +128,7 @@
 	function processQuery($query) {
 		$link = connect();
 		$queryResult = mysqli_query($link, $query);
-
+//    print_r($queryResult);
 
 		closeConnection($link);
 		return $queryResult;
