@@ -11,7 +11,7 @@
   	$files['file2'] = processFile($_FILES['file2'], "_file2", $_POST['guid']);
   	$files['file3'] = processFile($_FILES['file3'], "_file3", $_POST['guid']);
 
-		$files =	moveFilesToDocs($files);
+		//$files =	moveFilesToDocs($files);
 
     if (isset($_POST['data'])) {
     	if (isset($_POST['partner'])) {
@@ -21,20 +21,31 @@
 
 				if (isset($_POST['group'])) {
 					try {
-						$group = json_decode($_POST['group'], true);
+
+						switch ($_POST['group'])	{
+							case 0:$group = VK['group']['main']; break;
+							case 1:$group = VK['group']['like']; break;
+							case 2:$group = VK['group']['like_ul']; break;
+						}
+				//		print_r($group);
+
+						switch ($_POST['branch']) {
+							case 0:$branch = AMOCRM['main']; break;
+							case 1:$branch = AMOCRM['branch']; break;
+						}
+					//	print_r($branch);
+					//	$group = json_decode($_POST['group'], true);
 
 
 						$attachments = createAttachements($files, $group['id']);
 						$message = parseDataForMessage($_POST['data'],
-																					$_POST['partner'] && is_numeric($_POST['partner']) ?
-																					AMOCRM["partners_list"][$_POST['partner']]
-																					: $_POST['partner']);
+																					$_POST['partnerName']);
 						$post = postToGroupWall($message, $attachments, $group['id']);
 						$VKPostURL = "https://vk.com/".$group['name']."?w=wall-".$group['id']."_".$post."%2Fall";
 					//	sendMessageToChat($message.chr(10).$VKPostURL);
-	moveFilesToDocs($files);
+					moveFilesToDocs($files);
 
-						postLead($_POST['data'], $VKPostURL, $_POST['partner'], $_POST['pipeline']);
+						postLead($_POST['data'], $VKPostURL, $_POST['partner'], $_POST['pipeline'],$branch, $_POST['partnerName']);
 					} catch (\Exception $e) {
 			      printf('%s: Error (%d): %s' . PHP_EOL, __FUNCTION__,  $e->getCode(), $e->getMessage());
 			    }

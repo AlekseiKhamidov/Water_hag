@@ -1,9 +1,171 @@
 <?php
-	const title = [
-		"alivewater" => "Живая вода",
-		"anketa" => "Актив Кредит",
+	const main = [
+		"alivewater" => [
+			'name' => "Живая вода",
+			'id' => 32929,
+			'pipeline' => "pos-credit",
+			'type' => "equipment",
+			'branch' => 0,
+			'group' => 0,
+			'friendCount' => 2
+		],
+		"anketa" => [
+			"name" => "Актив Кредит",
+			"id" => 0,
+			"pipeline" => "pos-credit",
+			"type" => "both",
+			"branch" => 0,
+			"group" => 0,
+			"friendCount" => 1
+		],
+		"cpp" => [
+			"name" => "Центр правовой поддержки",
+			"id" => 850545,
+			"pipeline" => "pos-credit",
+			"type" => "service",
+			"branch" => 0,
+			"group" => 0,
+			"friendCount" => 1
+		],
+			"likekdr" => [
+				"name" => "Like Краснодар",
+				"id" => 973015,
+				"pipeline" => "pos-credit",
+				"type" => "course",
+				"branch" => 1,
+				"group" => 2,
+				"friendCount" => 1
+			],
+			"likensk" => [
+				"name" => "Like Новосибирск",
+				"id" => 973017,
+				"pipeline" => "pos-credit",
+				"type" => "course",
+				"branch" => 1,
+				"group" => 2,
+				"friendCount" => 1
+			],
+			"likekzn"=> [
+				"name" => "Like Казань",
+				"id" => 973019,
+				"pipeline" => "pos-credit",
+				"type" => "course",
+				"branch" => 1,
+				"group" => 2,
+				"friendCount" => 1
+			],
+			"likesur" => [
+				"name" => "Like Сургут",
+				"id" => 973021,
+				"pipeline" => "pos-credit",
+				"type" => "course",
+				"branch" => 1,
+				"group" => 2,
+				"friendCount" => 1
+			],
+			"likechb" => [
+				"name" => "Like Чебоксары",
+				"id" => 973023,
+				"pipeline" => "pos-credit",
+				"type" => "course",
+				"branch" => 1,
+				"group" => 2,
+				"friendCount" => 1
+			],
+			"likeyla" => [
+				"name" => "Like Йошкар-Ола",
+				"id" => 973025,
+				"pipeline" => "pos-credit",
+				"type" => "course",
+				"branch" => 1,
+				"group" => 2,
+				"friendCount" => 1
+			],
+			"likesok" => [
+				"name" => "Like Старый Оскол",
+				"id" => 973027,
+				"pipeline" => "pos-credit",
+				"type" => "course",
+				"branch" => 1,
+				"group" => 2,
+				"friendCount" => 1
+			],
+			"likesal" => [
+				"name" => "Like Салават",
+				"id" => 973029,
+				"pipeline" => "pos-credit",
+				"type" => "course",
+				"branch" => 1,
+				"group" => 2,
+				"friendCount" => 1
+			],
+			"likechl" => [
+				"name" => "Like Челябинск",
+				"id" => 973031,
+				"pipeline" => "pos-credit",
+				"type" => "course",
+				"branch" => 1,
+				"group" => 2,
+				"friendCount" => 1
+			],
+			"likeslt" => [
+				"name" => "Like Стерлитамак",
+				"id" => 973033,
+				"pipeline" => "pos-credit",
+				"type" => "course",
+				"branch" => 1,
+				"group" => 2,
+				"friendCount" => 1
+			],
+			"likeizh" => [
+				"name" => "Like Ижевск",
+				"id" => 973035,
+				"pipeline" => "pos-credit",
+				"type" => "course",
+				"branch" => 1,
+				"group" => 2,
+				"friendCount" => 1
+			],
+			"likeptk" => [
+				"name" => "Like Петропавловск-Камчатский",
+				"id" => 973037,
+				"pipeline" => "pos-credit",
+				"type" => "course",
+				"branch" => 1,
+				"group" => 2,
+				"friendCount" => 1
+			],
+			"liketua" => [
+				"name" => "Like Туапсе",
+				"id" => 973039,
+				"pipeline" => "pos-credit",
+				"type" => "course",
+				"branch" => 1,
+				"group" => 2,
+				"friendCount" => 1
+			],
+
+			"likeprm"=> [
+				"name" => "Like Пермь",
+				"id" => 973039,
+				"pipeline" => "pos-credit",
+				"type" => "course",
+				"branch" => 0,
+				"group" => 1,
+				"friendCount" => 1
+			],
+			"likeekb"=> [
+				"name" => "Like Пермь",
+				"id" => 973039,
+				"pipeline" => "pos-credit",
+				"type" => "course",
+				"branch" => 0,
+				"group" => 1,
+				"friendCount" => 1
+			],
+
+
 		"apachi" => "Apachi Group",
-		"cpp" => "Центр правовой поддержки",
 		"garden" => "Garden Group",
 		"gyroscooter-perm" => "#ГИРОСКУТЕРПЕРМЬ",
 		"like" => "Like Finance",
@@ -15,6 +177,7 @@
 		"epilier" => "Студия профессиональной депиляции",
 		"voronin.systems" => "Легендарный курс «Система Воронина»"
 	];
+
   const hello = [
     "alivewater" =>"Вы хотите купить оборудование компании «Живая вода», но у Вас нет свободных средств?</br>
     Мы поможем оформить Вам кредит или рассрочку.</br>
@@ -99,8 +262,7 @@
 	Мы поможем Вам оформить рассрочку на удобный для Вас срок.</br>
 	Рассрочка оформляется на базе кредитного договора через банки-партнеры. Ни каких справок, поручителей и беготни по отделениям.</br>
 	Все просто и в одном месте. Вам остается только следовать инструкциям и корректно отвечать на вопросы.</br>
-	Спасибо за то, что Вы с нами!"
-
+	Спасибо за то, что Вы с нами!",
   ];
 	const type = [
 		"alivewater" => "equipment",
@@ -323,5 +485,13 @@
 		]
 	];
 
+function getPage($page){
+	if (strpos($page, 'like') !== false){
+		return 'like';
+	}
+	else {
+		return 	$page;
+	}
+}
 
 	?>

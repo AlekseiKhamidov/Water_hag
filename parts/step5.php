@@ -8,7 +8,7 @@
   <?php require_once '../bundles.php';
     if (isset($GLOBALS['PAGE'])){
       $page = $GLOBALS['PAGE'];
-      $friendCount = friendCount[$page];
+      $friendCount = main[$page]['friendCount'];
     if ($friendCount == 1) { ?>
 
     <div class="md-form ">

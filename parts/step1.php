@@ -6,7 +6,8 @@
           require_once '../bundles.php';
           if (isset($GLOBALS['PAGE'])){
             $page = $GLOBALS['PAGE'];
-            $type = type[$page];
+            $type = main[$page]['type'];
+//            $type = type[getPage($page)];
             echo  step[1][$type];
           }  ?>
       </h5>
@@ -18,21 +19,21 @@
         require_once '../bundles.php';
         if (isset($GLOBALS['PAGE'])){
           $page = $GLOBALS['PAGE'];
-          $type = type[$page];
+          $type = main[$page]['type'];
           echo  error["course"][$type];
         }
        ?>"  data-success="<?php echo success["all"]?>"><?php
         require_once '../bundles.php';
         if (isset($GLOBALS['PAGE'])){
           $page = $GLOBALS['PAGE'];
-          $type = type[$page];
+          $type = main[$page]['type'];
           echo  anketa["course"][$type];
         }  ?></label>
   </div>
   <?php  if (isset($GLOBALS['PAGE'])){
       $page = $GLOBALS['PAGE'];
-      $type = type[$page];
-      if ($page == "like") { ?>
+      $type = main[$page]['type'];
+      if (getPage($page) == "like") { ?>
         <div class="md-form ">
             <input type="text" id="city_like" name="city_like" required class="form-control validate">
             <label for="city_like" data-error="<?php echo error["all"]?>"
@@ -45,7 +46,7 @@
     <label for="price" data-error="<?php require_once '../bundles.php';
      if (isset($GLOBALS['PAGE'])){
         $page = $GLOBALS['PAGE'];
-        $type = type[$page];
+        $type = main[$page]['type'];
         echo  error["price"][$type];
       }
      ?>"  data-success=
@@ -53,15 +54,15 @@
       require_once '../bundles.php';
       if (isset($GLOBALS['PAGE'])){
         $page = $GLOBALS['PAGE'];
-        $type = type[$page];
+        $type = main[$page]['type'];
         echo  anketa["price"][$type];
       }
     ?></label>
   </div>
   <?php  if (isset($GLOBALS['PAGE'])){
       $page = $GLOBALS['PAGE'];
-      $type = type[$page];
-      if ($page != "like") { ?>
+      $type = main[$page]['type'];
+      if (getPage($page) != "like") { ?>
   <div class="md-form ">
     <input type="number" min="6" max="36"  id="credit_term" name="credit_term" required class="form-control validate"/>
     <label for="credit_term" data-error="<?php echo error["credit_term"]?>"  data-success="<?php echo success["all"]?>"

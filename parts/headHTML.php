@@ -6,7 +6,7 @@
       <?php require_once '../bundles.php';
       if (isset($GLOBALS['PAGE'])){
         $page = $GLOBALS['PAGE'];
-        echo  title[$page];
+        echo  main[$page]['name'];
       }
      ?>
   </title>

@@ -32,7 +32,7 @@
   </div>
   <?php  if (isset($GLOBALS['PAGE'])){
       $page = $GLOBALS['PAGE'];
-      $type = type[$page];
+    //  $type =  main[$page]['type'];
        if ($page == "oyli" || $page == "voronin.systems") { ?>
         <div class="md-form ">
           <input type="text" id="site_work" name="site_work" class="form-control validate">

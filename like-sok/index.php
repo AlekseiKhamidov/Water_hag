@@ -1,5 +1,5 @@
 <?php
 	require_once '../bundles.php';
-	  $PAGE = "cpp";
+	  $PAGE = "likesok";
 ?>
 	<?php require_once '../parts/main.php'?>

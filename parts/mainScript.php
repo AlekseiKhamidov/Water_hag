@@ -12,7 +12,7 @@ $(function() {
   if (pipeline == "leasing"){
      stepAccess = 4
   }
-  init_anketa(id, partner, pipeline, group);
+  init_anketa(id, partner, pipeline, group, branch, partnerName);
   $("[stepindex]:not([stepindex=" + stepIndex + "])").hide();
   $("[def]").hide();
 });

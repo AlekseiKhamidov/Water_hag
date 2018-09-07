@@ -8,7 +8,7 @@
         <?php require_once '../bundles.php';
           if (isset($GLOBALS['PAGE'])){
             $page = $GLOBALS['PAGE'];
-            echo hello[$page];
+            echo hello[getPage($page)];
           }
          ?>
       </p>

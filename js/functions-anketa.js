@@ -7,7 +7,7 @@ function guid() {
   return "_" + s4() + s4();
 };
 
-function init_anketa(id, partner, pipeline, group) {
+function init_anketa(id, partner, pipeline, group, branch, partnerName) {
   $(".phoneMask").mask("+7(999) 999-9999");
   $(".datepickerMask").mask("99.99.9999", {
     placeholder: "ДД.ММ.ГГГГ"
@@ -98,7 +98,11 @@ function init_anketa(id, partner, pipeline, group) {
     form_data.append('partner', partner);
     form_data.append('data', JSON.stringify(data));
     form_data.append('pipeline', pipeline);
-    form_data.append('group', JSON.stringify(group));
+    form_data.append('group', group);
+    form_data.append('branch', branch);
+    form_data.append('partnerName', partnerName);
+
+//    form_data.append('group', JSON.stringify(group));
 
 
 

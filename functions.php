@@ -15,21 +15,16 @@
   }
 
   function moveFilesToDocs($files) {
-    $date = date('Ymd');
+     $date = date('Ymd');
 
-    if (!file_exists("_docs/$date")) {
-      mkdir("_docs/$date", 0777, true);
-    }
-    foreach ($files as $filename) {
-      if (!file_exists("_docs/$date/$filename")){
-        print_r($filename);
-        rename($filename, "_docs/$date/$filename");
-      }
-      $newFiles[] = "_docs/$date/$filename";
+     if (!file_exists("_docs/$date")) {
+       mkdir("_docs/$date", 0777, true);
+     }
 
-    }
-    return $newFiles;
-  }
+     foreach ($files as $filename) {
+       rename($filename, "_docs/$date/$filename");
+     }
+   }
 
   function parseDataForMessage($json, $partner) {
     $tmp = json_decode($json, true);
