@@ -30,10 +30,10 @@
 				//		print_r($group);
 
 						switch ($_POST['branch']) {
-							case 0:$branch = AMOCRM['main']; break;
-							case 1:$branch = AMOCRM['branch']; break;
+							case 0:$branch = 'main'; break;
+							case 1:$branch = 'branch'; break;
 						}
-					//	print_r($branch);
+						print_r($branch);
 					//	$group = json_decode($_POST['group'], true);
 
 

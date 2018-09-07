@@ -2,16 +2,13 @@
   require_once "vendor/autoload.php";
   require_once "config.php";
   require_once "mysql.php";
-  function getClientAmo($amoClient){
-    try {
-      if (!isset($amoClient)){
-        $amoClient = AMOCRM["main"];
-      }
 
-      $amo = new \AmoCRM\Client(
-        $amoClient['subdomain'],
-        $amoClient['login'],
-        $amoClient['hash']
+  //amo main
+    try {
+      $amo_main = new \AmoCRM\Client(
+        AMOCRM["main"]['subdomain'],
+        AMOCRM["main"]['login'],
+        AMOCRM["main"]['hash']
       );
     //    print_r($amo);
 
@@ -32,18 +29,46 @@
 
       // Вызов обработчика уведомлений
       $listener->listen();
-      return $amo;
 
     } catch (\AmoCRM\Exception $e) {
       $logger->error(sprintf('Error (%d): %s' . PHP_EOL, $e->getCode(), $e->getMessage()));
     }
-  }
+    //amo branch
+      try {
+        $amo_branch = new \AmoCRM\Client(
+          AMOCRM["branch"]['subdomain'],
+          AMOCRM["branch"]['login'],
+          AMOCRM["branch"]['hash']
+        );
+      //    print_r($amo);
+
+        $listener = new \AmoCRM\Webhooks\Listener();
+        $listener->on(['add_lead', 'update_lead', 'note_lead'], function ($domain, $id, $data) {
+            // $domain Поддомен amoCRM
+            // $id Id объекта связанного с уведомлением
+            // $data Поля возвращаемые уведомлением
+            insertLead(getLeadFullInfo($id));
+        });
+
+        $listener->on('delete_lead', function ($domain, $id, $data) {
+            // $domain Поддомен amoCRM
+            // $id Id объекта связанного с уведомлением
+            // $data Поля возвращаемые уведомлением
+            deleteLead($id);
+        });
+
+        // Вызов обработчика уведомлений
+        $listener->listen();
+
+      } catch (\AmoCRM\Exception $e) {
+        $logger->error(sprintf('Error (%d): %s' . PHP_EOL, $e->getCode(), $e->getMessage()));
+      }
 
   function getLeadFullInfo($id) {
-    getClientAmo();
+    //getClientAmo();
     // "Потребительский кредит^Отказ^#D5D8DB"
-    $pipelines = $GLOBALS["amo"]->pipelines->apiList();
-    $lead = $GLOBALS["amo"]->lead;
+    $pipelines = $GLOBALS["amo_main"]->pipelines->apiList();
+    $lead = $GLOBALS["amo_main"]->lead;
     $leadObj = fetchEntity($lead, ["id" => $id]);
   //  print_r($leadObj);
     $leadInfo = getEntityInfo($leadObj, AMOCRM["main"]["lead_CFs"]);
@@ -55,7 +80,7 @@
     $loss_reason_id = (strpos($status["name"], 'Отказ') !== false)?($leadObj["loss_reason_id"] ? "^".AMOCRM["loss_reasons"][$leadObj["loss_reason_id"]] :""): "";
     //$leadInfo["Статус"] = $pipeline["name"]."^".$status["name"]."^".$status["sort"]."^".$status["color"].($leadObj["loss_reason_id"] ? "^".AMOCRM["loss_reasons"][$leadObj["loss_reason_id"]] :"");
     $leadInfo["Статус"] = $pipeline["name"]."^".$status["name"]."^".$status["sort"]."^".$status["color"].$loss_reason_id;
-    $contact = $GLOBALS["amo"]->contact;
+    $contact = $GLOBALS["amo_main"]->contact;
     if ($leadObj["main_contact_id"] == ""){
     //  $leadInfo["Имя контакта"] = isset($leadObj["name"])?$leadObj["name"]:"";
       $leadInfo["Имя контакта"] = "";
@@ -71,7 +96,7 @@
     }
     $leadInfo["РОП"] = isset($leadInfo["РОП"]) ? $leadInfo["РОП"] : "";
     $leadInfo["Менеджер"] = isset($leadInfo["Менеджер"]) ? $leadInfo["Менеджер"] : "";
-    $note = $GLOBALS["amo"]->note;
+    $note = $GLOBALS["amo_main"]->note;
     $noteObj = fetchEntity($note, [
       "note_type" => 4,
       "type" => "lead",
@@ -83,14 +108,17 @@
     return $leadInfo;
   }
   function getAllLeads() {
-   $amo =  getClientAmo();
-      $lead = $amo->lead;
+
+      $lead = $GLOBALS["amo_main"]->lead;
       return fetchEntities($lead);
   }
   function postLead($data, $VKPostURL, $partner, $pipeline = '', $amoClient, $partnerName) {
 
     try {
-    $amo =  getClientAmo($amoClient);
+
+      print_r($amoClient);
+      print_r(AMOCRM[$amoClient]);
+
       $data = json_decode($data, true);
       $nameKey = array_search('name', array_column($data, 'id'));
       $phoneKey = array_search('phone', array_column($data, 'id'));
@@ -101,53 +129,49 @@
       $friendName = array_search('friend_name1', array_column($data, 'id'));
       $friendPhone = array_search('friend_phone1', array_column($data, 'id'));
       $manager = array_search('manager', array_column($data, 'id'));
-      $lead = $amo->lead;
-      //$lead['date_create'] = time();
 
-//      $partnerName = $partner && is_numeric($partner) ? main[]
-          //    array_search('name', array_column(main, 'id'))
-                //      AMOCRM["partners_list"][$partner]
-            //          : "";
+      print_r($manager);
+      $lead = $GLOBALS["amo_".$amoClient]->lead;
       $lead['status_id'] = $pipeline ?
-                      $amoClient["pipelines"][$pipeline]["statuses"]["new"]
-                      : $amoClient["pipelines"]["pos-credit"]["statuses"]["new"];
+                      AMOCRM[$amoClient]["pipelines"][$pipeline]["statuses"]["new"]:
+                      AMOCRM[$amoClient]["pipelines"]["pos-credit"]["statuses"]["new"];
       $lead['name'] = $nameKey !== false ?
                       $data[$nameKey]['a'].' ('.($partnerName ? $partnerName : $partner).')'
                       : "Имя не найдено";
       $lead['price'] = $priceKey !== false ?
                       $data[$priceKey]['a']
                       : 0;
-      $lead['responsible_user_id'] = $amoClient["users"]["РОП"];
+      $lead['responsible_user_id'] = AMOCRM[$amoClient]["users"]["РОП"];
       $lead['tags'] = ['aktivkredit.ru', $partnerName ? $partnerName : $partner];
       if ($manager !== false) {
-        $lead->addCustomField($amoClient["lead_CFs"]["manager"], $data[$manager]['a']);
+        $lead->addCustomField(AMOCRM[$amoClient]["lead_CFs"]["manager"], $data[$manager]['a']);
       }
       if ($partner) {
-        $lead->addCustomField($amoClient["lead_CFs"]["partner"], $partner);
+        $lead->addCustomField(AMOCRM[$amoClient]["lead_CFs"]["partner"], $partner);
       }
       $leadId = $lead->apiAdd();
       // Примечания, которые появятся в сделке после принятия неразобранного
-      $note = $amo->note;
+      $note = $GLOBALS["amo_".$amoClient]->note;
       $note['element_type'] = \AmoCRM\Models\Note::TYPE_LEAD; // 1 - contact, 2 - lead
       $note['note_type'] = \AmoCRM\Models\Note::COMMON; // @see https://developers.amocrm.ru/rest_api/notes_type.php
       $note['text'] = $VKPostURL;
       $note['element_id'] = $leadId;
       $noteId = $note->apiAdd();
-      $contact = $amo->contact;
+      $contact = $GLOBALS["amo_".$amoClient]->contact;
       $contact['name'] = $nameKey !== false ?
                         $data[$nameKey]['a']
                         : "Имя не найдено";
       if ($phoneKey !== false) {
-        $contact->addCustomField($amoClient["contact_CFs"]["phone"], $data[$phoneKey]['a'], "WORK");
+        $contact->addCustomField(AMOCRM[$amoClient]["contact_CFs"]["phone"], $data[$phoneKey]['a'], "WORK");
       }
       if ($emailKey !== false) {
-        $contact->addCustomField($amoClient["contact_CFs"]["email"], $data[$emailKey]['a'], "WORK");
+        $contact->addCustomField(AMOCRM[$amoClient]["contact_CFs"]["email"], $data[$emailKey]['a'], "WORK");
       }
       if ($cityKey !== false) {
-        $contact->addCustomField($amoClient["contact_CFs"]["city"], $data[$cityKey]['a']);
+        $contact->addCustomField(AMOCRM[$amoClient]["contact_CFs"]["city"], $data[$cityKey]['a']);
       }
       $contactId = $contact->apiAdd();
-      $link = $amo->links;
+      $link = $GLOBALS["amo_".$amoClient]->links;
       $link['from'] = 'leads';
       $link['from_id'] = $leadId;
       $link['to'] = 'contacts';
@@ -159,13 +183,12 @@
   }
   function getContactsAndCompanies($json = false) {
     try {
-      getClientAmo();
-      $contact = $GLOBALS["amo"]->contact;
+      $contact = $GLOBALS["amo_main"]->contact;
       $allContacts = fetchEntities($contact);
       foreach ($allContacts as $cont) {
         $result[] = getEntityInfo($cont, AMOCRM["main"]["contact_CFs"]);
       }
-      $company = $GLOBALS["amo"]->company;
+      $company = $GLOBALS["amo_main"]->company;
       $allCompanies = fetchEntities($company);
       foreach ($allCompanies as $comp) {
         $result[] = getEntityInfo($comp, AMOCRM["main"]["company_CFs"]);
