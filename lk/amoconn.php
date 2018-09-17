@@ -29,13 +29,13 @@
 
 	function getPipelines(){
 		#Формируем ссылку для запроса
-		$link='https://'.AMOCRM['subdomain'].'.amocrm.ru/api/v2/pipelines';
+		$link='https://'.AMOCRM['main']['subdomain'].'.amocrm.ru/api/v2/pipelines';
 		$Response = processCURL($link);
 		return $Response['_embedded']['items'];
 	};
 
 	function getCustomFieldsInfo() {
-		$link='https://'.AMOCRM['subdomain'].'.amocrm.ru/api/v2/account?with=custom_fields';
+		$link='https://'.AMOCRM['main']['subdomain'].'.amocrm.ru/api/v2/account?with=custom_fields';
 		$Response = processCURL($link);
 		return $Response;
 	};
@@ -58,12 +58,12 @@
 	function auth() {
 		#Массив с параметрами, которые нужно передать методом POST к API системы
 		$post=array(
-		  'USER_LOGIN'=>AMOCRM['login'],
-		  'USER_HASH'=>AMOCRM['hash']
+		  'USER_LOGIN'=>AMOCRM['main']['login'],
+		  'USER_HASH'=>AMOCRM['main']['hash']
 		);
 
 		#Формируем ссылку для запроса
-		$link='https://'.AMOCRM['subdomain'].'.amocrm.ru/private/api/auth.php?type=json';
+		$link='https://'.AMOCRM['main']['subdomain'].'.amocrm.ru/private/api/auth.php?type=json';
 
 		$Response = processCURL($link, $post);
 

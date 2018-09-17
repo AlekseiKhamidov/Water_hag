@@ -32,11 +32,11 @@
 						switch ($_POST['branch']) {
 							case 0:
 							$branch = 'main';
-							$chat_id = VK["chat_id"]["main"];
+							$chat_id = VK["chat_id"]["main"]
 							 break;
 							case 1:
 								$branch = 'branch';
-								$chat_id = VK["chat_id"]["branch"];
+								$chat_id = VK["chat_id"]["branch"]
 								break;
 						}
 

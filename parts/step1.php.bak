@@ -69,15 +69,4 @@
       ><?php echo anketa['credit_term']?></label>
   </div>
   <?php  }}  ?>
-
-  <?php  if (isset($GLOBALS['PAGE'])){
-      $page = $GLOBALS['PAGE'];
-      $branch = main[$page]['branch'];
-      if ($branch == 1) { ?>
-        <div class="md-form ">
-            <input type="text" id="code_name" name="code_name" required class="form-control validate">
-            <label for="code_name" data-error="<?php echo error["all"]?>"
-              data-success="<?php echo success["all"]?>"><?php echo anketa["code_name"]?></label>
-        </div>
-    <?php  }}  ?>
 </div>

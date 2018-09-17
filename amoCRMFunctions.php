@@ -116,8 +116,6 @@
 
     try {
 
-      print_r($amoClient);
-      print_r(AMOCRM[$amoClient]);
 
       $data = json_decode($data, true);
       $nameKey = array_search('name', array_column($data, 'id'));
@@ -130,7 +128,7 @@
       $friendPhone = array_search('friend_phone1', array_column($data, 'id'));
       $manager = array_search('manager', array_column($data, 'id'));
 
-      print_r($manager);
+    //  print_r($manager);
       $lead = $GLOBALS["amo_".$amoClient]->lead;
       $lead['status_id'] = $pipeline ?
                       AMOCRM[$amoClient]["pipelines"][$pipeline]["statuses"]["new"]:

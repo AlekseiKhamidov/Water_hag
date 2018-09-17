@@ -10,37 +10,6 @@
     <label for="work_name" data-error="<?php echo error["all"]?>"
       data-success="<?php echo success["all"]?>"><?php echo anketa['work_name']?></label>
   </div>
-  <?php  if (isset($GLOBALS['PAGE'])){
-      $page = $GLOBALS['PAGE'];
-      $type = main[$page]['type'];
-      $branch = main[$page]['branch'];
-      if ($branch == 1) { ?>
-      
-      <div class="md-form ">
-    <select name="industry" id="industry" required class="mdb-select validate">
-      <option value="" disabled selected></option>
-      
-      <?php 
-    	$arr =  anketa['industry']['select'];
-    	foreach ($arr as &$value) {?>
-    	 <option value="<?php echo $value?>">
-          <?php echo $value?>
-      </option>
-	<?php	}  ?>
-      
-     
-    </select>
-    <label for="industry"  data-error="<?php echo error["industry"]?>" data-success="<?php echo success["all"]?>"><?php echo anketa['industry']['label']?></label>
-  </div>
-  
-  
-  
-        <div class="md-form ">
-            <input type="text" id="industry" name="industry" required class="form-control validate">
-            <label for="industry" data-error="<?php echo error["all"]?>"
-              data-success="<?php echo success["all"]?>"><?php echo anketa["industry"]?></label>
-        </div>
-    <?php  }}  ?>
   <div class="md-form ">
     <input type="text" id="city_work" name="city_work" required class="form-control validate">
     <label for="city_work" data-error="<?php echo error["all"]?>"

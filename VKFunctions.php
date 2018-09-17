@@ -105,7 +105,7 @@
     }
   }
 
-  function sendMessageToChat($message) {
+  function sendMessageToChat($message, $chat_id) {
     retrySendMessageToChat:
     try {
       $messages = $GLOBALS['vk']->messages();
@@ -113,7 +113,7 @@
         VK["user_token"],
         array(
           "owner_id" => VK["user_id"],
-          "chat_id" => VK["chat_id"],
+          "chat_id" => $chat_id,
           "message" => $message,
         )
       );

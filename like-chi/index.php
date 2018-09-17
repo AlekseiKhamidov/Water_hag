@@ -1,5 +1,5 @@
 <?php
 	require_once '../bundles.php';
-	  $PAGE = "terminalpack";
+	  $PAGE = "likechi";
 ?>
 	<?php require_once '../parts/main.php'?>
