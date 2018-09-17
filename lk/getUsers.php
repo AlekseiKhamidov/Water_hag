@@ -5,12 +5,12 @@
 
  // require('config.php');
 
-    $link=mysqli_connect(MYSQL_HOST, MYSQL_LOGIN, MYSQL_PASS, MYSQL_DBNAME);
+  $link=mysqli_connect(MYSQL["host"], MYSQL["login"], MYSQL["password"], MYSQL["dbname"]);
     $query = mysqli_query($link, "SELECT `user_login`, `is_admin`, `partner_name` FROM `users` WHERE `user_login`<> 'admin'");
-  	$userdata = mysqli_fetch_all($query); 
-	  
-  
-  	$data = NULL;  	
+  	$userdata = mysqli_fetch_all($query);
+
+
+  	$data = NULL;
   	foreach ($userdata as $user) {
   		$data[] = array(
  			'user_login' 	=> $user[0],

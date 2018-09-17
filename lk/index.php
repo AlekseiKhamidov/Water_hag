@@ -117,6 +117,13 @@ border-radius: .25rem;
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
+              <?php if ($userdata[ 'user_login'] == "admin") { ?>
+             <li class="nav-item ">
+                  <a class="nav-link" data-toggle="modal" data-target="#basicExampleModal">
+                    Пользователи
+                  </a>
+              </li>
+             <?php } ?>
             	  <?php if ($userdata[ 'partner_name'] == "gard") { ?>
             	 <li class="nav-item ">
                     <a class="nav-link" href="leasing.php" id="navbarDropdownMenuLink" >
@@ -191,7 +198,26 @@ border-radius: .25rem;
 
 </div>
 </main>
-
+<!-- Modal -->
+<div class="modal fade" id="basicExampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Пользователи</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- Modal -->
 <div class="modal fade" id="chartModal" tabindex="-1" role="dialog" aria-labelledby="chartModalLabel"  aria-hidden="true">
@@ -337,7 +363,7 @@ function analyze(){
 	$('#chartModal').modal('show');
 		$('#chartModal').show();
 	$("#chartDiv").show();
-	
+
   var data = $("#table").bootstrapTable('getData');
   //var statuses = statuses.status;
   var colors = [];
@@ -389,8 +415,8 @@ function analyze(){
     fill: false,
     yAxisID: 'y-axis-2'
   }]
-  
- 
+
+
   chartBar(document.getElementById("comboChart"),labels, datasets, colors);
 };
 // Chart.pluginService.register({
