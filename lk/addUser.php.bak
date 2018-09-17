@@ -1,15 +1,15 @@
 <?php
  require_once "check.php";
-  require_once "../config.php";
-  require_once "../mysql.php";
-  //require_once "../amoconn.php";
+  require_once "config.php";
+  require_once "mysql.php";
+  require_once "amoconn.php";
 
   // if (checkLogin() == -1) {
   //   header("Location: login.php"); exit();
   // };
 
   // Соединямся с БД
-   $link=mysqli_connect(MYSQL["host"], MYSQL["login"], MYSQL["password"], MYSQL["dbname"]);
+ $link=mysqli_connect(MYSQL_HOST, MYSQL_LOGIN, MYSQL_PASS, MYSQL_DBNAME);
 
 if(isset($_POST['login']))
 {

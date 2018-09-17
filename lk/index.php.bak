@@ -117,13 +117,6 @@ border-radius: .25rem;
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
-            	  <?php if ($userdata[ 'partner_name'] == "gard") { ?>
-            	 <li class="nav-item ">
-                    <a class="nav-link" href="leasing.php" id="navbarDropdownMenuLink" >
-                      Лизинг
-                    </a>
-                </li>
-               <?php } ?>
                  <li class="nav-item ">
                     <a class="nav-link" href="logout.php" id="navbarDropdownMenuLink" >
                        <?php echo "{$userdata['user_login']}"; if ($userdata[ 'partner_name']) { echo " ({$userdata['partner_name']})"; } ?> (Выйти)
@@ -334,10 +327,6 @@ function isModalShow(){
   return ($("#chartModal").data('bs.modal') || {})._isShown ? true : false
 }
 function analyze(){
-	$('#chartModal').modal('show');
-		$('#chartModal').show();
-	$("#chartDiv").show();
-	
   var data = $("#table").bootstrapTable('getData');
   //var statuses = statuses.status;
   var colors = [];
@@ -389,8 +378,6 @@ function analyze(){
     fill: false,
     yAxisID: 'y-axis-2'
   }]
-  
- 
   chartBar(document.getElementById("comboChart"),labels, datasets, colors);
 };
 // Chart.pluginService.register({
@@ -540,9 +527,7 @@ var myChart = new Chart(ctx, {
         }
     }
 });
- ctx.canvas.width = $("#chartDiv").width(); // resize to parent width
-  ctx.canvas.height = $("#chartDiv").height() ; // resize to parent height
-};
+}
  var start, end;
  var firstDate = new Date(2017,0,1)
 // $("#start").keyup(function(){
