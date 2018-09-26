@@ -24,30 +24,36 @@ if(isset($_POST['user_login']))
 {
     $err = array();
 
+    if (isset($_POST['user_id'])){
+      $user_id = $_POST['user_id'];
+    }
+    else {
+        $err[] = "id пользователя не найден";
+    }
+
     // проверям логин
     if(!preg_match("/^[a-zA-Z0-9]+$/",$_POST['user_login']))
     {
-        $err[]  = "Логин может состоять только из букв английского алфавита и цифр";
+        $err[]["error"] = "Логин может состоять только из букв английского алфавита и цифр";
     }
 
     if(strlen($_POST['user_login']) < 3 or strlen($_POST['user_login']) > 30)
     {
         $err[] = "Логин должен быть не меньше 3-х символов и не больше 30";
     }
+    $password = "";
+    $hash="";
 
-    // проверяем, не сущестует ли пользователя с таким именем
-    $query = mysqli_query($link, "SELECT user_id FROM users WHERE user_login='".mysqli_real_escape_string($link, $_POST['user_login'])."'");
-    if(mysqli_num_rows($query) > 0)
-    {
-        $err[] = "Пользователь с таким логином уже существует в базе данных";
-    }
-
-    if(isset($_POST['password'])){
-        $password = md5(md5($_POST['password']));
-        $hash = md5(generateCode(10));
-    }
-    else {
-        $err[] = "Пароль пустой";
+    if (isset($_POST['changePass'])){
+      if ($_POST['changePass'] == 'on'){
+        if(isset($_POST['password'])){
+            $password = " user_password='".md5(md5(trim($_POST['password'])))."', ";
+            $hash = " user_hash='".md5(generateCode(10))."', ";
+        }
+        else {
+            $err[] = "Пароль пустой";
+        }
+      }
     }
 
     // Если нет ошибок, то добавляем в БД нового пользователя
@@ -57,7 +63,7 @@ if(isset($_POST['user_login']))
         $login = $_POST['user_login'];
 
         // Убераем лишние пробелы и делаем двойное шифрование
-        $password = md5(md5(trim($_POST['password'])));
+      //  $password ="user_password=".md5(md5(trim($_POST['password'])));
 
         $partner = null;
         if(isset($_POST['partner_id'])){
@@ -88,8 +94,10 @@ if(isset($_POST['user_login']))
             $active =0;
         }
 
-        $sql = "INSERT INTO users SET user_login='$login', user_password='$password', user_hash='$hash', is_admin='$isAdmin', leasing='$leasing', active='$active', partner_id ='".($isAdmin ? '' : $partner)."'";
-    //     print_r($sql);
+
+
+        $sql = "UPDATE  users SET user_login='$login', $password $hash is_admin='$isAdmin', leasing='$leasing', active='$active', partner_id ='".($isAdmin ? '' : $partner)."' WHERE user_id=$user_id";
+
         processQuery($sql);
 
       //  header("Location: index.php"); exit();

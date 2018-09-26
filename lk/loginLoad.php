@@ -17,7 +17,7 @@ if(isset($_POST['login']))
 {
   //  print_r($_POST['login']);
     // Вытаскиваем из БД запись, у которой логин равняеться введенному
-    $query = mysqli_query($link,"SELECT user_id, user_password FROM users WHERE user_login='".mysqli_real_escape_string($link,$_POST['login'])."' LIMIT 1");
+    $query = mysqli_query($link,"SELECT user_id, user_password FROM users WHERE active=1 AND user_login='".mysqli_real_escape_string($link,$_POST['login'])."' LIMIT 1");
     $data = mysqli_fetch_assoc($query);
     // print_r($data);
     // Сравниваем пароли

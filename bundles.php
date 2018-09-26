@@ -223,7 +223,7 @@
 			"pipeline" => "pos-credit",
 			"type" => "equipment",
 			"branch" => 0,
-			"group" => 1,
+			"group" => 0,
 			"friendCount" => 2
 		],
 		"gyroscooter-perm" => [
@@ -232,7 +232,7 @@
 			"pipeline" => "pos-credit",
 			"type" => "equipment",
 			"branch" => 0,
-			"group" => 1,
+			"group" => 0,
 			"friendCount" => 2
 		],
 		"oyli" => [
@@ -241,7 +241,7 @@
 			"pipeline" => "pos-credit",
 			"type" => "course",
 			"branch" => 0,
-			"group" => 1,
+			"group" => 0,
 			"friendCount" => 2
 		],
 		"terminalpack" => [
@@ -250,7 +250,7 @@
 			"pipeline" => "pos-credit",
 			"type" => "equipment",
 			"branch" => 0,
-			"group" => 1,
+			"group" => 0,
 			"friendCount" => 2
 		],
 		"zenit" => [
@@ -259,7 +259,7 @@
 			"pipeline" => "pos-credit",
 			"type" => "equipment",
 			"branch" => 0,
-			"group" => 1,
+			"group" => 0,
 			"friendCount" => 2
 		],
 		"rocket" => [
@@ -268,7 +268,7 @@
 			"pipeline" => "pos-credit",
 			"type" => "equipment",
 			"branch" => 0,
-			"group" => 1,
+			"group" => 0,
 			"friendCount" => 2
 		],
 		"personalfinance" => [
@@ -277,7 +277,7 @@
 			"pipeline" => "pos-credit",
 			"type" => "course",
 			"branch" => 0,
-			"group" => 1,
+			"group" => 0,
 			"friendCount" => 1
 		],
 		"epilier" => [
@@ -286,7 +286,7 @@
 			"pipeline" => "pos-credit",
 			"type" => "service",
 			"branch" => 0,
-			"group" => 1,
+			"group" => 0,
 			"friendCount" => 1
 		],
 		"voronin.systems" =>  [
@@ -295,7 +295,7 @@
 			"pipeline" => "pos-credit",
 			"type" => "course",
 			"branch" => 0,
-			"group" => 1,
+			"group" => 0,
 			"friendCount" => 1
 		],
 		"gardenLeasing" => [
@@ -304,7 +304,7 @@
 			"pipeline" => "leasing",
 			"type" => "equipment",
 			"branch" => 0,
-			"group" => 1,
+			"group" => 0,
 			// "friendCount" => 2
 		],
 	];

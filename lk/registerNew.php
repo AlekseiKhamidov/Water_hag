@@ -25,7 +25,7 @@
         }
           select {
 display: block important!;
-}    
+}
 .form-simple .font-small {
   font-size: 0.8rem; }
 
@@ -49,7 +49,7 @@ display: block important!;
 .form-simple input[type=password]:focus:not([readonly]) + label {
   color: #4f4f4f; }
 
-          
+
         </style>
     </head>
     <body>
@@ -76,10 +76,10 @@ display: block important!;
 <form id="formReg">
             <!-- Grid row -->
             <div class="row justify-content-center">
-            
+
               <!-- Grid column -->
               <div class="col-md-6 mb-5 mt-5" >
-            
+
                 <div class="card mx-xl-5">
                     <div class="card-body">
 
@@ -114,9 +114,11 @@ display: block important!;
 
                         <div class="md-form ">
                           <select id="partnerSelect"  name="partnerSelect" class="mdb-select">
-                              <option value="" disabled selected></option>                        
+                              <option value="" disabled selected></option>
                                 <?php
-                                  include_once 'amoconn.php';
+                                  require_once 'amoconn.php';
+                                //  getPartnerList("main");
+                                //print_r(AMO_CFID_PARTNER);
                                   $data = getLeadCustomFieldEnums(AMO_CFID_PARTNER);
                                   foreach ($data as $key => $value) {
 
@@ -138,17 +140,17 @@ display: block important!;
                     </div>
 
                 </div>
-            
+
               </div>
               <!-- Grid column -->
-            
-            
+
+
             </div>
             <!-- Grid row -->
 
         </div>
     </form></section>
-            
+
   <script type="text/javascript" src="../js/jquery-3.2.1.min.js"></script>
     <!-- Bootstrap tooltips -->
     <script type="text/javascript" src="../js/popper.min.js"></script>
@@ -159,7 +161,7 @@ display: block important!;
     <script type="text/javascript" src="../js/materialize.min.js"></script>
      <script type="text/javascript" src="../js/jquery.maskedinput.min.js"></script>
        <script type="text/javascript">
-        
+
        </script>
 
         <script>
@@ -168,7 +170,7 @@ display: block important!;
           }
 
            $(document).ready(function() {
-          
+
     $('.mdb-select').material_select();
      $("#error").hide();
        //   $('#confirm').change(function(){
@@ -180,17 +182,17 @@ display: block important!;
          $('#password').change(checkPassword);
         $('#login').focusout(function(event){
 
-  
-            
+
+
         });
           $('#login').change(function(event){
            minlength = parseInt($(this).attr("minlength"));
             if ($(this).val().length< minlength){
 
               validate($(this), false, "Логин должен быть не меньше 3-х символов и не больше 30");
-              
-               
-             
+
+
+
             }
             else {
                validate($(this), true);
@@ -222,7 +224,7 @@ display: block important!;
 
             // Variable to hold request
         var request;
-       
+
 
         // Bind to the submit event of our form
 
@@ -237,7 +239,7 @@ display: block important!;
             let log = validateSubmit($form);
             let pass = checkPassword()
             if (log && pass){
-              
+
 
             $("#mdb-preloader").show();
             var serializedData = $form.serialize();
@@ -296,7 +298,7 @@ display: block important!;
                 if (pass != pass_rep) {
                      validate($("#confirm"), false);
                     validate($("#password"), false);
-                 
+
                     return false;
                 }
                 else{
@@ -321,7 +323,7 @@ display: block important!;
               //добавить к formGroup класс .has-error, удалить .has-success
               $(this).addClass('invalid').removeClass('valid');
               $(this).siblings("label").addClass("active");
-              //отметить форму как невалидную 
+              //отметить форму как невалидную
               formValid = false;
             }
           });

@@ -14,6 +14,34 @@ function textFormat(value){
   return mas[0]
 
 }
+function linkFormat(value, row, index, field){
+  var style = "bad";
+  if (row["active"] =='1'){
+    style = "good"
+  }
+   return [
+         '<a class="pointer ',
+         style,
+         '" data-target="#userModal" data-toggle="modal" title="Редактировать" data-whatever="',
+         row["user_id"],
+         '">',
+           value,
+         '</a>  ',
+
+     ].join('');
+  };
+
+
+function checkFormat(value){
+  if (value =="1" || value == 1){
+    return '<i class="fa fa-check" aria-hidden="true"></i>'
+  }
+  else {
+    return "";
+  }
+//  return '<i class="fas fa-check-square"></i>'
+
+}
 
 
 function toDate(stringDate) {
