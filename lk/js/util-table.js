@@ -154,13 +154,13 @@ function dateCheck(from, to, check) {
 function totalSum() {
   var data = $("#table").bootstrapTable('getData');
   var result = 0;
-  for (var i = 0; i < data.length; i++) {
-    var sum = parseInt(data[i].price);
-    result += sum;
-  }
-  console.log("result: " + result);
-  console.log("count: " + data.length);
-  $("#textPeriod").text("Итого: " + result.toLocaleString() + " руб");
+  // for (var i = 0; i < data.length; i++) {
+  //   var sum = parseInt(data[i].price);
+  //   result += sum;
+  // }
+  // console.log("result: " + result);
+  // console.log("count: " + data.length);
+  $("#totalCount").text(data.length);
 }
 
 function formatDate(from, to) {

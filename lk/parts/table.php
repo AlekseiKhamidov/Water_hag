@@ -9,6 +9,9 @@
         </div>
         <input type="text" id="end" name="end" class="dateType validate datepickerMask" pattern="(0[1-9]|1[0-9]|2[0-9]|3[01]).(0[1-9]|1[012]).[0-9]{4}">
       </div>
+      <div class="inline ml-3">
+        <h5 >Количество заявок: <span id="totalCount" class="badge badge-primary"></span></h5>
+     </div>
     </div>
     <table id="table" class="exampleTable table table-hover table-striped"
      data-toolbar="#toolbar"

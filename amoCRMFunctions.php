@@ -77,7 +77,7 @@
     $leadInfo["Дата создания"] = ($leadObj["date_create"] > 1483228800 && $leadObj["date_create"]<= time()) ? $leadObj["date_create"] : $leadObj["last_modified"]; // Дата должна быть больше 01.01.2017 и меньше текущего дня
     $pipeline = $pipelines[$leadObj["pipeline_id"]];
     $status = $pipeline["statuses"][$leadObj["status_id"]];
-    $loss_reason_id = (strpos($status["name"], 'Отказ') !== false)?($leadObj["loss_reason_id"] ? "^".AMOCRM["loss_reasons"][$leadObj["loss_reason_id"]] :""): "";
+    $loss_reason_id = (strpos($status["name"], 'Отказ') !== false)?($leadObj["loss_reason_id"] ? "^".AMOCRM["main"]["loss_reasons"][$leadObj["loss_reason_id"]] :""): "";
     //$leadInfo["Статус"] = $pipeline["name"]."^".$status["name"]."^".$status["sort"]."^".$status["color"].($leadObj["loss_reason_id"] ? "^".AMOCRM["loss_reasons"][$leadObj["loss_reason_id"]] :"");
     $leadInfo["Статус"] = $pipeline["name"]."^".$status["name"]."^".$status["sort"]."^".$status["color"].$loss_reason_id;
     $contact = $GLOBALS["amo_main"]->contact;

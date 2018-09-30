@@ -10,6 +10,6 @@
   }
   // insertLead(getLeadFullInfo(13448111));
   //    insertLead(getLeadFullInfo(15245835));
-// getLeadFullInfo(13448111);
-// getLeadFullInfo(15245835);
+ //print_r(getLeadFullInfo(16072041));
+// getLeadFullInfo();
    echo "</pre>";
